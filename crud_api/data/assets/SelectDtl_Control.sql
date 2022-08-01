@@ -1,0 +1,10 @@
+SELECT [Code]
+      ,[AssetID]
+      ,[Name]
+      ,[Details]
+      ,[SerialNo]
+      ,[Price]
+      ,[ImagePath]
+      ,[CreateDate]
+  FROM [TEST_OPS].[dbo].[Assets]
+  WHERE [Code]=@Code

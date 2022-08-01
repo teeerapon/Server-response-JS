@@ -1,0 +1,11 @@
+SELECT [AssetID]
+      ,[Name]
+      ,[Code]
+      ,[BranchID]
+      ,[Status]
+      ,[RoundID]
+      ,[UserBranch]
+      ,[imagePath]
+      ,[detail]
+FROM [TEST_OPS].[dbo].[Fix_Assets_Counted]
+WHERE [Code]=@Code AND [Status]=0 AND [RoundID]=@RoundID
