@@ -49,20 +49,16 @@ const craete_period = async (req, res, next) => {
     const craete_period = req.body;
     const period_loginDateTrue = await periodData.period_login(craete_period);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
-    if (period_loginDateTrue.length != 0) {
-      res.status(400).send(JSON.stringify({ message: "unsuccess", data: "มีการเปิดช่วงเวลาทับกัน", wrongPeriod: period_loginDateTrue[0].PeriodID }));
+    if (craete_period.BranchID == 0) {
+      const craete_period_branch = await periodData.craete_period(craete_period);
+      res.status(200).send(JSON.stringify({ message: "success", data: craete_period_branch }));
     } else {
-      if (craete_period.BranchID == 0) {
+      const check_BranchID = await periodData.check_BranchID({ BranchID: craete_period.BranchID })
+      if (check_BranchID.length != 0) {
         const craete_period_branch = await periodData.craete_period(craete_period);
         res.status(200).send(JSON.stringify({ message: "success", data: craete_period_branch }));
       } else {
-        const check_BranchID = await periodData.check_BranchID({ BranchID: craete_period.BranchID })
-        if (check_BranchID.length != 0) {
-          const craete_period_branch = await periodData.craete_period(craete_period);
-          res.status(200).send(JSON.stringify({ message: "success", data: craete_period_branch }));
-        } else {
-          res.status(400).send(JSON.stringify({ message: "unsuccess", data: "ข้อมูลสาขาที่บันทึกไม่ถูกต้อง" }));
-        }
+        res.status(400).send(JSON.stringify({ message: "unsuccess", data: "ข้อมูลสาขาที่บันทึกไม่ถูกต้อง" }));
       }
     }
   } catch (error) {

@@ -611,6 +611,35 @@ const store_FA_SendMail = async (FA_SendMail) => {
   }
 }
 
+const store_FA_control_Create_from_reported = async (FA_control_Create_from_reported) => {
+  try {
+    let pool = await sql.connect(config.sql);
+    const sqlOueries = await utils.loadSqlOueries('assets');
+    const control_upadate_table = await pool.request()
+      .input('nac_code', sql.VarChar(30), FA_control_Create_from_reported.nac_code)
+      .input('usercode', sql.VarChar(10), FA_control_Create_from_reported.usercode)
+      .input('nacdtl_assetsCode', sql.VarChar(50), FA_control_Create_from_reported.nacdtl_assetsCode)
+      .input('nacdtl_row', sql.Int, FA_control_Create_from_reported.nacdtl_row)
+      .query(sqlOueries.store_FA_control_Create_from_reported);
+    return control_upadate_table.recordset;
+  } catch (error) {
+    return error.message;
+  }
+}
+
+const store_FA_control_HistorysAssets = async (FA_control_HistorysAssets) => {
+  try {
+    let pool = await sql.connect(config.sql);
+    const sqlOueries = await utils.loadSqlOueries('assets');
+    const control_upadate_table = await pool.request()
+      .input('userCode', sql.VarChar(10), FA_control_HistorysAssets.userCode)
+      .query(sqlOueries.store_FA_control_HistorysAssets);
+    return control_upadate_table.recordset;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 module.exports = {
 
   //Mobile or Some Control
@@ -651,5 +680,7 @@ module.exports = {
   store_FA_control_CheckAssetCode_Process,
   stroe_FA_control_DTL_ConfirmSuccess,
   store_FA_control_upadate_table,
-  store_FA_SendMail
+  store_FA_SendMail,
+  store_FA_control_Create_from_reported,
+  store_FA_control_HistorysAssets
 }

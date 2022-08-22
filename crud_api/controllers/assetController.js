@@ -522,6 +522,36 @@ const store_FA_SendMail = async (req, res, next) => {
   }
 }
 
+const store_FA_control_Create_from_reported = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const FA_control_Create_from_reported = await assetData.store_FA_control_Create_from_reported(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (FA_control_Create_from_reported.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify({ message: "success", data: FA_control_Create_from_reported }));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const store_FA_control_HistorysAssets = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const HistorysAssets = await assetData.store_FA_control_HistorysAssets(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (HistorysAssets.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify({ message: "success", data: HistorysAssets }));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   getAllasset,
   assetByCode,
@@ -558,5 +588,7 @@ module.exports = {
   store_FA_control_CheckAssetCode_Process,
   stroe_FA_control_DTL_ConfirmSuccess,
   store_FA_control_upadate_table,
-  store_FA_SendMail
+  store_FA_SendMail,
+  store_FA_control_Create_from_reported,
+  store_FA_control_HistorysAssets
 }
