@@ -1,3 +1,16 @@
-SELECT *
-  FROM [TEST_OPS].[dbo].[Fix_Assets_Counted]
-  WHERE [Code]=@Code AND [UserBranch]=@UserBranch AND [RoundID]=@RoundID AND [Status]=1
+SELECT COUNTED.[RowID]
+      ,COUNTED.[AssetID]
+      ,COUNTED.[Code]
+      ,COUNTED.[Name]
+      ,COUNTED.[BranchID]
+      ,COUNTED.[Status]
+      ,COUNTED.[Date]
+      ,COUNTED.[UserID]
+      ,COUNTED.[UserBranch]
+      ,COUNTED.[RoundID]
+      ,MAIN.[imagePath]
+      ,MAIN.[imagePath_2]
+      ,COUNTED.[detail]
+FROM [TEST_OPS].[dbo].[Fix_Assets_Counted] COUNTED
+LEFT JOIN [TEST_OPS].[dbo].[Assets] MAIN ON MAIN.[Code] = COUNTED.[Code]
+WHERE COUNTED.[Code]=@Code AND COUNTED.[UserBranch]=@UserBranch AND COUNTED.[RoundID]=@RoundID AND COUNTED.[Status]=1

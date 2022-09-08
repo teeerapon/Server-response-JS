@@ -1,17 +1,19 @@
-SELECT [AssetID]
-      ,[Code]
-      ,[Name]
-      ,[BranchID]
-      ,[Date]
-      ,[Status]
-      ,[RoundID]
-      ,[Reference]
+SELECT COUNTED.[AssetID]
+      ,COUNTED.[Code]
+      ,COUNTED.[Name]
+      ,COUNTED.[BranchID]
+      ,COUNTED.[Date]
+      ,COUNTED.[Status]
+      ,COUNTED.[RoundID]
+      ,COUNTED.[Reference]
       -- ,[UserID]
-      ,PTEC_USERSRIGHT.dbo.ufn_user_code (UserID) AS UserID
-      ,[UserBranch]
-      ,[imagePath]
-      ,[detail]
-FROM [TEST_OPS].[dbo].[Fix_Assets_Counted]
-WHERE [BranchID]=@BranchID AND [RoundID]=@RoundID  AND [Status]=1 AND [UserBranch]=@UserBranch
-AND [Reference] IN ('','ชำรุดรอซ่อม', 'รอตัดชำรุด ','สภาพดี','ไม่ได้ระบุสถานะ', 'QR Code ไม่สมบูรณ์ (สภาพดี)','QR Code ไม่สมบูรณ์ (ชำรุดรอซ่อม)','QR Code ไม่สมบูรณ์ (รอตัดชำรุด)')
-ORDER BY [Date] DESC, [RoundID] DESC, [Reference] DESC
+      ,PTEC_USERSRIGHT.dbo.ufn_user_code (COUNTED.[UserID]) AS UserID
+      ,COUNTED.[UserBranch]
+      ,MAIN.[imagePath]
+      ,MAIN.[imagePath_2]
+      ,COUNTED.[detail]
+FROM [TEST_OPS].[dbo].[Fix_Assets_Counted] COUNTED
+LEFT JOIN [TEST_OPS].[dbo].[Assets] MAIN ON MAIN.[Code] = COUNTED.[Code]
+WHERE COUNTED.[BranchID]=@BranchID AND COUNTED.[RoundID]=@RoundID  AND COUNTED.[Status]=1 AND COUNTED.[UserBranch]=@UserBranch
+AND COUNTED.[Reference] IN ('','ชำรุดรอซ่อม', 'รอตัดชำรุด ','สภาพดี','ไม่ได้ระบุสถานะ', 'QR Code ไม่สมบูรณ์ (สภาพดี)','QR Code ไม่สมบูรณ์ (ชำรุดรอซ่อม)','QR Code ไม่สมบูรณ์ (รอตัดชำรุด)')
+ORDER BY COUNTED.[Date] DESC, COUNTED.[RoundID] DESC, COUNTED.[Reference] DESC
