@@ -552,6 +552,21 @@ const store_FA_control_HistorysAssets = async (req, res, next) => {
   }
 }
 
+const store_FA_control_fetch_assets = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const fetch_assets = await assetData.store_FA_control_fetch_assets(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (fetch_assets.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify({ message: "success", data: fetch_assets }));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   getAllasset,
   assetByCode,
@@ -590,5 +605,6 @@ module.exports = {
   store_FA_control_upadate_table,
   store_FA_SendMail,
   store_FA_control_Create_from_reported,
-  store_FA_control_HistorysAssets
+  store_FA_control_HistorysAssets,
+  store_FA_control_fetch_assets
 }

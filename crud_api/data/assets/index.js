@@ -640,6 +640,19 @@ const store_FA_control_HistorysAssets = async (FA_control_HistorysAssets) => {
   }
 }
 
+const store_FA_control_fetch_assets = async (FA_control_fetch_assets) => {
+  try {
+    let pool = await sql.connect(config.sql);
+    const sqlOueries = await utils.loadSqlOueries('assets');
+    const fetch_assets = await pool.request()
+      .input('userCode', sql.VarChar(10), FA_control_fetch_assets.userCode)
+      .query(sqlOueries.store_FA_control_fetch_assets);
+    return fetch_assets.recordset;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 module.exports = {
 
   //Mobile or Some Control
@@ -682,5 +695,6 @@ module.exports = {
   store_FA_control_upadate_table,
   store_FA_SendMail,
   store_FA_control_Create_from_reported,
-  store_FA_control_HistorysAssets
+  store_FA_control_HistorysAssets,
+  store_FA_control_fetch_assets
 }

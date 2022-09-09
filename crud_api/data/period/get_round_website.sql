@@ -1,4 +1,4 @@
-IF @BranchID <> 901
+IF @BranchID = 901
     BEGIN
         SELECT  [PeriodID]
                 ,[BeginDate]
