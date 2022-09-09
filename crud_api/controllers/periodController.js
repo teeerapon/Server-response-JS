@@ -118,6 +118,17 @@ const select_priod = async (req, res, next) => {
   }
 }
 
+const round_website = async (req, res, next) => {
+  try {
+    const period_loginData = req.body;
+    const all_period = await periodData.round_website(period_loginData);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(all_period);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
+
 
 module.exports = {
   period_login,
@@ -126,5 +137,6 @@ module.exports = {
   craete_period,
   update_period,
   delete_period,
-  select_priod
+  select_priod,
+  round_website
 }

@@ -161,6 +161,19 @@ const select_priod = async (call_period) => {
   }
 }
 
+const round_website = async (selectQuery) => {
+  try {
+    let pool = await sql.connect(config.sql);
+    const sqlOueries = await utils.loadSqlOueries('period');
+    const allround_period = await pool.request()
+      .input('BranchID', sql.Int, selectQuery.BranchID)
+      .query(sqlOueries.get_round_website);
+    return allround_period.recordset;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 module.exports = {
 
   period_login,
@@ -173,5 +186,6 @@ module.exports = {
   delete_period,
   check_BranchID,
   select_priod,
-  store_check_periodForUpdate
+  store_check_periodForUpdate,
+  round_website
 }
