@@ -50,9 +50,9 @@ const getAssetByUserBranchID = async (userBranchID) => {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetByUserID = await pool.request()
-      .input('UserBranch', sql.Int, userBranchID.UserBranch)
-      .input('BranchID', sql.Int, userBranchID.BranchID)
       .input('RoundID', sql.Int, userBranchID.RoundID)
+      .input('BranchID', sql.Int, userBranchID.BranchID)
+      .input('UserBranch', sql.Int, userBranchID.UserBranch)
       .query(sqlOueries.assetListByuserBranch);
     return assetByUserID.recordset;
   } catch (error) {
