@@ -129,8 +129,8 @@ const addAsset = async (req, res, next) => {
       if (dataAssetAndUser.length != 0) {
         res.status(400).send(JSON.stringify({ message: "สาขาของคุณได้บันทึกทรัพย์สินนี้ไปแล้ว", data: dataAssetAndUser }));
       } else {
-        const dataAssetAndUser = await assetData.createAsset(dataAsset);
-        res.send(JSON.stringify({ message: "ทำการบันทึกข้อมูลเสร็จสิ้น", data: dataAssetAndUser }));
+        const successAdd = await assetData.createAsset(dataAsset);
+        res.send(JSON.stringify({ message: "ทำการบันทึกข้อมูลเสร็จสิ้น", data: successAdd }));
       }
     } else {
       res.status(400).send(JSON.stringify({ message: "ยังไม่มีการเปิดรอบบันทึกตอนนี้" }));
@@ -144,8 +144,6 @@ const updateReference = async (req, res, next) => {
   try {
     const data = req.body;
     const period_loginDateTrue = await periodData.period_check_create(data);
-    //console.log(data);
-    //console.log(period_loginDateTrue.length);
     if (period_loginDateTrue.length != 0) {
       const updated = await assetData.updateReference(data);
       res.setHeader("Content-Type", "application/json; charset=utf-8");

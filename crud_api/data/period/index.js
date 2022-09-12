@@ -25,6 +25,7 @@ const store_check_periodForUpdate = async (check_periodForUpdate) => {
     const dateLogin = await pool.request()
       .input('BeginDate', sql.DateTime, check_periodForUpdate.BeginDate)
       .input('EndDate', sql.DateTime, check_periodForUpdate.EndDate)
+      .input('BranchID', sql.Int, check_periodForUpdate.BranchID)
       .input('PeriodID', sql.BigInt, check_periodForUpdate.PeriodID)
       .query(sqlOueries.store_check_periodForUpdate);
     return dateLogin.recordset;
@@ -40,6 +41,7 @@ const period_check_create = async (dateLoginRequst) => {
     const dateLogin = await pool.request()
       .input('BeginDate', sql.DateTime, dateLoginRequst.Date)
       .input('EndDate', sql.DateTime, dateLoginRequst.Date)
+      .input('BranchID', sql.Int, dateLoginRequst.BranchID)
       .query(sqlOueries.period_login);
     return dateLogin.recordset;
   } catch (error) {
