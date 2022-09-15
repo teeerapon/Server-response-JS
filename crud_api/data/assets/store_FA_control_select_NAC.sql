@@ -1,1 +1,1 @@
-exec [TEST_OPS].[dbo].[FA_Control_Select_MyNAC] @usercode
+exec [dbo].[FA_Control_Select_MyNAC] @usercode

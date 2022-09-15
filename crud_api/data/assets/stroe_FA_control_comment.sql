@@ -1,4 +1,4 @@
-[TEST_OPS].[dbo].[FA_Control_NAC_Comment] 	
+EXEC [dbo].[FA_Control_NAC_Comment] 	
     @nac_code,
 	@usercode,
 	@comment

@@ -1,6 +1,6 @@
 begin tran
 
-UPDATE [TEST_OPS].[dbo].[Users]
+UPDATE [dbo].[Users]
 SET    [UserCode]=@UserCode
       ,[Name]=@Name
       ,[BranchID]=@BranchID
@@ -24,7 +24,7 @@ SELECT [UserID]
       ,[Email]
       ,[Tel]
       ,[Actived]
-  FROM [TEST_OPS].[dbo].[Users]
+  FROM [dbo].[Users]
   WHERE [UserID] =@UserID
 
 if @@error>0 and @@trancount>0

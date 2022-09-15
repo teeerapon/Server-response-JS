@@ -1,4 +1,4 @@
-exec [TEST_OPS].[dbo].[FA_Control_DTL_ConfirmSuccess]
+exec [dbo].[FA_Control_DTL_ConfirmSuccess]
 
 	@nac_code,
 	@usercode,

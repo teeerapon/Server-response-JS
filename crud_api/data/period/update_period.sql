@@ -1,7 +1,7 @@
 begin tran
 ----------------------------------------
 
-      UPDATE [TEST_OPS].[dbo].[Fix_Assets_Period]
+      UPDATE [dbo].[Fix_Assets_Period]
       SET    [BeginDate]=@BeginDate
             ,[EndDate]=@EndDate
             ,[BranchID]=@BranchID

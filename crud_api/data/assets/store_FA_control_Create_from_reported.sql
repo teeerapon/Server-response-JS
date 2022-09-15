@@ -1,4 +1,4 @@
-exec [TEST_OPS].[dbo].[FA_Control_Create_from_reported]
+exec [dbo].[FA_Control_Create_from_reported]
 @usercode,
 @nac_code,
 @nacdtl_assetsCode,

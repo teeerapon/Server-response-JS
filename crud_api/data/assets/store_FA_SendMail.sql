@@ -1,1 +1,1 @@
-exec [TEST_OPS].[dbo].[FA_Controls_NAC_SendMail] @nac_code
+exec [dbo].[FA_Controls_NAC_SendMail] @nac_code

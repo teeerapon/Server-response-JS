@@ -193,7 +193,6 @@ const store_FA_control_create_doc = async (req, res, next) => {
   try {
     const data = req.body;
     const FA_control_create_doc = await assetData.store_FA_control_create_doc(data);
-    //console.log(FA_control_create_doc);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     if (FA_control_create_doc.length == 0) {
       res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));

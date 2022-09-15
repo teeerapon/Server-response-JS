@@ -1,1 +1,1 @@
-exec [TEST_OPS].[dbo].[FA_Control_Drop_DocumentNAC] @usercode, @nac_code
+exec [dbo].[FA_Control_Drop_DocumentNAC] @usercode, @nac_code

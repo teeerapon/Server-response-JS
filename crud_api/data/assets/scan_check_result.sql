@@ -3,6 +3,7 @@ SELECT [AssetID]
       ,[Name]
       ,[BranchID]
       ,[imagePath]
+      ,[imagePath_2]
       ,[Details]
-FROM [TEST_OPS].[dbo].[Assets]
+FROM [dbo].[Assets]
 WHERE [Code]=@Code

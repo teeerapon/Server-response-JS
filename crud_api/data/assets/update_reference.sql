@@ -1,13 +1,13 @@
 begin tran
 
-UPDATE [TEST_OPS].[dbo].[Fix_Assets_Counted]
+UPDATE [dbo].[Fix_Assets_Counted]
 SET    [Reference]=@Reference
       ,[UserID]=@UserID
 WHERE [Code] =@Code AND [RoundID]=@RoundID
 
 ----------------------------------------------------
 
-UPDATE [TEST_OPS].[dbo].[Assets]
+UPDATE [dbo].[Assets]
 SET    [Details]=@Reference
       ,[UpdateBy]=@UserID
 	  ,[UpdateDate]=getdate()

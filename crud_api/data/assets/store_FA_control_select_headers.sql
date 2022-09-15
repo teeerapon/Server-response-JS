@@ -23,6 +23,6 @@ SELECT headers.[nac_code]
       ,headers.[create_date]
       ,PTEC_USERSRIGHT.dbo.ufn_user_code (headers.account_aprrove_id) AS account_aprrove_id
       ,headers.[real_price]
-  FROM [TEST_OPS].[dbo].[Fix_Assets_Control_NAC_Headers] headers
-  inner join [TEST_OPS].[dbo].[FA_Control_status] name_status on headers.[nac_status] = name_status.[nac_status_id]
+  FROM [dbo].[Fix_Assets_Control_NAC_Headers] headers
+  inner join [dbo].[FA_Control_status] name_status on headers.[nac_status] = name_status.[nac_status_id]
   where [nac_code]=@nac_code

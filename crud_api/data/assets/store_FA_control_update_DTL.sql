@@ -1,4 +1,4 @@
-exec [TEST_OPS].[dbo].[FA_Control_Update_DTL]
+exec [dbo].[FA_Control_Update_DTL]
     @dtl_id, -- (-1 = Edit), (0 = New) 
 	@usercode,--user ที่ทำรายการขออนุมัติ
 	@nac_code,

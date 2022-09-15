@@ -1,4 +1,4 @@
-exec [TEST_OPS].[dbo].[FA_Control_Update_DTLandHEADERS]
+exec [dbo].[FA_Control_Update_DTLandHEADERS]
 	@usercode,--user ที่ทำรายการขออนุมัติ
 	@nac_code,--nac code
 	@nac_status,--สถานะการทำรายการ

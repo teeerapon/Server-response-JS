@@ -1,4 +1,4 @@
-exec [TEST_OPS].[dbo].[FA_Control_Update_Table]
+exec [dbo].[FA_Control_Update_Table]
 
 	@nac_code,
 	@usercode,

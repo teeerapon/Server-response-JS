@@ -1,1 +1,1 @@
-exec [TEST_OPS].[dbo].[FA_Control_execDocID] @userCode, @nac_code
+exec [dbo].[FA_Control_execDocID] @userCode, @nac_code

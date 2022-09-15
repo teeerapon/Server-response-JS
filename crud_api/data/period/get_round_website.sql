@@ -6,6 +6,6 @@ IF @BranchID = 901
                 ,[BranchID]
                 ,[Description]
                 ,PTEC_USERSRIGHT.dbo.ufn_user_code (create_by) AS create_by
-        FROM [TEST_OPS].[dbo].[Fix_Assets_Period]
-        ORDER BY PeriodID DESC
+        FROM [dbo].[Fix_Assets_Period]
+        ORDER BY [BeginDate] DESC, [PeriodID] DESC
     END

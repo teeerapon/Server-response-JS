@@ -1,4 +1,4 @@
-exec [TEST_OPS].[dbo].[FA_Control_NAC_PATH]
+exec [dbo].[FA_Control_NAC_PATH]
 
 		@nac_code,
 		@usercode,

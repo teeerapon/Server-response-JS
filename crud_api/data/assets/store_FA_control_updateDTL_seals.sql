@@ -1,4 +1,4 @@
-exec [TEST_OPS].[dbo].[FA_Control_UpdateDTL_Seals]
+exec [dbo].[FA_Control_UpdateDTL_Seals]
 
 	@usercode,
 	@nac_code,

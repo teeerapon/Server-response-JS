@@ -1,4 +1,4 @@
-exec [TEST_OPS].[dbo].[FA_Control_Create_Detail_NAC]
+exec [dbo].[FA_Control_Create_Detail_NAC]
 	@usercode,--user ที่ทำรายการขออนุมัติ
 	@nac_code,
 	@nacdtl_row, -- แถวของ Detail

@@ -1,1 +1,1 @@
-exec [TEST_OPS].[dbo].[select_callPeriod] @usercode
+exec [dbo].[select_callPeriod] @usercode
