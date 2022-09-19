@@ -1,6 +1,6 @@
 begin tran
 
-INSERT INTO [TEST_OPS].[dbo].[Users]
+INSERT INTO [dbo].[Users]
     (   
         [UserID]
       , [UserCode]
