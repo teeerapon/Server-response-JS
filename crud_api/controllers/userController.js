@@ -119,6 +119,21 @@ const ChackUserWeb = async (req, res, next) => {
   }
 }
 
+const get_branch_period = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const branch_period = await userData.get_branch_period(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (branch_period.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify({ message: "success", data: branch_period }));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   getsUser,
   getUserCode,
@@ -128,5 +143,6 @@ module.exports = {
   login,
   getsUserForAssetsControl,
   AutoDeapartMent,
-  ChackUserWeb
+  ChackUserWeb,
+  get_branch_period
 }

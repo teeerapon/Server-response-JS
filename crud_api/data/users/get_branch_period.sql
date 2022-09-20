@@ -1,0 +1,1 @@
+exec [PTEC_USERSRIGHT].[dbo].[FA_Control_Fetch_Branch_Period] @userCode,@BranchID

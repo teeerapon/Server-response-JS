@@ -135,6 +135,20 @@ const ChackUserWeb = async (UserWeb) => {
     }
 }
 
+const get_branch_period = async (branch_period) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlOueries = await utils.loadSqlOueries('users');
+        const auto_DeapartMent = await pool.request()
+                        .input('userCode', sql.VarChar(10), branch_period.userCode)
+                        .input('BranchID', sql.Int, branch_period.BranchID)
+                        .query(sqlOueries.get_branch_period);
+        return auto_DeapartMent.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
     getsUser,
     getById,
@@ -143,5 +157,6 @@ module.exports = {
     deleteUser,
     getByEmailAndCode,
     AutoDeapartMent,
-    ChackUserWeb
+    ChackUserWeb,
+    get_branch_period
 }

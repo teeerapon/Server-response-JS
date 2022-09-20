@@ -69,14 +69,8 @@ const craete_period = async (req, res, next) => {
 const update_period = async (req, res, next) => {
   try {
     const craete_period = req.body;
-    const check_assets_in_period = await periodData.check_assets_in_period(craete_period)
-    if (check_assets_in_period.length != 0) {
-      res.status(400).send(JSON.stringify({ message: "ไม่สามารถแก้ไขได้ เนื่องจากมีการตรวจนับทรัพย์สิน" }));
-    }
-    else {
-      await periodData.update_period(craete_period)
-      res.status(200).send(JSON.stringify({ message: "ทำการแก้ไขข้อมูลรอบตรวจนับที่ " + craete_period.PeriodID + ' เสร็จสิ้น' }));
-    }
+    await periodData.update_period(craete_period)
+    res.status(200).send(JSON.stringify({ message: "ทำการแก้ไขข้อมูลรอบตรวจนับที่ " + craete_period.PeriodID + ' เสร็จสิ้น' }));
   } catch (error) {
     res.status(400).send(error.message);
   }
