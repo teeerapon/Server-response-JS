@@ -11,6 +11,52 @@ const sqlEncrypt = process.env.ENCRYPT === "true";
 assert(PORT, 'PORT is required');
 assert(HOST, 'HPST is required');
 
+
+const PTEC = {
+    port: PORT,
+    HOST: HOST,
+    HOST_URL: HOST_URL,
+    objcn_usersright: {
+      sql: {
+        server: SQL_SERVER,
+        database: "PTEC_USERSRIGHT",
+        user: SQL_USER,
+        password: SQL_PASSWORD,
+        options: {
+          encrypt: sqlEncrypt,
+          enableArithAbort: true,
+          trustedconnection: true,
+        },
+      },
+    },
+    objcn_ops: {
+      sql: {
+        server: SQL_SERVER,
+        database: "TEST_OPS",
+        user: SQL_USER,
+        password: SQL_PASSWORD,
+        options: {
+          encrypt: sqlEncrypt,
+          enableArithAbort: true,
+          trustedconnection: true,
+        },
+      },
+    },
+    objcn_pdpa: {
+      sql: {
+        server: SQL_SERVER,
+        database: "TEST_PDPA",
+        user: SQL_USER,
+        password: SQL_PASSWORD,
+        options: {
+          encrypt: sqlEncrypt,
+          enableArithAbort: true,
+          trustedconnection: true,
+        },
+      },
+    },
+  };
+
 module.exports = {
     port: PORT,
     HOST : HOST,
@@ -25,6 +71,6 @@ module.exports = {
             enableArithAbort : true,
             trustedconnection : true,
         }
-    }
+    },PTEC
 
 }
