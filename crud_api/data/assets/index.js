@@ -653,6 +653,19 @@ const store_FA_control_fetch_assets = async (FA_control_fetch_assets) => {
   }
 }
 
+const FA_Control_Report_All_Counted_by_Description = async (Report_All_Counted_by_Description) => {
+  try {
+    let pool = await sql.connect(config.sql);
+    const sqlOueries = await utils.loadSqlOueries('assets');
+    const fetch_assets = await pool.request()
+      .input('Description', sql.NVarChar(200), Report_All_Counted_by_Description.Description)
+      .query(sqlOueries.FA_Control_Report_All_Counted_by_Description);
+    return fetch_assets.recordset;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 module.exports = {
 
   //Mobile or Some Control
@@ -696,5 +709,6 @@ module.exports = {
   store_FA_SendMail,
   store_FA_control_Create_from_reported,
   store_FA_control_HistorysAssets,
-  store_FA_control_fetch_assets
+  store_FA_control_fetch_assets,
+  FA_Control_Report_All_Counted_by_Description
 }
