@@ -618,5 +618,6 @@ module.exports = {
   store_FA_SendMail,
   store_FA_control_Create_from_reported,
   store_FA_control_HistorysAssets,
-  store_FA_control_fetch_assets
+  store_FA_control_fetch_assets,
+  FA_Control_Report_All_Counted_by_Description
 }
