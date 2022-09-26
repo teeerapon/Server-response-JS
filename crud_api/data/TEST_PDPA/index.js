@@ -46,7 +46,8 @@ const Ropa_addType = async (req) => {
   const addOwner = await pool
     .request()
     .input("ropaid", sql.BigInt, req.ropaid)
-    .input("typeid", sql.BigInt, req.typeid)
+    .input("typeid", sql.BigInt, req.typeid??0)
+    .input("typename", sql.VarChar(255), req.typename??'')
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_addType @ropaid,@typeid,@user`);
   return addOwner.recordset;
