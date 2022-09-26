@@ -16,6 +16,8 @@ const {
   RopaSave,
   TypeSave,
   UserSave,
+  Ropa_List,
+  Ropa_List_By_ID
 } = TEST_PDPA_Controller;
 
 router.post("/addCollection", addCollection);
@@ -29,6 +31,8 @@ router.post("/removeType", removeType);
 router.post("/RopaSave", RopaSave);
 router.post("/TypeSave", TypeSave);
 router.post("/UserSave", UserSave);
+router.get("/Ropa_List", Ropa_List);
+router.post("/Ropa_List_By_ID", Ropa_List_By_ID);
 
 module.exports = {
   routes: router,
