@@ -49,7 +49,7 @@ const Ropa_addType = async (req) => {
     .input("typeid", sql.BigInt, req.typeid??0)
     .input("typename", sql.VarChar(255), req.typename??'')
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec Ropa_addType @ropaid,@typeid,@user`);
+    .query(`exec Ropa_addType @ropaid,@typeid,@typename,@user`);
   return addOwner.recordset;
 };
 
