@@ -47,7 +47,7 @@ const Ropa_addType = async (req) => {
     .request()
     .input("ropaid", sql.BigInt, req.ropaid)
     .input("typeid", sql.BigInt, req.typeid??0)
-    .input("typename", sql.VarChar(255), req.typename??'')
+    .input("typename", sql.NVarChar(255), req.typename??'')
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_addType @ropaid,@typeid,@typename,@user`);
   return addOwner.recordset;
@@ -95,9 +95,10 @@ const Ropa_removeType = async (req) => {
   const sqlOueries = await utils.loadSqlOueries("TEST_PDPA");
   const addOwner = await pool
     .request()
-    .input("crossid", sql.BigInt, req.crossid)
+    .input("ropaid", sql.BigInt, req.ropaid)
+    .input("ropa_type", sql.NVarChar(200), req.ropa_type)
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec Ropa_removeType @crossid,@user`);
+    .query(`exec Ropa_removeType @ropaid,@ropa_type,@user`);
   return addOwner.recordset;
 };
 
@@ -168,8 +169,15 @@ const Ropa_List_By_ID = async (req) => {
     .request()
     .input("RopaType_ID", sql.BigInt, req.RopaType_ID)
     .query(
-      `exec [RopaType_List_By_ID] @RopaType_ID`
+      `exec RopaType_List_By_ID @RopaType_ID`
     );
+  return addOwner.recordset;
+};
+
+const Ropa_List_Dep = async (req) => {
+  let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
+  const sqlOueries = await utils.loadSqlOueries("TEST_PDPA");
+  const addOwner = await pool.request().query(`SELECT [DepCode] FROM [PTEC_USERSRIGHT].[dbo].[Department]`);
   return addOwner.recordset;
 };
 
@@ -186,5 +194,6 @@ module.exports = {
   Ropa_TypeSave,
   Ropa_UserSave,
   Ropa_List,
-  Ropa_List_By_ID
+  Ropa_List_By_ID,
+  Ropa_List_Dep
 };
