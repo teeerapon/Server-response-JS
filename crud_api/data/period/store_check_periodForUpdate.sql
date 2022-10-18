@@ -6,6 +6,6 @@ IF NOT exists(SELECT [PeriodID] FROM [dbo].[Fix_Assets_Period] WHERE [PeriodID]=
               ,[BranchID]
               ,[Description]
         FROM [dbo].[Fix_Assets_Period]
-        WHERE [BeginDate] <=@BeginDate AND [EndDate] >=@EndDate
+        WHERE [BeginDate] <=GETDATE() AND [EndDate] >=GETDATE()
         ORDER BY PeriodID ASC
     END
