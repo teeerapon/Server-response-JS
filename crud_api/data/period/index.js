@@ -9,8 +9,8 @@ const period_login = async (dateLoginRequst) => {
     const sqlOueries = await utils.loadSqlOueries('period');
     const dateLogin = await pool.request()
       .input('BeginDate', sql.DateTime, dateLoginRequst.BeginDate)
-      .input('EndDate', sql.DateTime, dateLoginRequst.EndDate)
-      .input('BranchID', sql.Int, dateLoginRequst.BranchID)
+      // .input('EndDate', sql.DateTime, dateLoginRequst.EndDate)
+      // .input('BranchID', sql.Int, dateLoginRequst.BranchID)
       .query(sqlOueries.period_login);
     return dateLogin.recordset;
   } catch (error) {
@@ -23,8 +23,8 @@ const store_check_periodForUpdate = async (check_periodForUpdate) => {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const dateLogin = await pool.request()
-      .input('BeginDate', sql.DateTime, check_periodForUpdate.BeginDate)
-      .input('EndDate', sql.DateTime, check_periodForUpdate.EndDate)
+      // .input('BeginDate', sql.DateTime, check_periodForUpdate.BeginDate)
+      // .input('EndDate', sql.DateTime, check_periodForUpdate.EndDate)
       .input('BranchID', sql.Int, check_periodForUpdate.BranchID)
       .input('PeriodID', sql.BigInt, check_periodForUpdate.PeriodID)
       .query(sqlOueries.store_check_periodForUpdate);

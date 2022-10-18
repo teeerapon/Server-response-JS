@@ -122,20 +122,29 @@ const getAllasset2 = async (req, res, next) => {
 const addAsset = async (req, res, next) => {
   try {
     const dataAsset = req.body;
-    console.log(dataAsset);
-    const period_loginDateTrue = await periodData.period_check_create(dataAsset);
-    if (period_loginDateTrue.length != 0) {
-      const dataAssetAndUser = await assetData.getAssetByCodeForTest(dataAsset);
-      res.setHeader("Content-Type", "application/json; charset=utf-8");
-      if (dataAssetAndUser.length != 0) {
-        res.status(400).send(JSON.stringify({ message: "สาขาของคุณได้บันทึกทรัพย์สินนี้ไปแล้ว", data: dataAssetAndUser }));
-      } else {
-        const successAdd = await assetData.createAsset(dataAsset);
-        res.send(JSON.stringify({ message: "ทำการบันทึกข้อมูลเสร็จสิ้น", data: successAdd }));
-      }
+    const dataAssetAndUser = await assetData.getAssetByCodeForTest(dataAsset);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (dataAssetAndUser.length != 0) {
+      res.status(400).send(JSON.stringify({ message: "สาขาของคุณได้บันทึกทรัพย์สินนี้ไปแล้ว", data: dataAssetAndUser }));
     } else {
-      res.status(400).send(JSON.stringify({ message: "ยังไม่มีการเปิดรอบบันทึกตอนนี้" }));
+      const successAdd = await assetData.createAsset(dataAsset);
+      res.send(JSON.stringify({ message: "ทำการบันทึกข้อมูลเสร็จสิ้น", data: successAdd }));
     }
+    // const period_loginDateTrue = await periodData.period_check_create(dataAsset);
+
+    // console.log(period_loginDateTrue);
+    // if (period_loginDateTrue.length != 0) {
+    //   const dataAssetAndUser = await assetData.getAssetByCodeForTest(dataAsset);
+    //   res.setHeader("Content-Type", "application/json; charset=utf-8");
+    //   if (dataAssetAndUser.length != 0) {
+    //     res.status(400).send(JSON.stringify({ message: "สาขาของคุณได้บันทึกทรัพย์สินนี้ไปแล้ว", data: dataAssetAndUser }));
+    //   } else {
+    //     const successAdd = await assetData.createAsset(dataAsset);
+    //     res.send(JSON.stringify({ message: "ทำการบันทึกข้อมูลเสร็จสิ้น", data: successAdd }));
+    //   }
+    // } else {
+    //   res.status(400).send(JSON.stringify({ message: "ยังไม่มีการเปิดรอบบันทึกตอนนี้" }));
+    // }
   } catch (error) {
     res.status(400).send(error.message)
   }
