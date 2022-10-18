@@ -8,9 +8,9 @@ const period_login = async (dateLoginRequst) => {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const dateLogin = await pool.request()
-      .input('BeginDate', sql.DateTime, dateLoginRequst.BeginDate)
+      // .input('BeginDate', sql.DateTime, dateLoginRequst.BeginDate)
       // .input('EndDate', sql.DateTime, dateLoginRequst.EndDate)
-      // .input('BranchID', sql.Int, dateLoginRequst.BranchID)
+      .input('BranchID', sql.Int, dateLoginRequst.BranchID)
       .query(sqlOueries.period_login);
     return dateLogin.recordset;
   } catch (error) {
@@ -39,8 +39,8 @@ const period_check_create = async (dateLoginRequst) => {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const dateLogin = await pool.request()
-      .input('BeginDate', sql.DateTime, dateLoginRequst.Date)
-      .input('EndDate', sql.DateTime, dateLoginRequst.Date)
+      // .input('BeginDate', sql.DateTime, dateLoginRequst.Date)
+      // .input('EndDate', sql.DateTime, dateLoginRequst.Date)
       .input('BranchID', sql.Int, dateLoginRequst.BranchID)
       .query(sqlOueries.period_login);
     return dateLogin.recordset;
