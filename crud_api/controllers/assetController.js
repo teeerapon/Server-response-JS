@@ -122,6 +122,7 @@ const getAllasset2 = async (req, res, next) => {
 const addAsset = async (req, res, next) => {
   try {
     const dataAsset = req.body;
+    console.log(dataAsset);
     const period_loginDateTrue = await periodData.period_check_create(dataAsset);
     if (period_loginDateTrue.length != 0) {
       const dataAssetAndUser = await assetData.getAssetByCodeForTest(dataAsset);
