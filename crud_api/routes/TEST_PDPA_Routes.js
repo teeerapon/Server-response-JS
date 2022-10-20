@@ -18,7 +18,8 @@ const {
   UserSave,
   Ropa_List,
   Ropa_List_By_ID,
-  Ropa_List_Dep
+  Ropa_List_Dep,
+  Ropa_Close_Save
 } = TEST_PDPA_Controller;
 
 router.post("/addCollection", addCollection);
@@ -30,6 +31,7 @@ router.post("/removeOwner", removeOwner);
 router.post("/removePermissionAccess", removePermissionAccess);
 router.post("/removeType", removeType);
 router.post("/RopaSave", RopaSave);
+router.post("/Ropa_Close_Save", Ropa_Close_Save);
 router.post("/TypeSave", TypeSave);
 router.post("/UserSave", UserSave);
 router.get("/Ropa_List", Ropa_List);

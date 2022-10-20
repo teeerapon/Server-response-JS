@@ -163,16 +163,36 @@ const RopaSave = async (req, res, next) => {
   //console.log(req.body);
   try {
     const data = req.body;
-    const created = await TEST_PDPA.Ropa_Save(data);
     console.log(data);
+    const created = await TEST_PDPA.Ropa_Save(data);
     console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    console.log(resultData);
-    console.log(`length ${resultData.length}`);
-    console.log(`aaaa ${resultData.data}`);
-    console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
+    res.status(200).send(created);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+const Ropa_Close_Save = async (req, res, next) => {
+  //console.log(req.body);
+  try {
+    const data = req.body;
+    console.log(data);
+    const created = await TEST_PDPA.Ropa_Close_Save(data);
+    console.log(created);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+
+    const resultData = JSON.stringify({ data: created });
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -261,6 +281,7 @@ module.exports = {
   removePermissionAccess,
   removeType,
   RopaSave,
+  Ropa_Close_Save,
   TypeSave,
   UserSave,
   Ropa_List,
