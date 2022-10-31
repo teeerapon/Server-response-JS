@@ -262,10 +262,34 @@ const Ropa_List_By_ID = async (req, res, next) => {
   }
 };
 
+const Ropa_List_User = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const ropa_List_User = await TEST_PDPA.Ropa_List_User(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    const resultData = JSON.stringify({ data: ropa_List_User });
+    res.status(200).send(resultData);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 const Ropa_List_Dep = async (req, res, next) => {
   const ropa_list = await TEST_PDPA.Ropa_List_Dep();
   try {
     res.status(200).send(ropa_list);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+const Ropa_List_Collection = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const ropa_List_Collection = await TEST_PDPA.Ropa_List_Collection(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    const resultData = JSON.stringify({ data: ropa_List_Collection });
+    res.status(200).send(resultData);
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -285,6 +309,8 @@ module.exports = {
   TypeSave,
   UserSave,
   Ropa_List,
+  Ropa_List_User,
   Ropa_List_By_ID,
-  Ropa_List_Dep
+  Ropa_List_Dep,
+  Ropa_List_Collection
 };

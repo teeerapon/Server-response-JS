@@ -189,10 +189,34 @@ const Ropa_List_By_ID = async (req) => {
   return addOwner.recordset;
 };
 
+const Ropa_List_User = async (req) => {
+  let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
+  const sqlOueries = await utils.loadSqlOueries("TEST_PDPA");
+  const addOwner = await pool
+    .request()
+    .input("ropaid", sql.BigInt, req.ropaid)
+    .query(
+      `exec Ropa_List_User @ropaid`
+    );
+  return addOwner.recordset;
+};
+
 const Ropa_List_Dep = async (req) => {
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
   const sqlOueries = await utils.loadSqlOueries("TEST_PDPA");
   const addOwner = await pool.request().query(`SELECT [DepCode] FROM [PTEC_USERSRIGHT].[dbo].[Department]`);
+  return addOwner.recordset;
+};
+
+const Ropa_List_Collection = async (req) => {
+  let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
+  const sqlOueries = await utils.loadSqlOueries("TEST_PDPA");
+  const addOwner = await pool
+    .request()
+    .input("ropauserid", sql.Int, req.ropauserid)
+    .query(
+      `exec [Ropa_List_Collection] @ropauserid`
+    );
   return addOwner.recordset;
 };
 
@@ -210,6 +234,8 @@ module.exports = {
   Ropa_TypeSave,
   Ropa_UserSave,
   Ropa_List,
+  Ropa_List_Collection,
+  Ropa_List_User,
   Ropa_List_By_ID,
   Ropa_List_Dep
 };
