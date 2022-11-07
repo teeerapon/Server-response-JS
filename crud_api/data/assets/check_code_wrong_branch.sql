@@ -1,16 +1,1 @@
-SELECT COUNTED.[RowID]
-      ,COUNTED.[AssetID]
-      ,COUNTED.[Code]
-      ,COUNTED.[Name]
-      ,COUNTED.[BranchID]
-      ,COUNTED.[Status]
-      ,COUNTED.[Date]
-      ,COUNTED.[UserID]
-      ,COUNTED.[UserBranch]
-      ,COUNTED.[RoundID]
-      ,MAIN.[imagePath]
-      ,MAIN.[imagePath_2]
-      ,COUNTED.[detail]
-FROM [dbo].[Fix_Assets_Counted] COUNTED
-LEFT JOIN [dbo].[Assets] MAIN ON MAIN.[Code] = COUNTED.[Code]
-WHERE COUNTED.[Code]=@Code AND COUNTED.[RoundID]=@RoundID
+exec FA_Mobile_check_code_wrong_branch  @Code ,@RoundID

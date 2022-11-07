@@ -21,7 +21,8 @@ const {
   Ropa_List_By_ID,
   Ropa_List_Dep,
   Ropa_Close_Save,
-  Ropa_List_Collection
+  Ropa_List_Collection,
+  Ropa_SetActive_User
 } = TEST_PDPA_Controller;
 
 router.post("/addCollection", addCollection);
@@ -41,6 +42,7 @@ router.post("/Ropa_List_User", Ropa_List_User);
 router.post("/Ropa_List_By_ID", Ropa_List_By_ID);
 router.post("/Ropa_List_Collection", Ropa_List_Collection);
 router.get("/Ropa_List_Dep", Ropa_List_Dep);
+router.post("/Ropa_SetActive_User", Ropa_SetActive_User);
 
 module.exports = {
   routes: router,

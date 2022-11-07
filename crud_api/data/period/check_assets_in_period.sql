@@ -1,3 +1,1 @@
-SELECT [AssetID]
-FROM [dbo].[Fix_Assets_Counted]
-WHERE RoundID=@PeriodID AND [Status]=1
+exec FA_Period_check_assets_in_period @PeriodID

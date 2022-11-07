@@ -295,6 +295,18 @@ const Ropa_List_Collection = async (req, res, next) => {
   }
 };
 
+const Ropa_SetActive_User = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const ropa_SetActive_User = await TEST_PDPA.Ropa_SetActive_User(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    const resultData = JSON.stringify({ data: ropa_SetActive_User });
+    res.status(200).send(resultData);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 module.exports = {
   addCollection,
   addOwner,
@@ -312,5 +324,6 @@ module.exports = {
   Ropa_List_User,
   Ropa_List_By_ID,
   Ropa_List_Dep,
-  Ropa_List_Collection
+  Ropa_List_Collection,
+  Ropa_SetActive_User
 };

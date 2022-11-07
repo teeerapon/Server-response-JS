@@ -220,6 +220,19 @@ const Ropa_List_Collection = async (req) => {
   return addOwner.recordset;
 };
 
+const Ropa_SetActive_User = async (req) => {
+  let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
+  const sqlOueries = await utils.loadSqlOueries("TEST_PDPA");
+  const addOwner = await pool
+    .request()
+    .input("ropaid", sql.Int, req.ropaid)
+    .input("ropauserid", sql.Int, req.ropauserid)
+    .query(
+      `exec [Ropa_SetActive_User] @ropaid, @ropauserid`
+    );
+  return addOwner.recordset;
+};
+
 module.exports = {
   Ropa_addCollection,
   Ropa_addOwner,
@@ -237,5 +250,6 @@ module.exports = {
   Ropa_List_Collection,
   Ropa_List_User,
   Ropa_List_By_ID,
-  Ropa_List_Dep
+  Ropa_List_Dep,
+  Ropa_SetActive_User
 };

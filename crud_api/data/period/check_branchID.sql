@@ -1,3 +1,1 @@
-SELECT [BranchID]
-  FROM [PTEC_USERSRIGHT].[dbo].[Branch]
-  WHERE [BranchID]=@BranchID
+exec FA_Period_check_branch @BranchID
