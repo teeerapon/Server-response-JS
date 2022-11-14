@@ -1,15 +1,1 @@
-SELECT COUNTED.[AssetID]
-      ,COUNTED.[Code]
-      ,COUNTED.[Name]
-      ,COUNTED.[BranchID]
-      ,COUNTED.[Status]
-      ,COUNTED.[Date]
-      ,COUNTED.[UserID]
-      ,COUNTED.[UserBranch]
-      ,COUNTED.[RoundID]
-      ,MAIN.[imagePath]
-      ,MAIN.[imagePath_2]
-      ,COUNTED.[detail]
-FROM [dbo].[Fix_Assets_Counted] COUNTED
-LEFT JOIN [dbo].[Assets] MAIN ON MAIN.[Code] = COUNTED.[Code]
-WHERE [Code]=@Code AND COUNTED.[Status]=0 AND COUNTED.[RoundID]=@RoundID
+exec FA_Mobile_getAssetByCode @Code ,@RoundID

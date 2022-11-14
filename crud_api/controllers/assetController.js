@@ -127,7 +127,7 @@ const addAsset = async (req, res, next) => {
       const dataAssetAndUser = await assetData.getAssetByCodeForTest(dataAsset);
       res.setHeader("Content-Type", "application/json; charset=utf-8");
       if (dataAssetAndUser.length != 0) {
-        res.status(400).send(JSON.stringify({ message: "สาขาของคุณได้บันทึกทรัพย์สินนี้ไปแล้ว", data: dataAssetAndUser }));
+        res.status(400).send(JSON.stringify({ message: "สาขาที่ " + dataAssetAndUser[0].UserBranch + " ได้บันทึกทรัพย์สินนี้ไปแล้ว", data: dataAssetAndUser }));
       } else {
         const successAdd = await assetData.createAsset(dataAsset);
         res.send(JSON.stringify({ message: "ทำการบันทึกข้อมูลเสร็จสิ้น", data: successAdd }));
