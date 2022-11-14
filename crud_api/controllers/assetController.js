@@ -123,7 +123,6 @@ const addAsset = async (req, res, next) => {
   try {
     const dataAsset = req.body;
     const period_loginDateTrue = await periodData.period_check_create(dataAsset);
-    console.log(period_loginDateTrue);
     if (period_loginDateTrue.length != 0) {
       const dataAssetAndUser = await assetData.getAssetByCodeForTest(dataAsset);
       res.setHeader("Content-Type", "application/json; charset=utf-8");
