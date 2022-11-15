@@ -20,9 +20,11 @@ const NewNTI_Station_InPut = async (req) => {
     .input("Area_road", sql.Float, req.Area_road)
     .input("Area_total", sql.Float, req.Area_total)
     .input("NumberArea", sql.NVarChar(255), req.NumberArea)
-    .query(`exec NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_road,@Area_total,@NumberArea`);
+    .input("Owner_Name", sql.NVarChar(50), req.Owner_Name)
+    .input("Owner_Tell", sql.NVarChar(50), req.Owner_Tell)
+    .query(`exec NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_road,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell`);
   return addOwner.recordset;
 };
 module.exports = {
-    NewNTI_Station_InPut,
+  NewNTI_Station_InPut,
 };
