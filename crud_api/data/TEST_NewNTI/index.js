@@ -22,7 +22,13 @@ const NewNTI_Station_InPut = async (req) => {
     .input("NumberArea", sql.NVarChar(255), req.NumberArea)
     .input("Owner_Name", sql.NVarChar(50), req.Owner_Name)
     .input("Owner_Tell", sql.NVarChar(50), req.Owner_Tell)
-    .query(`exec NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_road,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell`);
+    .input("Owner_Type", sql.NVarChar(100), req.Owner_Type)
+    .input("Area_Type", sql.NVarChar(100), req.Area_Type)
+    .input("Tambol", sql.NVarChar(100), req.Tambol)
+    .input("District", sql.NVarChar(100), req.District)
+    .input("Province", sql.NVarChar(100), req.Province)
+    .input("Postcode", sql.NVarChar(100), req.Postcode)
+    .query(`exec NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_road,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell,@Owner_Type,@Area_Type,@Tambol,@District,@Province,@Postcode`);
   return addOwner.recordset;
 };
 module.exports = {
