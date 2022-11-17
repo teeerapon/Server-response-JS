@@ -5,7 +5,6 @@ const config = require("../../config");
 const sql = require("mssql");
 
 const NewNTI_Station_InPut = async (req) => {
-  console.log(req);
   let pool = await sql.connect(config.PTEC.objcn_ops.sql);
   const sqlOueries = await utils.loadSqlOueries("TEST_NewNTI");
   const addOwner = await pool
@@ -28,7 +27,7 @@ const NewNTI_Station_InPut = async (req) => {
     .input("Province", sql.NVarChar(100), req.Province)
     .input("Postcode", sql.NVarChar(100), req.Postcode)
     .query(`exec NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell,@Owner_Type,@Area_Type,@Tambol,@District,@Province,@Postcode`);
-  return addOwner.recordset;
+    return addOwner.recordset;
 };
 module.exports = {
   NewNTI_Station_InPut,
