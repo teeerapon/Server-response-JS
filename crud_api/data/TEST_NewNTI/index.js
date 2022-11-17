@@ -15,7 +15,6 @@ const NewNTI_Station_InPut = async (req) => {
     .input("Longitude", sql.VarChar(100), req.Longitude)
     .input("Remark", sql.NVarChar(255), req.Remark)
     .input("Area_width", sql.Float, req.Area_width)
-    .input("Area_road", sql.Float, req.Area_road)
     .input("Area_total", sql.Float, req.Area_total)
     .input("NumberArea", sql.NVarChar(255), req.NumberArea)
     .input("Owner_Name", sql.NVarChar(50), req.Owner_Name)
@@ -26,8 +25,8 @@ const NewNTI_Station_InPut = async (req) => {
     .input("District", sql.NVarChar(100), req.District)
     .input("Province", sql.NVarChar(100), req.Province)
     .input("Postcode", sql.NVarChar(100), req.Postcode)
-    .query(`exec NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_road,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell,@Owner_Type,@Area_Type,@Tambol,@District,@Province,@Postcode`);
-  return addOwner.recordset;
+    .query(`exec NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell,@Owner_Type,@Area_Type,@Tambol,@District,@Province,@Postcode`);
+    return addOwner.recordset;
 };
 
 const Districts_List = async (req) => {
