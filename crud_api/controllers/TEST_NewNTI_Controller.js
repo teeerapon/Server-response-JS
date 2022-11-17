@@ -9,7 +9,7 @@ const NewNTI_Station_Create = async (req, res, next) => {
       const created = await TEST_NewNTI.NewNTI_Station_InPut(data);
       res.setHeader("Content-Type", "application/json; charset=utf-8");
       const resultData = JSON.stringify({ data: created });
-      console.log(resultData);
+      console.log(created);
       res.status(200).send(created);
     } catch (error) {
       res.status(400).send(error.message);
