@@ -2,9 +2,10 @@
 
 const utils = require("../untils");
 const config = require("../../config");
-const sql = require("mssql");
 
 const NewNTI_Station_InPut = async (req) => {
+  const sql = require("mssql");
+  
   let pool = await sql.connect(config.PTEC.objcn_ops.sql);
   const addOwner = await pool
     .request()
@@ -26,31 +27,34 @@ const NewNTI_Station_InPut = async (req) => {
     .input("Province", sql.NVarChar(100), req.Province)
     .input("Postcode", sql.NVarChar(100), req.Postcode)
     .query(`exec NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell,@Owner_Type,@Area_Type,@Tambol,@District,@Province,@Postcode`);
-  sql.close();
+  
   return addOwner.recordset;
 };
 
 const Districts_List = async (req) => {
+  const sql = require("mssql");
   let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
   //const sqlOueries = await utils.loadSqlOueries("TEST_OPS");
   const addOwner = await pool.request().query(`exec Districts_List`);
-  sql.close();
+  
   return addOwner.recordset;
 };
 
 const Amphures_List = async (req) => {
+  const sql = require("mssql");
   let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
   //const sqlOueries = await utils.loadSqlOueries("TEST_OPS");
   const addOwner = await pool.request().query(`exec Amphures_List`);
-  sql.close();
+  
   return addOwner.recordset;
 };
 
 const Provinces_List = async (req) => {
+  const sql = require("mssql");
   let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
   //const sqlOueries = await utils.loadSqlOueries("TEST_OPS");
   const addOwner = await pool.request().query(`exec Provinces_List`);
-  sql.close();
+  
   return addOwner.recordset;
 };
 
