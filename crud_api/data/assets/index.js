@@ -2,7 +2,6 @@
 
 const utils = require('../untils');
 const config = require('../../config');
-const sql = require('mssql');
 
 const getsAssets = async (branchIDparam)  => {
   const sql = require('mssql');
