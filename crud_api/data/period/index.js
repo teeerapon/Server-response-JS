@@ -1,9 +1,9 @@
 'use strict';
 const utils = require('../untils');
-const config = require('../../config');
 
 const period_login = async (dateLoginRequst) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -20,6 +20,7 @@ const period_login = async (dateLoginRequst) => {
 
 const store_check_periodForUpdate = async (check_periodForUpdate) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -29,7 +30,7 @@ const store_check_periodForUpdate = async (check_periodForUpdate) => {
       .input('BranchID', sql.Int, check_periodForUpdate.BranchID)
       .input('PeriodID', sql.BigInt, check_periodForUpdate.PeriodID)
       .query(sqlOueries.store_check_periodForUpdate);
-    
+
     return dateLogin.recordset;
   } catch (error) {
     return error.message;
@@ -38,6 +39,7 @@ const store_check_periodForUpdate = async (check_periodForUpdate) => {
 
 const period_check_create = async (dateLoginRequst) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -54,6 +56,7 @@ const period_check_create = async (dateLoginRequst) => {
 
 const getsperiod_round = async (selectQuery) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -68,6 +71,7 @@ const getsperiod_round = async (selectQuery) => {
 
 const fa_permission_branch = async (permission_branch) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -82,6 +86,7 @@ const fa_permission_branch = async (permission_branch) => {
 
 const craete_period = async (create_period) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -100,6 +105,7 @@ const craete_period = async (create_period) => {
 
 const delete_period = async (fa_delete_period) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -115,6 +121,7 @@ const delete_period = async (fa_delete_period) => {
 
 const update_period = async (fa_update_period) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -134,6 +141,7 @@ const update_period = async (fa_update_period) => {
 
 const check_assets_in_period = async (check_assets_in_period) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -148,6 +156,7 @@ const check_assets_in_period = async (check_assets_in_period) => {
 
 const check_BranchID = async (check_BranchID_in_period) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -162,6 +171,7 @@ const check_BranchID = async (check_BranchID_in_period) => {
 
 const select_priod = async (call_period) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
@@ -176,6 +186,7 @@ const select_priod = async (call_period) => {
 
 const round_website = async (selectQuery) => {
   const sql = require('mssql');
+  const config = require('../../config');
   try {
     let pool = await sql.connect(config.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
