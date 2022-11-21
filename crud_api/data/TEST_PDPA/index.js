@@ -6,14 +6,12 @@ const Ropa_addCollection = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  
   const addOwner = await pool
     .request()
     .input("ropauserid", sql.BigInt, req.ropauserid)
     .input("ropacollectionid", sql.BigInt, req.ropacollectionid)
     .input("user", sql.VarChar(20), req.user)
     .query(`exec [dbo].[Ropa_addCollection] @ropauserid,@ropacollectionid,@user`);
-
   sql.close()
   return addOwner.recordset;
 };
@@ -54,7 +52,6 @@ const Ropa_addType = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  
   const addOwner = await pool
     .request()
     .input("ropaid", sql.BigInt, req.ropaid)
@@ -62,7 +59,6 @@ const Ropa_addType = async (req) => {
     .input("typename", sql.NVarChar(255), req.typename ?? '')
     .input("user", sql.VarChar(20), req.user)
     .query(`exec [dbo].[Ropa_addType] @ropaid,@typeid,@typename,@user`);
-
   sql.close()
   return addOwner.recordset;
 };
@@ -200,7 +196,7 @@ const Ropa_UserSave = async (req) => {
     .input("remark", sql.NVarChar(255), req.remark)
     .input("user", sql.VarChar(20), req.user)
     .input("active", sql.Bit, parseInt(req.active))
-    .query(`exec [dbo].Ropa_UserSave] @ropauserid,@ropaid,@name,@consentdate,@collectiondate,@remark,@user,@active`);
+    .query(`exec [dbo].[Ropa_UserSave] @ropauserid,@ropaid,@name,@consentdate,@collectiondate,@remark,@user,@active`);
   sql.close()
   return addOwner.recordset;
 };
