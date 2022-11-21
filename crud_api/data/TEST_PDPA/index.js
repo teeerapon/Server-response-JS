@@ -14,6 +14,7 @@ const Ropa_addCollection = async (req) => {
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_addCollection @ropauserid,@ropacollectionid,@user`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -29,6 +30,7 @@ const Ropa_addOwner = async (req) => {
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_addOwner @ropaid,@ownercode,@user`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -44,6 +46,7 @@ const Ropa_addPermissionAccess = async (req) => {
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_addPermissionAccess @ropaid,@acecode,@user`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -60,6 +63,7 @@ const Ropa_addType = async (req) => {
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_addType @ropaid,@typeid,@typename,@user`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -75,6 +79,7 @@ const Ropa_CollectionSave = async (req) => {
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_CollectionSave @namecollection,@user`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -91,6 +96,7 @@ const Ropa_removeOwner = async (req) => {
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_removeOwner @ropaid,@ropaownerCode,@user`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -107,6 +113,7 @@ const Ropa_removePermissionAccess = async (req) => {
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_removePermissionAccess @ropaid,@permissionaccessCode,@user`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -123,6 +130,7 @@ const Ropa_removeType = async (req) => {
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_removeType @ropaid,@ropa_type,@user`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -146,6 +154,7 @@ const Ropa_Save = async (req) => {
       `exec Ropa_Save @ropaid,@depcode,@name,@target,@collectiontype,@step,@lastreview,@user`
     );
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -162,6 +171,7 @@ const Ropa_Close_Save = async (req) => {
       `exec Ropa_Close_Save @ropaid`
     );
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -178,6 +188,7 @@ const Ropa_TypeSave = async (req) => {
     .input("user", sql.VarChar(20), req.user)
     .query(`exec Ropa_TypeSave @typename,@user`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -201,6 +212,7 @@ const Ropa_UserSave = async (req) => {
       `exec Ropa_UserSave @ropauserid,@ropaid,@name,@consentdate,@collectiondate,@remark,@user,@active`
     );
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -211,6 +223,7 @@ const Ropa_List = async (req) => {
   const sqlOueries = await utils.loadSqlOueries("TEST_PDPA");
   const addOwner = await pool.request().query(`exec Ropa_List`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -226,6 +239,7 @@ const Ropa_List_By_ID = async (req) => {
       `exec RopaType_List_By_ID @RopaType_ID`
     );
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -241,6 +255,7 @@ const Ropa_List_User = async (req) => {
       `exec Ropa_List_User @ropaid`
     );
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -251,6 +266,7 @@ const Ropa_List_Dep = async (req) => {
   const sqlOueries = await utils.loadSqlOueries("TEST_PDPA");
   const addOwner = await pool.request().query(`SELECT [DepCode] FROM [PTEC_USERSRIGHT].[dbo].[Department]`);
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -266,6 +282,7 @@ const Ropa_List_Collection = async (req) => {
       `exec [Ropa_List_Collection] @ropauserid`
     );
 
+  sql.close()
   return addOwner.recordset;
 };
 
@@ -282,6 +299,7 @@ const Ropa_SetActive_User = async (req) => {
       `exec [Ropa_SetActive_User] @ropaid, @ropauserid`
     );
 
+  sql.close()
   return addOwner.recordset;
 };
 
