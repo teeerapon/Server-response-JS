@@ -3,4 +3,4 @@ EXEC [dbo].[FA_Create_Assets_Counted_After_Period]
       ,@enddate
       ,@branchid
       ,@Description
-	  ,@usercode
+	,@usercode

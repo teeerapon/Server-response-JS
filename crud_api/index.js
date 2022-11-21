@@ -22,4 +22,4 @@ app.use('/api', assetRoutes.routes);
 app.use('/api', TEST_PDPA_Routes.routes);
 app.use('/api', TEST_NewNTI_Routes.routes);
 
-app.listen(config.port, ()=> console.log('Server is listening on http://localhost : port : ' + config.port));
+app.listen(config.PTEC.port, ()=> console.log('Server is listening on http://localhost : port : ' + config.PTEC.port));

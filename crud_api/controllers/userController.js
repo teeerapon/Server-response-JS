@@ -24,39 +24,6 @@ const getUserCode = async (req, res, next) => {
   }
 }
 
-const addUser = async (req, res, next) => {
-  try {
-    const data = req.body;
-    const created = await userData.createUser(data);
-    res.setHeader("Content-Type", "application/json; charset=utf-8");
-    res.status(200).send('Create User Successfully ' + created);
-  } catch (error) {
-    res.status(400).send(error.message)
-  }
-}
-
-const updateUser = async (req, res, next) => {
-  try {
-    const UserID = req.params.id;
-    const data = req.body;
-    const updated = await userData.updateUser(UserID, data);
-    res.setHeader("Content-Type", "application/json; charset=utf-8");
-    res.status(200).send(updated);
-  } catch (error) {
-    res.status(400).send(error.message)
-  }
-}
-
-const deleteUser = async (req, res, next) => {
-  try {
-    const UserID = req.params.id;
-    const deleteUser = await userData.deleteUser(UserID);
-    res.status(200).send('delete successfully : ' + deleteUser);
-  } catch (error) {
-    res.status(400).send(error.message)
-  }
-}
-
 const login = async (req, res, next) => {
   try {
     const codeAndpassword = req.body;
@@ -137,9 +104,6 @@ const get_branch_period = async (req, res, next) => {
 module.exports = {
   getsUser,
   getUserCode,
-  addUser,
-  updateUser,
-  deleteUser,
   login,
   getsUserForAssetsControl,
   AutoDeapartMent,

@@ -1,5 +1,4 @@
 exec [dbo].[FA_Control_Update_Table]
-
 	@nac_code,
 	@usercode,
 	@nacdtl_assetsCode,
