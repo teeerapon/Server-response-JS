@@ -1,8 +1,5 @@
 "use strict";
 
-const utils = require("../untils");
-const config = require("../../config");
-
 const NewNTI_Station_InPut = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
