@@ -36,7 +36,7 @@ const Districts_List = async (req) => {
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
   //const sqlOueries = await utils.loadSqlOueries("TEST_OPS");
-  const addOwner = await pool.request().query(`exec Districts_List`);
+  const addOwner = await pool.request().query(`exec [PTEC_USERSRIGHT].[dbo].Districts_List`);
 
   sql.close()
   return addOwner.recordset;
@@ -47,7 +47,7 @@ const Amphures_List = async (req) => {
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
   //const sqlOueries = await utils.loadSqlOueries("TEST_OPS");
-  const addOwner = await pool.request().query(`exec Amphures_List`);
+  const addOwner = await pool.request().query(`exec [PTEC_USERSRIGHT].[dbo].Amphures_List`);
 
   sql.close()
   return addOwner.recordset;
@@ -58,7 +58,7 @@ const Provinces_List = async (req) => {
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
   //const sqlOueries = await utils.loadSqlOueries("TEST_OPS");
-  const addOwner = await pool.request().query(`exec Provinces_List`);
+  const addOwner = await pool.request().query(`exec [PTEC_USERSRIGHT].[dbo].Provinces_List`);
   sql.close()
   return addOwner.recordset;
 };
