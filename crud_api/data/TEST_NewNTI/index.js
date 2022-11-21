@@ -24,7 +24,8 @@ const NewNTI_Station_InPut = async (req) => {
     .input("District", sql.NVarChar(100), req.District)
     .input("Province", sql.NVarChar(100), req.Province)
     .input("Postcode", sql.NVarChar(100), req.Postcode)
-    .query(`exec NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell,@Owner_Type,@Area_Type,@Tambol,@District,@Province,@Postcode`);
+    .input("OfferType", sql.NVarChar(255), req.OfferType)
+    .query(`exec NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell,@Owner_Type,@Area_Type,@Tambol,@District,@Province,@Postcode,@OfferType`);
 
   return addOwner.recordset;
 };
