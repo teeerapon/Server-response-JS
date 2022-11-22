@@ -20,7 +20,6 @@ const Ropa_addOwner = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  
   const addOwner = await pool
     .request()
     .input("ropaid", sql.BigInt, req.ropaid)
@@ -67,7 +66,7 @@ const Ropa_CollectionSave = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  console.log(req.namecollection);
+  //console.log(req.namecollection);
   
   const addOwner = await pool
     .request()
@@ -83,7 +82,7 @@ const Ropa_removeOwner = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  console.log(req.namecollection);
+  //console.log(req.namecollection);
   
   const addOwner = await pool
     .request()
@@ -100,7 +99,7 @@ const Ropa_removePermissionAccess = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  console.log(req.namecollection);
+  //console.log(req.namecollection);
   const addOwner = await pool
     .request()
     .input("ropaid", sql.Int, req.ropaid)
@@ -116,7 +115,7 @@ const Ropa_removeType = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  console.log(req.namecollection);
+  //console.log(req.namecollection);
   
   const addOwner = await pool
     .request()
@@ -133,7 +132,7 @@ const Ropa_Save = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  console.log(req);
+  //console.log(req);
   const addOwner = await pool
     .request()
     .input("ropaid", sql.BigInt, req.ropaid ?? 0)
@@ -154,7 +153,7 @@ const Ropa_Close_Save = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  console.log(req);
+  //console.log(req);
   
   const addOwner = await pool
     .request()
@@ -169,8 +168,8 @@ const Ropa_TypeSave = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  console.log(`req.typename ${req.typename}`);
-  console.log(`req.user ${req.user}`);
+  //console.log(`req.typename ${req.typename}`);
+  //console.log(`req.user ${req.user}`);
   const addOwner = await pool
     .request()
     .input("typename", sql.NVarChar(255), req.typename)
@@ -185,7 +184,7 @@ const Ropa_UserSave = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  console.log(req);
+  //console.log(req);
   const addOwner = await pool
     .request()
     .input("ropauserid", sql.BigInt, req.ropauserid ?? 0)
