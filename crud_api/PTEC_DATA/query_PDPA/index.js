@@ -11,7 +11,7 @@ const Ropa_addCollection = async (req) => {
     .input("ropauserid", sql.BigInt, req.ropauserid)
     .input("ropacollectionid", sql.BigInt, req.ropacollectionid)
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec [dbo].[Ropa_addCollection] @ropauserid,@ropacollectionid,@user`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_addCollection] @ropauserid,@ropacollectionid,@user`);
   sql.close()
   return addOwner.recordset;
 };
@@ -25,7 +25,7 @@ const Ropa_addOwner = async (req) => {
     .input("ropaid", sql.BigInt, req.ropaid)
     .input("ownercode", sql.VarChar(20), req.ownercode)
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec [dbo].[Ropa_addOwner] @ropaid,@ownercode,@user`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_addOwner] @ropaid,@ownercode,@user`);
 
   sql.close()
   return addOwner.recordset;
@@ -41,7 +41,7 @@ const Ropa_addPermissionAccess = async (req) => {
     .input("ropaid", sql.BigInt, req.ropaid)
     .input("acecode", sql.VarChar(20), req.acecode)
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec [dbo].[Ropa_addPermissionAccess] @ropaid,@acecode,@user`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_addPermissionAccess] @ropaid,@acecode,@user`);
 
   sql.close()
   return addOwner.recordset;
@@ -57,7 +57,7 @@ const Ropa_addType = async (req) => {
     .input("typeid", sql.BigInt, req.typeid ?? 0)
     .input("typename", sql.NVarChar(255), req.typename ?? '')
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec [dbo].[Ropa_addType] @ropaid,@typeid,@typename,@user`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_addType] @ropaid,@typeid,@typename,@user`);
   sql.close()
   return addOwner.recordset;
 };
@@ -72,7 +72,7 @@ const Ropa_CollectionSave = async (req) => {
     .request()
     .input("namecollection", sql.NVarChar(255), req.namecollection)
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec [dbo].[Ropa_CollectionSave] @namecollection,@user`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_CollectionSave] @namecollection,@user`);
 
   sql.close()
   return addOwner.recordset;
@@ -89,7 +89,7 @@ const Ropa_removeOwner = async (req) => {
     .input("ropaid", sql.Int, req.ropaid)
     .input("ropaownerCode", sql.VarChar(10), req.ropaownerCode)
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec [dbo].[Ropa_removeOwner] @ropaid,@ropaownerCode,@user`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_removeOwner] @ropaid,@ropaownerCode,@user`);
 
   sql.close()
   return addOwner.recordset;
@@ -105,7 +105,7 @@ const Ropa_removePermissionAccess = async (req) => {
     .input("ropaid", sql.Int, req.ropaid)
     .input("permissionaccessCode", sql.VarChar(20), req.permissionaccessCode)
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec [dbo].[Ropa_removePermissionAccess] @ropaid,@permissionaccessCode,@user`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_removePermissionAccess] @ropaid,@permissionaccessCode,@user`);
 
   sql.close()
   return addOwner.recordset;
@@ -122,7 +122,7 @@ const Ropa_removeType = async (req) => {
     .input("ropaid", sql.BigInt, req.ropaid)
     .input("ropa_type", sql.NVarChar(200), req.ropa_type)
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec [dbo].[Ropa_removeType] @ropaid,@ropa_type,@user`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_removeType] @ropaid,@ropa_type,@user`);
 
   sql.close()
   return addOwner.recordset;
@@ -143,7 +143,7 @@ const Ropa_Save = async (req) => {
     .input("step", sql.NVarChar(255), req.step)
     .input("lastreview", sql.DateTime, req.lastreview ?? null)
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec [dbo].[Ropa_Save] @ropaid,@depcode,@name,@target,@collectiontype,@step,@lastreview,@user`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_Save] @ropaid,@depcode,@name,@target,@collectiontype,@step,@lastreview,@user`);
 
   sql.close()
   return addOwner.recordset;
@@ -158,7 +158,7 @@ const Ropa_Close_Save = async (req) => {
   const addOwner = await pool
     .request()
     .input("ropaid", sql.BigInt, req.ropaid ?? 0)
-    .query(`exec [dbo].[Ropa_Close_Save] @ropaid`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_Close_Save] @ropaid`);
 
   sql.close()
   return addOwner.recordset;
@@ -174,7 +174,7 @@ const Ropa_TypeSave = async (req) => {
     .request()
     .input("typename", sql.NVarChar(255), req.typename)
     .input("user", sql.VarChar(20), req.user)
-    .query(`exec [dbo].[Ropa_TypeSave] @typename,@user`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_TypeSave] @typename,@user`);
 
   sql.close()
   return addOwner.recordset;
@@ -195,7 +195,7 @@ const Ropa_UserSave = async (req) => {
     .input("remark", sql.NVarChar(255), req.remark)
     .input("user", sql.VarChar(20), req.user)
     .input("active", sql.Bit, parseInt(req.active))
-    .query(`exec [dbo].[Ropa_UserSave] @ropauserid,@ropaid,@name,@consentdate,@collectiondate,@remark,@user,@active`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_UserSave] @ropauserid,@ropaid,@name,@consentdate,@collectiondate,@remark,@user,@active`);
   sql.close()
   return addOwner.recordset;
 };
@@ -204,7 +204,7 @@ const Ropa_List = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
   let pool = await sql.connect(config.PTEC.objcn_pdpa.sql);
-  const addOwner = await pool.request().query(`exec [dbo].[Ropa_List]`);
+  const addOwner = await pool.request().query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_List]`);
   sql.close()
   return addOwner.recordset;
 };
@@ -216,7 +216,7 @@ const Ropa_List_By_ID = async (req) => {
   const addOwner = await pool
     .request()
     .input("RopaType_ID", sql.BigInt, req.RopaType_ID)
-    .query(`exec [dbo].[RopaType_List_By_ID] @RopaType_ID`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[RopaType_List_By_ID] @RopaType_ID`);
 
   sql.close()
   return addOwner.recordset;
@@ -229,7 +229,7 @@ const Ropa_List_User = async (req) => {
   const addOwner = await pool
     .request()
     .input("ropaid", sql.BigInt, req.ropaid)
-    .query(`exec [dbo].[Ropa_List_User] @ropaid`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_List_User] @ropaid`);
 
   sql.close()
   return addOwner.recordset;
@@ -251,7 +251,7 @@ const Ropa_List_Collection = async (req) => {
   const addOwner = await pool
     .request()
     .input("ropauserid", sql.Int, req.ropauserid)
-    .query(`exec [dbo].[Ropa_List_Collection] @ropauserid`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_List_Collection] @ropauserid`);
   sql.close()
   return addOwner.recordset;
 };
@@ -264,7 +264,7 @@ const Ropa_SetActive_User = async (req) => {
     .request()
     .input("ropaid", sql.Int, req.ropaid)
     .input("ropauserid", sql.Int, req.ropauserid)
-    .query(`exec [dbo].[Ropa_SetActive_User] @ropaid, @ropauserid`);
+    .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_SetActive_User] @ropaid, @ropauserid`);
   sql.close()
   return addOwner.recordset;
 };

@@ -7,7 +7,7 @@ const getsUser = async () => {
     let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
     const list = await pool
       .request()
-      .query(`SELECT [UserID],[UserCode] ,[Name] ,[BranchID] ,[DepID] ,[SecID] ,[AreaID] FROM [Users]`);
+      .query(`SELECT [UserID],[UserCode] ,[Name] ,[BranchID] ,[DepID] ,[SecID] ,[AreaID] FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users]`);
     sql.close()
     return list.recordset;
   } catch (error) {
@@ -23,7 +23,7 @@ const getById = async (UserCode) => {
     let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
     const oneUser = await pool.request()
       .input('UserCode', sql.VarChar(10), UserCode)
-      .query(`SELECT [UserID] ,[UserCode] ,[Name] ,[BranchID] ,[DepID] ,[SecID] ,[AreaID] ,[PositionID] ,[Password] ,[Email] ,[Tel] ,[EmpUpper] ,[Actived] ,[ChangePassword] ,[Admin] ,[Vendor_Code] FROM [Users] WHERE [UserCode]=@UserCode`);
+      .query(`SELECT [UserID] ,[UserCode] ,[Name] ,[BranchID] ,[DepID] ,[SecID] ,[AreaID] ,[PositionID] ,[Password] ,[Email] ,[Tel] ,[EmpUpper] ,[Actived] ,[ChangePassword] ,[Admin] ,[Vendor_Code] FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users] WHERE [UserCode]=@UserCode`);
     sql.close()
     return oneUser.recordset;
   } catch (error) {
@@ -40,7 +40,7 @@ const getByEmailAndCode = async (loginuser) => {
     const login = await pool.request()
       .input('UserCode', sql.VarChar(20), loginuser.UserCode)
       .input('Password', sql.VarChar(20), loginuser.Password)
-      .query(`exec User_Login @UserCode,@Password `);
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.User_Login @UserCode,@Password `);
     sql.close()
     return login.recordset;
   } catch (error) {
@@ -57,7 +57,7 @@ const AutoDeapartMent = async (autoDeapartMent) => {
     let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
     const auto_DeapartMent = await pool.request()
       .input('UserCode', sql.VarChar(10), autoDeapartMent.UserCode)
-      .query(`SELECT [DepID] FROM [Users] WHERE [UserCode]=@UserCode`);
+      .query(`SELECT [DepID] FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users] WHERE [UserCode]=@UserCode`);
     sql.close()
     return auto_DeapartMent.recordset;
   } catch (error) {
@@ -73,7 +73,7 @@ const ChackUserWeb = async (UserWeb) => {
     let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
     const auto_DeapartMent = await pool.request()
       .input('usercode', sql.VarChar(10), UserWeb.usercode)
-      .query(`exec Fix_Assets_Control_UserWeb @usercode`);
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.Fix_Assets_Control_UserWeb @usercode`);
     sql.close()
     return auto_DeapartMent.recordset;
   } catch (error) {
@@ -90,7 +90,7 @@ const get_branch_period = async (branch_period) => {
     const auto_DeapartMent = await pool.request()
       .input('userCode', sql.VarChar(10), branch_period.userCode)
       .input('BranchID', sql.Int, branch_period.BranchID)
-      .query(`exec FA_Control_Fetch_Branch_Period @userCode,@BranchID`);
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.FA_Control_Fetch_Branch_Period @userCode,@BranchID`);
     sql.close()
     return auto_DeapartMent.recordset;
   } catch (error) {
