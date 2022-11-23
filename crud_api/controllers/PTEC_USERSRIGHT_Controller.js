@@ -1,6 +1,6 @@
 'use strict';
 
-const userData = require('../data/users');
+const userData = require('../PTEC_DATA/query_ptec_user');
 const TokenManager = require('./token_manager');
 
 const getsUser = async (req, res, next) => {

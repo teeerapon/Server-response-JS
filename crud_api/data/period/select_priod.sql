@@ -1,1 +1,1 @@
-exec [dbo].[select_callPeriod] @usercode
+exec select_callPeriod @usercode

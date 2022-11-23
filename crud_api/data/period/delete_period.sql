@@ -1,1 +1,1 @@
-EXEC [dbo].[FA_Controls_Delete_Period] @periodID,@branchid
+exec FA_Controls_Delete_Period @periodID,@branchid

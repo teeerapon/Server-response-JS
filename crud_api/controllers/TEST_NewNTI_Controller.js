@@ -1,7 +1,7 @@
 'use strict';
 
 const e = require('express');
-const TEST_NewNTI = require('../data/TEST_NewNTI');
+const TEST_NewNTI = require('../PTEC_DATA/query_NewNTI');
 
 const NewNTI_Station_Create = async (req, res, next) => {
     try {

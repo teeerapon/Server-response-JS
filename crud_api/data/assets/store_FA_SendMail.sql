@@ -1,1 +1,1 @@
-exec [dbo].[FA_Controls_NAC_SendMail] @nac_code
+exec FA_Controls_NAC_SendMail @nac_code

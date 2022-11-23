@@ -1,6 +1,6 @@
 "use strict";
 
-const TEST_PDPA = require("../data/TEST_PDPA");
+const TEST_PDPA = require("../PTEC_DATA/query_PDPA");
 const TokenManager = require("./token_manager");
 
 const addCollection = async (req, res, next) => {

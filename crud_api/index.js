@@ -4,9 +4,9 @@ const config = require('./config');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const userRoutes = require('./routes/userRoutes');
-const assetRoutes = require('./routes/assetRotes');
-const periodRoutes = require('./routes/periodRoutes');
+const PTEC_USERSRIGHT_Routes = require('./routes/PTEC_USERSRIGHT_Routes');
+const PTEC_FA_Routes = require('./routes/PTEC_FA_Rotes');
+const PTEC_FA_PERIOD_Routes = require('./routes/PTEC_FA_PERIOD_Routes');
 const TEST_PDPA_Routes = require('./routes/TEST_PDPA_Routes');
 const TEST_NewNTI_Routes = require('./routes/TEST_NewNTI_Routes');
 
@@ -16,9 +16,9 @@ app.use(bodyParser.urlencoded({ extended:  true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use('/api', userRoutes.routes);
-app.use('/api', periodRoutes.routes);
-app.use('/api', assetRoutes.routes);
+app.use('/api', PTEC_USERSRIGHT_Routes.routes);
+app.use('/api', PTEC_FA_Routes.routes);
+app.use('/api', PTEC_FA_PERIOD_Routes.routes);
 app.use('/api', TEST_PDPA_Routes.routes);
 app.use('/api', TEST_NewNTI_Routes.routes);
 

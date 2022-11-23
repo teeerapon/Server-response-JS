@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const assetController= require('../controllers/assetController');
+const assetController= require('../controllers/PTEC_FA_Controller');
 const router = express.Router();
 
 const {getAllasset, assetByCode, addAsset, getCode, assetByUserBranch, getAllasset2, WrongBranch, 

@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const userController= require('../controllers/userController');
+const userController= require('../controllers/PTEC_USERSRIGHT_Controller');
 const router = express.Router();
 
 const {getsUser, getUserCode, login, getsUserForAssetsControl
