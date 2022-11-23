@@ -43,7 +43,7 @@ const getAssetCode = async (Code) => {
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
-    // console.log(sqlOueries.getAssetByCode);
+    // //console.log(sqlOueries.getAssetByCode);
     const oneAsset = await pool.request()
       .input('Code', sql.NVarChar(30), Code)
       .query(sqlOueries.getAssetByCode);
