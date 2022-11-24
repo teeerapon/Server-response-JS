@@ -579,6 +579,21 @@ const FA_Control_Report_All_Counted_by_Description = async (req, res, next) => {
   }
 }
 
+const FA_Control_New_Assets = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const new_data = await query_fa_control.FA_Control_New_Assets(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify({ message: "success", data: new_data }));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   getAllasset,
   assetByCode,
@@ -619,5 +634,6 @@ module.exports = {
   store_FA_control_Create_from_reported,
   store_FA_control_HistorysAssets,
   store_FA_control_fetch_assets,
-  FA_Control_Report_All_Counted_by_Description
+  FA_Control_Report_All_Counted_by_Description,
+  FA_Control_New_Assets
 }

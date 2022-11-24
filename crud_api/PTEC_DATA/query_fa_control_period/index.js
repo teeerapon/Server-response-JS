@@ -8,10 +8,10 @@ const period_login = async (dateLoginRequst) => {
     const dateLogin = await pool.request()
       .input('BranchID', sql.Int, dateLoginRequst.BranchID)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_Time_Login @BranchID`);
-    sql.close()
+    //sql.close()
     return dateLogin.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -24,10 +24,10 @@ const store_check_periodForUpdate = async (check_periodForUpdate) => {
     const dateLogin = await pool.request()
       .input('PeriodID', sql.BigInt, check_periodForUpdate.PeriodID)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_check_periodForUpdate @PeriodID`);
-    sql.close()
+    //sql.close()
     return dateLogin.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -40,10 +40,10 @@ const period_check_create = async (dateLoginRequst) => {
     const dateLogin = await pool.request()
       .input('BranchID', sql.Int, dateLoginRequst.BranchID)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_Time_Login @BranchID`);
-    sql.close()
+    //sql.close()
     return dateLogin.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -56,10 +56,10 @@ const getsperiod_round = async (selectQuery) => {
     const allround_period = await pool.request()
       .input('BranchID', sql.Int, selectQuery.BranchID)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_all_rounds @BranchID`);
-    sql.close()
+    //sql.close()
     return allround_period.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -72,10 +72,10 @@ const fa_permission_branch = async (permission_branch) => {
     const fa_permission_branch = await pool.request()
       .input('userCode', sql.VarChar(10), permission_branch.userCode)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Permission_Branch @userCode`);
-    sql.close()
+    //sql.close()
     return fa_permission_branch.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -92,10 +92,10 @@ const craete_period = async (create_period) => {
       .input('Description', sql.NVarChar(100), create_period.Description)
       .input('usercode', sql.VarChar(10), create_period.usercode)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Create_Assets_Counted_After_Period @begindate ,@enddate ,@branchid ,@Description ,@usercode`);
-    sql.close()
+    //sql.close()
     return fa_create_period.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -109,10 +109,10 @@ const delete_period = async (fa_delete_period) => {
       .input('PeriodID', sql.BigInt, fa_delete_period.PeriodID)
       .input('BranchID', sql.Int, fa_delete_period.BranchID)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Controls_Delete_Period @periodID,@branchid`);
-    sql.close()
+    //sql.close()
     return fa_delete_period_data.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -130,10 +130,10 @@ const update_period = async (fa_update_period) => {
       .input('Description', sql.NVarChar(100), fa_update_period.Description)
       .input('usercode', sql.VarChar(10), fa_update_period.usercode)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_update_period @BranchID, @Description, @usercode, @PeriodID`);
-    sql.close()
+    //sql.close()
     return fa_update_period_data.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -146,10 +146,10 @@ const check_assets_in_period = async (check_assets_in_period) => {
     const check_assets_in_period_data = await pool.request()
       .input('PeriodID', sql.BigInt, check_assets_in_period.PeriodID)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_check_assets_in_period @PeriodID`);
-    sql.close()
+    //sql.close()
     return check_assets_in_period_data.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -162,10 +162,10 @@ const check_BranchID = async (check_BranchID_in_period) => {
     const check_Branch_data = await pool.request()
       .input('BranchID', sql.BigInt, check_BranchID_in_period.BranchID)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_check_branch @BranchID`);
-    sql.close()
+    //sql.close()
     return check_Branch_data.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -178,10 +178,10 @@ const select_priod = async (call_period) => {
     const check_Branch_data = await pool.request()
       .input('usercode', sql.VarChar(10), call_period.usercode)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.select_callPeriod @usercode`);
-    sql.close()
+    //sql.close()
     return check_Branch_data.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -194,10 +194,10 @@ const round_website = async (selectQuery) => {
     const allround_period = await pool.request()
       .input('BranchID', sql.Int, selectQuery.BranchID)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Permission_Website @BranchID`);
-    sql.close()
+    //sql.close()
     return allround_period.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }
@@ -209,10 +209,10 @@ const FA_Period_GroupBy = async (selectQuery) => {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const allround_period = await pool.request()
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_GroupBy`);
-    sql.close()
+    //sql.close()
     return allround_period.recordset;
   } catch (error) {
-    sql.close()
+    //sql.close()
     return error.message;
   }
 }

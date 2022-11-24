@@ -13,7 +13,7 @@ const {getAllasset, assetByCode, addAsset, getCode, assetByUserBranch, getAllass
     store_FA_control_seals_update, store_FA_control_updateDTL_seals, stroe_FA_control_Path,qureyNAC_path,
     store_FA_control_CheckAssetCode_Process,stroe_FA_control_DTL_ConfirmSuccess, store_FA_control_upadate_table
     ,store_FA_SendMail, store_FA_control_Create_from_reported, store_FA_control_HistorysAssets,
-    store_FA_control_fetch_assets, FA_Control_Report_All_Counted_by_Description} = assetController;
+    store_FA_control_fetch_assets, FA_Control_Report_All_Counted_by_Description, FA_Control_New_Assets} = assetController;
 
 router.post('/ReportassetsAll', getAllasset);
 router.post('/getAsset', assetByCode);
@@ -55,6 +55,7 @@ router.post('/store_FA_control_Create_from_reported', store_FA_control_Create_fr
 router.post('/store_FA_control_HistorysAssets', store_FA_control_HistorysAssets);
 router.post('/store_FA_control_fetch_assets', store_FA_control_fetch_assets);
 router.post('/FA_Control_Report_All_Counted_by_Description', FA_Control_Report_All_Counted_by_Description);
+router.post('/FA_Control_New_Assets', FA_Control_New_Assets);
 
 
 module.exports = {
