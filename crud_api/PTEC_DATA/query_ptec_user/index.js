@@ -8,10 +8,10 @@ const getsUser = async () => {
     const list = await pool
       .request()
       .query(`SELECT [UserID],[UserCode] ,[Name] ,[BranchID] ,[DepID] ,[SecID] ,[AreaID] FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users]`);
-    
+    //sql.close()()
     return list.recordset;
   } catch (error) {
-    
+    //sql.close()()
     return error.message;
   }
 }
@@ -24,10 +24,10 @@ const getById = async (UserCode) => {
     const oneUser = await pool.request()
       .input('UserCode', sql.VarChar(10), UserCode)
       .query(`SELECT [UserID] ,[UserCode] ,[Name] ,[BranchID] ,[DepID] ,[SecID] ,[AreaID] ,[PositionID] ,[Password] ,[Email] ,[Tel] ,[EmpUpper] ,[Actived] ,[ChangePassword] ,[Admin] ,[Vendor_Code] FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users] WHERE [UserCode]=@UserCode`);
-    
+    //sql.close()()
     return oneUser.recordset;
   } catch (error) {
-    
+    //sql.close()()
     return error.message;
   }
 }
@@ -41,10 +41,10 @@ const getByEmailAndCode = async (loginuser) => {
       .input('UserCode', sql.VarChar(20), loginuser.UserCode)
       .input('Password', sql.VarChar(20), loginuser.Password)
       .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.User_Login @UserCode,@Password `);
-    
+    //sql.close()()
     return login.recordset;
   } catch (error) {
-    
+    //sql.close()()
     return error.message;
   }
 }
@@ -58,10 +58,10 @@ const AutoDeapartMent = async (autoDeapartMent) => {
     const auto_DeapartMent = await pool.request()
       .input('UserCode', sql.VarChar(10), autoDeapartMent.UserCode)
       .query(`SELECT [DepID] FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users] WHERE [UserCode]=@UserCode`);
-    
+    //sql.close()()
     return auto_DeapartMent.recordset;
   } catch (error) {
-    
+    //sql.close()()
     return error.message;
   }
 }
@@ -74,10 +74,10 @@ const ChackUserWeb = async (UserWeb) => {
     const auto_DeapartMent = await pool.request()
       .input('usercode', sql.VarChar(10), UserWeb.usercode)
       .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.Fix_Assets_Control_UserWeb @usercode`);
-    
+    //sql.close()()
     return auto_DeapartMent.recordset;
   } catch (error) {
-    
+    //sql.close()()
     return error.message;
   }
 }
@@ -91,10 +91,10 @@ const get_branch_period = async (branch_period) => {
       .input('userCode', sql.VarChar(10), branch_period.userCode)
       .input('BranchID', sql.Int, branch_period.BranchID)
       .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.FA_Control_Fetch_Branch_Period @userCode,@BranchID`);
-    
+    //sql.close()()
     return auto_DeapartMent.recordset;
   } catch (error) {
-    
+    //sql.close()()
     return error.message;
   }
 }
