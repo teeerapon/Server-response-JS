@@ -11,10 +11,10 @@ const getsUser = async () => {
     let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
     const sqlOueries = await utils.loadSqlOueries('users');
     const list = await pool.request().query(sqlOueries.userslist);
-    sql.close()
+    
     return list.recordset;
   } catch (error) {
-    sql.close()
+    
     return error.message;
   }
 }
@@ -28,10 +28,10 @@ const getById = async (UserCode) => {
     const oneUser = await pool.request()
       .input('UserCode', sql.VarChar(10), UserCode)
       .query(sqlOueries.usersbylD);
-    sql.close()
+    
     return oneUser.recordset;
   } catch (error) {
-    sql.close()
+    
     return error.message;
   }
 }
@@ -46,10 +46,10 @@ const getByEmailAndCode = async (loginuser) => {
       .input('UserCode', sql.VarChar(20), loginuser.UserCode)
       .input('Password', sql.VarChar(20), loginuser.Password)
       .query(sqlOueries.User_Login);
-    sql.close()
+    
     return login.recordset;
   } catch (error) {
-    sql.close()
+    
     return error.message;
   }
 }
@@ -65,10 +65,10 @@ const AutoDeapartMent = async (autoDeapartMent) => {
     const auto_DeapartMent = await pool.request()
       .input('UserCode', sql.VarChar(10), autoDeapartMent.UserCode)
       .query(sqlOueries.FA_Control_select_value);
-    sql.close()
+    
     return auto_DeapartMent.recordset;
   } catch (error) {
-    sql.close()
+    
     return error.message;
   }
 }
@@ -82,10 +82,10 @@ const ChackUserWeb = async (UserWeb) => {
     const auto_DeapartMent = await pool.request()
       .input('usercode', sql.VarChar(10), UserWeb.usercode)
       .query(sqlOueries.chackUserWeb);
-    sql.close()
+    
     return auto_DeapartMent.recordset;
   } catch (error) {
-    sql.close()
+    
     return error.message;
   }
 }
@@ -100,10 +100,10 @@ const get_branch_period = async (branch_period) => {
       .input('userCode', sql.VarChar(10), branch_period.userCode)
       .input('BranchID', sql.Int, branch_period.BranchID)
       .query(sqlOueries.get_branch_period);
-    sql.close()
+    
     return auto_DeapartMent.recordset;
   } catch (error) {
-    sql.close()
+    
     return error.message;
   }
 }
