@@ -46,19 +46,13 @@ const permission_branch = async (req, res, next) => {
 const craete_period = async (req, res, next) => {
   try {
     const craete_period = req.body;
-    const period_loginDateTrue = await query_fa_control_period.period_login(craete_period);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     if (craete_period.BranchID == 0) {
       const craete_period_branch = await query_fa_control_period.craete_period(craete_period);
       res.status(200).send(JSON.stringify({ message: "success", data: craete_period_branch }));
     } else {
-      const check_BranchID = await query_fa_control_period.check_BranchID({ BranchID: craete_period.BranchID })
-      if (check_BranchID.length != 0) {
-        const craete_period_branch = await query_fa_control_period.craete_period(craete_period);
-        res.status(200).send(JSON.stringify({ message: "success", data: craete_period_branch }));
-      } else {
-        res.status(400).send(JSON.stringify({ message: "unsuccess", data: "ข้อมูลสาขาที่บันทึกไม่ถูกต้อง" }));
-      }
+      const craete_period_branch = await query_fa_control_period.craete_period(craete_period);
+      res.status(200).send(JSON.stringify({ message: "success", data: craete_period_branch }));
     }
   } catch (error) {
     res.status(400).send(error.message)
