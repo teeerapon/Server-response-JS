@@ -279,6 +279,21 @@ const store_FA_control_select_dtl = async (req, res, next) => {
   }
 }
 
+const store_FA_control_select_dtl_draff = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const FA_control_select_dtl = await query_fa_control.store_FA_control_select_dtl_draff(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (FA_control_select_dtl.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify({ message: "success", data: FA_control_select_dtl }));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 const store_FA_control_select_headers = async (req, res, next) => {
   try {
     const data = req.body;
@@ -343,6 +358,7 @@ const store_FA_control_updateStatus = async (req, res, next) => {
   try {
     const data = req.body;
     const FA_control_updateStatus = await query_fa_control.store_FA_control_updateStatus(data);
+    console.log(FA_control_updateStatus);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     if (FA_control_updateStatus.length == 0) {
       res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
@@ -613,6 +629,7 @@ module.exports = {
   store_FA_control_creat_Detail,
   store_FA_control_select_NAC,
   store_FA_control_select_dtl,
+  store_FA_control_select_dtl_draff,
   store_FA_control_select_headers,
   store_FA_control_update_DTLandHeaders,
   store_FA_control_update_DTL,

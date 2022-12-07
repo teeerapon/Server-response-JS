@@ -8,7 +8,7 @@ const {getAllasset, assetByCode, addAsset, getCode, assetByUserBranch, getAllass
     updateReference, lostAssets, scan_check_result, AssetsAll_Control, SelectDTL_Control,
     store_FA_control_create_doc, store_FA_control_creat_Detail, store_FA_control_select_NAC,store_FA_control_select_dtl,
     store_FA_control_select_headers, store_FA_control_update_DTLandHeaders, store_FA_control_update_DTL, 
-    store_FA_control_execDocID, store_FA_control_select_NAC_approve, store_FA_control_updateStatus,
+    store_FA_control_execDocID, store_FA_control_select_NAC_approve, store_FA_control_updateStatus,store_FA_control_select_dtl_draff,
     store_FA_control_drop_NAC,store_FA_control_comment, qureyNAC_comment, store_FA_control_GuaranteeNAC,
     store_FA_control_seals_update, store_FA_control_updateDTL_seals, stroe_FA_control_Path,qureyNAC_path,
     store_FA_control_CheckAssetCode_Process,stroe_FA_control_DTL_ConfirmSuccess, store_FA_control_upadate_table
@@ -33,6 +33,7 @@ router.post('/store_FA_control_create_doc', store_FA_control_create_doc);
 router.post('/store_FA_control_creat_Detail', store_FA_control_creat_Detail);
 router.post('/store_FA_control_select_NAC', store_FA_control_select_NAC);
 router.post('/store_FA_control_select_dtl', store_FA_control_select_dtl);
+router.post('/store_FA_control_select_dtl_draff', store_FA_control_select_dtl_draff);
 router.post('/store_FA_control_select_headers', store_FA_control_select_headers);
 router.post('/store_FA_control_update_DTLandHeaders', store_FA_control_update_DTLandHeaders);
 router.post('/store_FA_control_update_DTL', store_FA_control_update_DTL);

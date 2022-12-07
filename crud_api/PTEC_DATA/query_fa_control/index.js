@@ -367,6 +367,22 @@ const store_FA_control_select_dtl = async (FA_control_select_dtl) => {
   }
 }
 
+const store_FA_control_select_dtl_draff = async (FA_control_select_dtl) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const control_select_dtl = await pool.request()
+      .input('nac_code', sql.NVarChar(20), FA_control_select_dtl.nac_code)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_select_dtl_draff @nac_code`);
+    //sql.close()
+    return control_select_dtl.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 const store_FA_control_select_headers = async (FA_control_select_headers) => {
   const sql = require("mssql");
   const config = require('../../config');
@@ -811,6 +827,7 @@ module.exports = {
   store_FA_control_creat_Detail,
   store_FA_control_select_NAC,
   store_FA_control_select_dtl,
+  store_FA_control_select_dtl_draff,
   store_FA_control_select_headers,
   store_FA_control_update_DTLandHeaders,
   store_FA_control_update_DTL,
