@@ -207,7 +207,8 @@ const updateReference = async (referenceData) => {
       .input('Code', sql.NVarChar(30), referenceData.Code)
       .input('RoundID', sql.BigInt, referenceData.RoundID)
       .input('UserID', sql.BigInt, referenceData.UserID)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Mobile_update_reference @Reference, @UserID, @Code, @RoundID`);
+      .input('choice', sql.BigInt, referenceData.choice ?? 0)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Mobile_update_reference @Reference, @UserID, @Code, @RoundID, @choice`);
     //sql.close()
     return update.recordset;
   } catch (error) {
