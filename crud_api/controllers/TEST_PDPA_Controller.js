@@ -4,18 +4,18 @@ const TEST_PDPA = require("../PTEC_DATA/query_PDPA");
 const TokenManager = require("./token_manager");
 
 const addCollection = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
     const created = await TEST_PDPA.Ropa_addCollection(data);
-    //console.log(created);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    //console.log(resultData);
-    //console.log(`length ${resultData.length}`);
-    //console.log(`aaaa ${resultData.data}`);
-    //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -23,18 +23,18 @@ const addCollection = async (req, res, next) => {
 };
 
 const addOwner = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
     const created = await TEST_PDPA.Ropa_addOwner(data);
-    //console.log(created);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    //console.log(resultData);
-    //console.log(`length ${resultData.length}`);
-    //console.log(`aaaa ${resultData.data}`);
-    //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -42,18 +42,18 @@ const addOwner = async (req, res, next) => {
 };
 
 const addPermissionAccess = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
     const created = await TEST_PDPA.Ropa_addPermissionAccess(data);
-    //console.log(created);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    //console.log(resultData);
-    //console.log(`length ${resultData.length}`);
-    //console.log(`aaaa ${resultData.data}`);
-    //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -61,18 +61,18 @@ const addPermissionAccess = async (req, res, next) => {
 };
 
 const addType = async (req, res, next) => {
-  //console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
     const created = await TEST_PDPA.Ropa_addType(data);
-    //console.log(created);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    //console.log(resultData);
-    //console.log(`length ${resultData.length}`);
-    //console.log(`aaaa ${resultData.data}`);
-    //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -80,19 +80,19 @@ const addType = async (req, res, next) => {
 };
 
 const collectionSave = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
     const created = await TEST_PDPA.Ropa_CollectionSave(data);
-    //console.log(data);
-    //console.log(created);
+    // console.log(data);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    //console.log(resultData);
-    //console.log(`length ${resultData.length}`);
-    //console.log(`aaaa ${resultData.data}`);
-    //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -100,19 +100,19 @@ const collectionSave = async (req, res, next) => {
 };
 
 const removeOwner = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
     const created = await TEST_PDPA.Ropa_removeOwner(data);
-    //console.log(data);
-    //console.log(created);
+    // console.log(data);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    //console.log(resultData);
-    //console.log(`length ${resultData.length}`);
-    //console.log(`aaaa ${resultData.data}`);
-    //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -120,19 +120,19 @@ const removeOwner = async (req, res, next) => {
 };
 
 const removePermissionAccess = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
     const created = await TEST_PDPA.Ropa_removePermissionAccess(data);
-    //console.log(data);
-    //console.log(created);
+    // console.log(data);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    //console.log(resultData);
-    //console.log(`length ${resultData.length}`);
-    //console.log(`aaaa ${resultData.data}`);
-    //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -140,19 +140,19 @@ const removePermissionAccess = async (req, res, next) => {
 };
 
 const removeType = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
     const created = await TEST_PDPA.Ropa_removeType(data);
-    //console.log(data);
-    //console.log(created);
+    // console.log(data);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    //console.log(resultData);
-    //console.log(`length ${resultData.length}`);
-    //console.log(`aaaa ${resultData.data}`);
-    //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -160,19 +160,19 @@ const removeType = async (req, res, next) => {
 };
 
 const RopaSave = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
-    //console.log(data);
+    // console.log(data);
     const created = await TEST_PDPA.Ropa_Save(data);
-    //console.log(created);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    // //console.log(resultData);
-    // //console.log(`length ${resultData.length}`);
-    // //console.log(`aaaa ${resultData.data}`);
-    // //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -180,19 +180,19 @@ const RopaSave = async (req, res, next) => {
 };
 
 const Ropa_Close_Save = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
-    //console.log(data);
+    // console.log(data);
     const created = await TEST_PDPA.Ropa_Close_Save(data);
-    //console.log(created);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    // //console.log(resultData);
-    // //console.log(`length ${resultData.length}`);
-    // //console.log(`aaaa ${resultData.data}`);
-    // //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -200,19 +200,19 @@ const Ropa_Close_Save = async (req, res, next) => {
 };
 
 const TypeSave = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
     const created = await TEST_PDPA.Ropa_TypeSave(data);
-    //console.log(data);
-    //console.log(created);
+    // console.log(data);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    //console.log(resultData);
-    //console.log(`length ${resultData.length}`);
-    //console.log(`aaaa ${resultData.data}`);
-    //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -220,19 +220,19 @@ const TypeSave = async (req, res, next) => {
 };
 
 const UserSave = async (req, res, next) => {
-  ////console.log(req.body);
+  // console.log(req.body);
   try {
     const data = req.body;
     const created = await TEST_PDPA.Ropa_UserSave(data);
-    //console.log(data);
-    //console.log(created);
+    // console.log(data);
+    // console.log(created);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     const resultData = JSON.stringify({ data: created });
-    //console.log(resultData);
-    //console.log(`length ${resultData.length}`);
-    //console.log(`aaaa ${resultData.data}`);
-    //console.log(`ssss ${resultData.ropaownerid}`);
+    // console.log(resultData);
+    // console.log(`length ${resultData.length}`);
+    // console.log(`aaaa ${resultData.data}`);
+    // console.log(`ssss ${resultData.ropaownerid}`);
     res.status(200).send(created);
   } catch (error) {
     res.status(400).send(error.message);
@@ -251,11 +251,11 @@ const Ropa_List = async (req, res, next) => {
 const Ropa_List_By_ID = async (req, res, next) => {
   try {
     const data = req.body;
-    //console.log(data);
+    // console.log(data);
     const ropa_List_By_ID = await TEST_PDPA.Ropa_List_By_ID(data);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     const resultData = JSON.stringify({ data: ropa_List_By_ID });
-    //console.log(resultData);
+    // console.log(resultData);
     res.status(200).send(resultData);
   } catch (error) {
     res.status(400).send(error.message);
