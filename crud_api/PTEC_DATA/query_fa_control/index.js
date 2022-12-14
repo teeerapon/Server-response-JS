@@ -39,7 +39,6 @@ const getAssetCode = async (Code) => {
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
-    // console.log(sqlOueries.getAssetByCode);
     const oneAsset = await pool.request()
       .input('Code', sql.NVarChar(30), Code)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Mobile_getAssetByCode @Code ,@RoundID`);

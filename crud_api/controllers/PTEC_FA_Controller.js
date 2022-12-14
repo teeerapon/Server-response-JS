@@ -364,7 +364,6 @@ const store_FA_control_updateStatus = async (req, res, next) => {
   try {
     const data = req.body;
     const FA_control_updateStatus = await query_fa_control.store_FA_control_updateStatus(data);
-    console.log(FA_control_updateStatus);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     if (FA_control_updateStatus.length == 0) {
       res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
