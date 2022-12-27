@@ -55,7 +55,8 @@ const assetByCode = async (req, res, next) => {
     } else {
       const assetsDataScan = await query_fa_control.getAssetByCode(assetByCode);
       if (assetsDataScan.length != 0) {
-        const accessToken = TokenManager.getGenarateToken({ "Code": assetsData.Code });
+        // const accessToken = TokenManager.getGenarateToken({ "Code": assetsData.Code });
+        const accessToken = Math.random().toString(36).substr(2)
         res.status(200).send(JSON.stringify({ message: "success", data: assetsData, token: accessToken, date: today.toLocaleString("sv-SE") }));
       }
       else {
@@ -616,6 +617,36 @@ const FA_Control_New_Assets = async (req, res, next) => {
   }
 }
 
+const FA_Control_New_Assets_Xlsx = async (req, res, next) => {
+  try {
+    const data = req.body
+    const new_data = await query_fa_control.FA_Control_New_Assets_Xlsx(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const FA_Control_import_dataXLSX_toAssets = async (req, res, next) => {
+  try {
+    const data = req.body
+    const new_data = await query_fa_control.FA_Control_import_dataXLSX_toAssets(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   getAllasset,
   assetByCode,
@@ -658,5 +689,7 @@ module.exports = {
   store_FA_control_HistorysAssets,
   store_FA_control_fetch_assets,
   FA_Control_Report_All_Counted_by_Description,
-  FA_Control_New_Assets
+  FA_Control_New_Assets,
+  FA_Control_New_Assets_Xlsx,
+  FA_Control_import_dataXLSX_toAssets
 }

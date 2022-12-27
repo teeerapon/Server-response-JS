@@ -542,10 +542,10 @@ const store_FA_control_updateDTL_seals = async (FA_control_updateDTL_seals) => {
       .input('nac_code', sql.VarChar(20), FA_control_updateDTL_seals.nac_code)
       .input('nac_status', sql.Int, FA_control_updateDTL_seals.nac_status)
       .input('nac_type', sql.Int, FA_control_updateDTL_seals.nac_type)
-      .input('nacdtl_bookV', sql.Float, FA_control_updateDTL_seals.nacdtl_bookV)
+      .input('nacdtl_bookV', sql.Float, FA_control_updateDTL_seals.nacdtl_bookV ?? 0)
       .input('nacdtl_PriceSeals', sql.Float, FA_control_updateDTL_seals.nacdtl_PriceSeals)
       .input('nacdtl_profit', sql.Float, FA_control_updateDTL_seals.nacdtl_profit)
-      .input('asset_id', sql.Int, FA_control_updateDTL_seals.asset_id)
+      .input('asset_id', sql.Int, parseFloat(FA_control_updateDTL_seals.asset_id))
       .input('nacdtl_assetsCode', sql.VarChar(20), FA_control_updateDTL_seals.nacdtl_assetsCode)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_UpdateDTL_Seals @usercode, @nac_code, @nac_status, @nac_type, @nacdtl_bookV, @nacdtl_PriceSeals, @nacdtl_profit, @asset_id, @nacdtl_assetsCode`);
     //sql.close()
@@ -805,6 +805,50 @@ const FA_Control_New_Assets = async (req) => {
   }
 }
 
+const FA_Control_New_Assets_Xlsx = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .input('Code', sql.NVarChar, req.Code ?? null)
+      .input('Name', sql.NVarChar, req.Name ?? null)
+      .input('BranchID', sql.NVarChar, req.BranchID ?? null)
+      .input('Price', sql.NVarChar, req.Price ?? null)
+      .input('OwnerCode', sql.NVarChar, req.OwnerCode ?? null)
+      .input('SerialNo', sql.NVarChar, req.SerialNo ?? null)
+      .input('CreateDate', sql.NVarChar, req.CreateDate ?? null)
+      .input('CreateBy', sql.NVarChar, req.CreateBy ?? null)
+      .input('Position', sql.NVarChar, req.Position ?? null)
+      .input('Details', sql.NVarChar, req.Details ?? null)
+      .input('key', sql.NVarChar, req.keyID ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @Code, @Name, @BranchID, @Price, @OwnerCode, @SerialNo, @CreateDate, @CreateBy, @Position, @Details, @key`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
+const FA_Control_import_dataXLSX_toAssets = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .input('count', sql.Int, req.count ?? null)
+      .input('keyID', sql.NVarChar, req.keyID ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_import_dataXLSX_toAssets] @count, @keyID`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
+
 module.exports = {
 
   //Mobile or Some Control
@@ -851,5 +895,7 @@ module.exports = {
   store_FA_control_HistorysAssets,
   store_FA_control_fetch_assets,
   FA_Control_Report_All_Counted_by_Description,
-  FA_Control_New_Assets
+  FA_Control_New_Assets,
+  FA_Control_New_Assets_Xlsx,
+  FA_Control_import_dataXLSX_toAssets
 }

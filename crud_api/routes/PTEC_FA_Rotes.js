@@ -1,19 +1,20 @@
 'use strict';
 
 const express = require('express');
-const assetController= require('../controllers/PTEC_FA_Controller');
+const assetController = require('../controllers/PTEC_FA_Controller');
 const router = express.Router();
 
-const {getAllasset, assetByCode, addAsset, getCode, assetByUserBranch, getAllasset2, WrongBranch, 
+const { getAllasset, assetByCode, addAsset, getCode, assetByUserBranch, getAllasset2, WrongBranch,
     updateReference, lostAssets, scan_check_result, AssetsAll_Control, SelectDTL_Control,
-    store_FA_control_create_doc, store_FA_control_creat_Detail, store_FA_control_select_NAC,store_FA_control_select_dtl,
-    store_FA_control_select_headers, store_FA_control_update_DTLandHeaders, store_FA_control_update_DTL, 
-    store_FA_control_execDocID, store_FA_control_select_NAC_approve, store_FA_control_updateStatus,store_FA_control_select_dtl_draff,
-    store_FA_control_drop_NAC,store_FA_control_comment, qureyNAC_comment, store_FA_control_GuaranteeNAC,
-    store_FA_control_seals_update, store_FA_control_updateDTL_seals, stroe_FA_control_Path,qureyNAC_path,
-    store_FA_control_CheckAssetCode_Process,stroe_FA_control_DTL_ConfirmSuccess, store_FA_control_upadate_table
-    ,store_FA_SendMail, store_FA_control_Create_from_reported, store_FA_control_HistorysAssets,
-    store_FA_control_fetch_assets, FA_Control_Report_All_Counted_by_Description, FA_Control_New_Assets} = assetController;
+    store_FA_control_create_doc, store_FA_control_creat_Detail, store_FA_control_select_NAC, store_FA_control_select_dtl,
+    store_FA_control_select_headers, store_FA_control_update_DTLandHeaders, store_FA_control_update_DTL,
+    store_FA_control_execDocID, store_FA_control_select_NAC_approve, store_FA_control_updateStatus, store_FA_control_select_dtl_draff,
+    store_FA_control_drop_NAC, store_FA_control_comment, qureyNAC_comment, store_FA_control_GuaranteeNAC,
+    store_FA_control_seals_update, store_FA_control_updateDTL_seals, stroe_FA_control_Path, qureyNAC_path,
+    store_FA_control_CheckAssetCode_Process, stroe_FA_control_DTL_ConfirmSuccess, store_FA_control_upadate_table
+    , store_FA_SendMail, store_FA_control_Create_from_reported, store_FA_control_HistorysAssets,
+    store_FA_control_fetch_assets, FA_Control_Report_All_Counted_by_Description, FA_Control_New_Assets, FA_Control_New_Assets_Xlsx
+    , FA_Control_import_dataXLSX_toAssets } = assetController;
 
 router.post('/ReportassetsAll', getAllasset);
 router.post('/getAsset', assetByCode);
@@ -57,8 +58,10 @@ router.post('/store_FA_control_HistorysAssets', store_FA_control_HistorysAssets)
 router.post('/store_FA_control_fetch_assets', store_FA_control_fetch_assets);
 router.post('/FA_Control_Report_All_Counted_by_Description', FA_Control_Report_All_Counted_by_Description);
 router.post('/FA_Control_New_Assets', FA_Control_New_Assets);
+router.post('/FA_Control_New_Assets_Xlsx', FA_Control_New_Assets_Xlsx);
+router.post('/FA_Control_import_dataXLSX_toAssets', FA_Control_import_dataXLSX_toAssets);
 
 
 module.exports = {
-    routes : router
+    routes: router
 }
