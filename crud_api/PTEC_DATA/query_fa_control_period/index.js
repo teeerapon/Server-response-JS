@@ -129,7 +129,7 @@ const update_period = async (fa_update_period) => {
       .input('BranchID', sql.Int, fa_update_period.BranchID)
       .input('Description', sql.NVarChar(100), fa_update_period.Description)
       .input('usercode', sql.VarChar(10), fa_update_period.usercode)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_update_period @BranchID, @Description, @usercode, @PeriodID`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_update_period @BranchID, @BeginDate, @EndDate, @Description, @usercode, @PeriodID`);
     //sql.close()
     return fa_update_period_data.recordset;
   } catch (error) {
