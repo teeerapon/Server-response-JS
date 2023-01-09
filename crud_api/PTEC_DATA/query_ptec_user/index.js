@@ -99,11 +99,29 @@ const get_branch_period = async (branch_period) => {
   }
 }
 
+const select_Permission_Menu_NAC = async (res) => {
+  const config = require('../../config');
+  const sql = require('mssql');
+  try {
+    let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
+    const auto_DeapartMent = await pool.request()
+      .input('Permission_TypeID', sql.Int, res.Permission_TypeID)
+      .input('userID', sql.Int, res.userID)
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.Select_Permission_Menu_NAC @Permission_TypeID,@userID`);
+    //sql.close()
+    return auto_DeapartMent.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
   getsUser,
   getById,
   getByEmailAndCode,
   AutoDeapartMent,
   ChackUserWeb,
-  get_branch_period
+  get_branch_period,
+  select_Permission_Menu_NAC
 }
