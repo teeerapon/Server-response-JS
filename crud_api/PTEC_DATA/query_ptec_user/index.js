@@ -57,7 +57,13 @@ const AutoDeapartMent = async (autoDeapartMent) => {
     let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
     const auto_DeapartMent = await pool.request()
       .input('UserCode', sql.VarChar(10), autoDeapartMent.UserCode)
-      .query(`SELECT [DepID] FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users] WHERE [UserCode]=@UserCode`);
+      .query(`SELECT U.[DepID]
+                    ,D.[DepCode]
+                    ,U.[BranchID]
+      FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users] U 
+      LEFT JOIN ${config.PTEC.objcn_usersright.sql.database}.dbo.[Department] D On D.DepID=U.DepID
+      WHERE U.[UserCode]=@UserCode
+      `);
     //sql.close()
     return auto_DeapartMent.recordset;
   } catch (error) {
