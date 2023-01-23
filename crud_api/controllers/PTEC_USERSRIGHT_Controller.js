@@ -106,11 +106,34 @@ const select_Permission_Menu_NAC = async (req, res, next) => {
     const data = req.body;
     const permission_Menu_NAC = await userData.select_Permission_Menu_NAC(data);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(JSON.stringify({ message: "success", data: permission_Menu_NAC }));
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const Permission_Menu_NAC = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const permission_Menu_NAC = await userData.Permission_Menu_NAC(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
     if (permission_Menu_NAC.length == 0) {
       res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
     } else {
       res.status(200).send(JSON.stringify({ message: "success", data: permission_Menu_NAC }));
     }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const Fix_Assets_Control_UPDATE_Permission = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const permission_Menu_NAC = await userData.Fix_Assets_Control_UPDATE_Permission(data);
+    console.log(permission_Menu_NAC);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(JSON.stringify({ message: "success", data: permission_Menu_NAC }));
   } catch (error) {
     res.status(201).send(error.message);
   }
@@ -124,5 +147,7 @@ module.exports = {
   AutoDeapartMent,
   ChackUserWeb,
   get_branch_period,
-  select_Permission_Menu_NAC
+  select_Permission_Menu_NAC,
+  Permission_Menu_NAC,
+  Fix_Assets_Control_UPDATE_Permission
 }

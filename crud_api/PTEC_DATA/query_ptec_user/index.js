@@ -7,7 +7,7 @@ const getsUser = async () => {
     let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
     const list = await pool
       .request()
-      .query(`SELECT [UserID],[UserCode] ,[Name] ,[BranchID] ,[DepID] ,[SecID] ,[AreaID] FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users]`);
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.[Fix_Assets_Control_Fetching_Users]`);
     //sql.close()
     return list.recordset;
   } catch (error) {
@@ -23,7 +23,7 @@ const getById = async (UserCode) => {
     let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
     const oneUser = await pool.request()
       .input('UserCode', sql.VarChar(10), UserCode)
-      .query(`SELECT [UserID] ,[UserCode] ,[Name] ,[BranchID] ,[DepID] ,[SecID] ,[AreaID] ,[PositionID] ,[Password] ,[Email] ,[Tel] ,[EmpUpper] ,[Actived] ,[ChangePassword] ,[Admin] ,[Vendor_Code] FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users] WHERE [UserCode]=@UserCode`);
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.[Fix_Assets_Control_Fetching_Users_ByUserCode] @UserCode`);
     //sql.close()
     return oneUser.recordset;
   } catch (error) {
@@ -113,7 +113,43 @@ const select_Permission_Menu_NAC = async (res) => {
     const auto_DeapartMent = await pool.request()
       .input('Permission_TypeID', sql.Int, res.Permission_TypeID)
       .input('userID', sql.Int, res.userID)
-      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.Select_Permission_Menu_NAC @Permission_TypeID,@userID`);
+      .input('UserCode', sql.VarChar, res.UserCode)
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.Select_Permission_Menu_NAC @Permission_TypeID,@userID,@UserCode`);
+    //sql.close()
+    return auto_DeapartMent.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
+const Permission_Menu_NAC = async (res) => {
+  const config = require('../../config');
+  const sql = require('mssql');
+  try {
+    let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
+    const auto_DeapartMent = await pool.request()
+      .input('UserCode', sql.VarChar, res.UserCode)
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.Fix_Assets_Control_Permission_Menu`);
+    //sql.close()
+    return auto_DeapartMent.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
+const Fix_Assets_Control_UPDATE_Permission = async (res) => {
+  const config = require('../../config');
+  const sql = require('mssql');
+  try {
+    let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
+    const auto_DeapartMent = await pool.request()
+      .input('admin', sql.VarChar, res.admin)
+      .input('UserCode', sql.VarChar, res.UserCode)
+      .input('menuid', sql.Int, res.menuid)
+      .input('id', sql.Int, res.id)
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.Fix_Assets_Control_UPDATE_Permission @admin ,@UserCode ,@menuid ,@id`);
     //sql.close()
     return auto_DeapartMent.recordset;
   } catch (error) {
@@ -129,5 +165,7 @@ module.exports = {
   AutoDeapartMent,
   ChackUserWeb,
   get_branch_period,
-  select_Permission_Menu_NAC
+  select_Permission_Menu_NAC,
+  Permission_Menu_NAC,
+  Fix_Assets_Control_UPDATE_Permission
 }
