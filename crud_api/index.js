@@ -2,6 +2,7 @@
 const express = require('express');
 const config = require('./config');
 const cors = require('cors');
+const fileupload = require("express-fileupload");
 const bodyParser = require('body-parser');
 
 const PTEC_USERSRIGHT_Routes = require('./routes/PTEC_USERSRIGHT_Routes');
@@ -14,6 +15,8 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended:  true }));
 app.use(bodyParser.json());
+app.use(express.static("files"));
+app.use(fileupload());
 app.use(cors());
 
 app.use('/api', PTEC_USERSRIGHT_Routes.routes);

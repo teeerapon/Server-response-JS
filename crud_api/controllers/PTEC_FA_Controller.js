@@ -646,6 +646,18 @@ const FA_Control_import_dataXLSX_toAssets = async (req, res, next) => {
   }
 }
 
+const check_files = async (req, res) => {
+  var newpath = 'D:' + "/files/";
+  const file = req.files.file;
+  const filename = file.name;
+  file.mv(`${newpath}${filename}`, (err) => {
+    if (err) {
+      res.status(500).send({ message: "File upload failed", code: 200 });
+    }
+    res.status(200).send({ message: "File Uploaded", code: 200 });
+  });
+}
+
 module.exports = {
   getAllasset,
   assetByCode,
@@ -690,5 +702,6 @@ module.exports = {
   FA_Control_Report_All_Counted_by_Description,
   FA_Control_New_Assets,
   FA_Control_New_Assets_Xlsx,
-  FA_Control_import_dataXLSX_toAssets
+  FA_Control_import_dataXLSX_toAssets,
+  check_files
 }
