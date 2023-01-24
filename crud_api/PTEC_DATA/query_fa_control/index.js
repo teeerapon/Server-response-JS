@@ -847,6 +847,27 @@ const FA_Control_import_dataXLSX_toAssets = async (req) => {
   }
 }
 
+const FA_Control_Running_NO = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .query(`
+          declare @nac_code varchar(100)
+          declare @date_time datetime = getdate()
+          exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[RunningNo] 'ATT', @date_time, @nac_code output
+
+          select @nac_code as ATT
+      `);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 
 module.exports = {
 
@@ -896,5 +917,6 @@ module.exports = {
   FA_Control_Report_All_Counted_by_Description,
   FA_Control_New_Assets,
   FA_Control_New_Assets_Xlsx,
-  FA_Control_import_dataXLSX_toAssets
+  FA_Control_import_dataXLSX_toAssets,
+  FA_Control_Running_NO
 }

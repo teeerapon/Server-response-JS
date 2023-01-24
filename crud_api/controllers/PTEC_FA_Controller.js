@@ -650,11 +650,13 @@ const check_files = async (req, res) => {
   var newpath = 'D:' + "/files/";
   const file = req.files.file;
   const filename = file.name;
+  const attach = 'ATT'
+  const new_path = await query_fa_control.FA_Control_Running_NO(attach)
   file.mv(`${newpath}${filename}`, (err) => {
     if (err) {
       res.status(500).send({ message: "File upload failed", code: 200 });
     }
-    res.status(200).send({ message: "File Uploaded", code: 200 });
+    res.status(200).send({ message: "File Uploaded", code: 200, attach : new_path });
   });
 }
 
