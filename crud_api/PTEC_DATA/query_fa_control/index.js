@@ -874,7 +874,7 @@ const FA_Control_Delete_PATH = async (req) => {
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const fetch_assets = await pool.request()
-      .input('linkpath_id', sql.Int, req.linkpath_id ?? null)
+      .input('linkpath_id', sql.Int, parseInt(req.linkpath_id) ?? null)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_Delete_PATH] @linkpath_id`);
     //sql.close()
     return fetch_assets.recordset;
