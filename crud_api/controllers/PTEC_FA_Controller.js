@@ -656,8 +656,23 @@ const check_files = async (req, res) => {
     if (err) {
       res.status(500).send({ message: "File upload failed", code: 200 });
     }
-    res.status(200).send({ message: "File Uploaded", code: 200, attach : new_path });
+    res.status(200).send({ message: "File Uploaded", code: 200, attach: new_path });
   });
+}
+
+const FA_Control_Delete_PATH = async (req, res) => {
+  try {
+    const data = req.body
+    const new_data = await query_fa_control.FA_Control_import_dataXLSX_toAssets(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
 }
 
 module.exports = {
@@ -705,5 +720,6 @@ module.exports = {
   FA_Control_New_Assets,
   FA_Control_New_Assets_Xlsx,
   FA_Control_import_dataXLSX_toAssets,
-  check_files
+  check_files,
+  FA_Control_Delete_PATH
 }
