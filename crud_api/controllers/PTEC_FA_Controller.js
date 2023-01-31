@@ -663,7 +663,7 @@ const check_files = async (req, res) => {
 const FA_Control_Delete_PATH = async (req, res) => {
   try {
     const data = req.body
-    const new_data = await query_fa_control.FA_Control_import_dataXLSX_toAssets(data);
+    const new_data = await query_fa_control.FA_Control_Delete_PATH(data);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     if (new_data.length == 0) {
       res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
