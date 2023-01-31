@@ -665,11 +665,7 @@ const FA_Control_Delete_PATH = async (req, res) => {
     const data = req.body
     const new_data = await query_fa_control.FA_Control_Delete_PATH(data);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
-    if (new_data.length == 0) {
-      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
-    } else {
-      res.status(200).send(JSON.stringify(new_data));
-    }
+    res.status(200).send(JSON.stringify({ message: "success", data: new_data }));
   } catch (error) {
     res.status(201).send(error.message);
   }
