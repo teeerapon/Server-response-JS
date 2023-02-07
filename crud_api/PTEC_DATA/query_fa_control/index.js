@@ -737,10 +737,10 @@ const store_FA_control_HistorysAssets = async (FA_control_HistorysAssets) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const control_upadate_table = await pool.request()
       .input('userCode', sql.VarChar(10), FA_control_HistorysAssets.userCode)
-      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.[Fix_Assets_Control_HistoryAssets] @userCode`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[Fix_Assets_Control_HistoryAssets] @userCode`);
     //sql.close()
     return control_upadate_table.recordset;
   } catch (error) {
