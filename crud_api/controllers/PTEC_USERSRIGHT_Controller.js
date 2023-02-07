@@ -116,7 +116,6 @@ const Fix_Assets_Control_UPDATE_Permission = async (req, res, next) => {
   try {
     const data = req.body;
     const permission_Menu_NAC = await userData.Fix_Assets_Control_UPDATE_Permission(data);
-    console.log(permission_Menu_NAC);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     res.status(200).send(JSON.stringify({ message: "success", data: permission_Menu_NAC }));
   } catch (error) {
