@@ -121,6 +121,21 @@ const FA_Period_GroupBy = async (req, res, next) => {
   }
 }
 
+const get_branch_period = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const branch_period = await query_fa_control_period.get_branch_period(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (branch_period.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify({ message: "success", data: branch_period }));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 
 module.exports = {
   period_login,
@@ -131,5 +146,6 @@ module.exports = {
   delete_period,
   select_priod,
   round_website,
-  FA_Period_GroupBy
+  FA_Period_GroupBy,
+  get_branch_period
 }

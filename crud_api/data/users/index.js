@@ -90,29 +90,10 @@ const ChackUserWeb = async (UserWeb) => {
   }
 }
 
-const get_branch_period = async (branch_period) => {
-  const config = require('../../config');
-  const sql = require('mssql');
-  try {
-    let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
-    const sqlOueries = await utils.loadSqlOueries('users');
-    const auto_DeapartMent = await pool.request()
-      .input('userCode', sql.VarChar(10), branch_period.userCode)
-      .input('BranchID', sql.Int, branch_period.BranchID)
-      .query(sqlOueries.get_branch_period);
-    sql.close()
-    return auto_DeapartMent.recordset;
-  } catch (error) {
-    sql.close()
-    return error.message;
-  }
-}
-
 module.exports = {
   getsUser,
   getById,
   getByEmailAndCode,
   AutoDeapartMent,
   ChackUserWeb,
-  get_branch_period
 }

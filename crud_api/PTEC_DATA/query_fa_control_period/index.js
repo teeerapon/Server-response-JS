@@ -186,6 +186,23 @@ const select_priod = async (call_period) => {
   }
 }
 
+const get_branch_period = async (branch_period) => {
+  const config = require('../../config');
+  const sql = require('mssql');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const auto_DeapartMent = await pool.request()
+      .input('userCode', sql.VarChar(10), branch_period.userCode)
+      .input('BranchID', sql.Int, branch_period.BranchID)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Fetch_Branch_Period @userCode,@BranchID`);
+    //sql.close()
+    return auto_DeapartMent.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 const round_website = async (selectQuery) => {
   const sql = require('mssql');
   const config = require('../../config');
@@ -230,5 +247,6 @@ module.exports = {
   select_priod,
   store_check_periodForUpdate,
   round_website,
-  FA_Period_GroupBy
+  FA_Period_GroupBy,
+  get_branch_period
 }

@@ -88,23 +88,6 @@ const ChackUserWeb = async (UserWeb) => {
   }
 }
 
-const get_branch_period = async (branch_period) => {
-  const config = require('../../config');
-  const sql = require('mssql');
-  try {
-    let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
-    const auto_DeapartMent = await pool.request()
-      .input('userCode', sql.VarChar(10), branch_period.userCode)
-      .input('BranchID', sql.Int, branch_period.BranchID)
-      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.FA_Control_Fetch_Branch_Period @userCode,@BranchID`);
-    //sql.close()
-    return auto_DeapartMent.recordset;
-  } catch (error) {
-    //sql.close()
-    return error.message;
-  }
-}
-
 const select_Permission_Menu_NAC = async (res) => {
   const config = require('../../config');
   const sql = require('mssql');
@@ -164,7 +147,6 @@ module.exports = {
   getByEmailAndCode,
   AutoDeapartMent,
   ChackUserWeb,
-  get_branch_period,
   select_Permission_Menu_NAC,
   Permission_Menu_NAC,
   Fix_Assets_Control_UPDATE_Permission
