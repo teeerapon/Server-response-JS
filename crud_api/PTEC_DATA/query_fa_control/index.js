@@ -821,7 +821,7 @@ const FA_Control_New_Assets_Xlsx = async (req) => {
       .input('Position', sql.NVarChar, req.Position ?? null)
       .input('Details', sql.NVarChar, req.Details ?? null)
       .input('key', sql.NVarChar, req.keyID ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @Code, @Name, @BranchID, @Price, @OwnerCode, @SerialNo, @CreateDate, @CreateBy, @Position, @Details, @key`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @Code, @Name, @BranchID, , @OwnerCode, @SerialNo, @Price, @CreateDate, @CreateBy, @Position, @Details, @key`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
