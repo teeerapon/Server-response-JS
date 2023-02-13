@@ -60,8 +60,11 @@ const AutoDeapartMent = async (autoDeapartMent) => {
       .query(`SELECT U.[DepID]
                     ,D.[DepCode]
                     ,U.[BranchID]
+                    ,U.[Name]
+                    ,BM.[manager]
       FROM ${config.PTEC.objcn_usersright.sql.database}.dbo.[Users] U 
       LEFT JOIN ${config.PTEC.objcn_usersright.sql.database}.dbo.[Department] D On D.DepID=U.DepID
+      LEFT JOIN ${config.PTEC.objcn_usersright.sql.database}.dbo.[Branch_Manager] BM On BM.BranchID=U.BranchID
       WHERE U.[UserCode]=@UserCode
       `);
     //sql.close()
