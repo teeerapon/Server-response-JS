@@ -42,7 +42,7 @@ const PTEC = {
       },
     },
   },
-  objcn_ops: {
+  object_test_ops: {
     sql: {
       server: SQL_SERVER,
       database: "TEST_OPS",

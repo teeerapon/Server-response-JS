@@ -5,6 +5,7 @@ const query_fa_control = require('../PTEC_DATA/query_fa_control');
 const TokenManager = require('./token_manager');
 const query_fa_control_period = require('../PTEC_DATA/query_fa_control_period');
 
+
 const getAllasset = async (req, res, next) => {
   try {
     const assetCode = req.body;
