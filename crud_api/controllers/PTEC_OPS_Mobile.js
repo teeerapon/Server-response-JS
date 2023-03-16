@@ -34,6 +34,7 @@ const STrack_Registation = async (req, res, next) => {
   try {
     const body = req.body;
     const response = await query_OPS_mobile.STrack_Registation(body)
+    console.log(response[0]);
     if (response[0].res === 'ผู้ใช้งานนี้มีการลงทะเบียนแล้ว') {
       client
         .getProfile(body.userid)
@@ -117,7 +118,9 @@ const STrack_Registation = async (req, res, next) => {
 
 const webhooks = async (req, res) => {
   try {
+    res.status(200).send("OK")
     const events = req.body.events
+    console.log(events);
     if (events[0].source.userId) {
       const venderID = await query_OPS_mobile.STrack_CheckVenderID(events[0].source.userId)
       const textJSON = {
@@ -159,9 +162,9 @@ const webhooks = async (req, res) => {
         "altText": "Flex Message"
       }
       if (venderID[0].response === 'false') {
-        client.replyMessage(events[0].replyToken, textJSON)
+        return client.replyMessage(events[0].replyToken, textJSON)
       } else {
-        await events.map((items) => handleEvent(items))
+        return await events.map((items) => handleEvent(items))
       }
     }
   } catch (error) {
@@ -171,24 +174,21 @@ const webhooks = async (req, res) => {
 
 const handleEvent = async (event) => {
   if (event.type === 'postback') {
-    await handleEventPostback(event)
+    return await handleEventPostback(event)
   } else if (event.type === 'message') {
-    if (event.message.text === 'แสดงงาน OPS') {
+    const venderID = await query_OPS_mobile.STrack_callMessages(event.message.text)
+    if (venderID[0].response === 'แสดงงาน OPS') {
       client
         .getProfile(event.source.userId)
         .then((profile) => {
+
           console.log(profile);
 
-          const lengthJSON = [{
-            "title": "OPS I",
-            "OPS_CODE": "OPS9384279",
-            "suplier_name": "Purethai CO",
-            "branch_issue": 18
-          }]
-
+          const lengthJSON = venderID
           var employees = {
             accounting: []
           };
+
           for (var i in lengthJSON) {
             var item = lengthJSON[i];
             employees.accounting.push({
@@ -279,6 +279,291 @@ const handleEvent = async (event) => {
         .catch((err) => {
           // error handling
         });
+    } else if (venderID[0].response === 'STEP JOB') {
+      const JSONres = {
+        "type": "flex",
+        "contents": {
+          "type": "bubble",
+          "size": "mega",
+          "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "color": "#ffffff",
+                    "size": "xl",
+                    "flex": 4,
+                    "weight": "bold",
+                    "text": `${venderID[0].OPS_CODE} (BR : ${venderID[0].branch_issue})`
+                  }
+                ]
+              }
+            ],
+            "paddingAll": "20px",
+            "backgroundColor": "#0367D3",
+            "spacing": "md",
+            "paddingTop": "22px"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": `${venderID[0].time_step1 ? venderID[0].time_step1.toLocaleDateString("en-US") : null}`,
+                    "size": "xs",
+                    "gravity": "center",
+                    "align": "center"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "cornerRadius": "30px",
+                        "height": "12px",
+                        "width": "12px",
+                        "borderColor": venderID[0].time_step1 ? "#1DB446" : "#EF454D",
+                        "borderWidth": "2px"
+                      },
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": "ยืนยันรายการแล้ว",
+                    "gravity": "center",
+                    "flex": 2,
+                    "size": "sm"
+                  }
+                ],
+                "spacing": "lg",
+                "cornerRadius": "30px",
+                "margin": "xl"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 1
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "box",
+                        "layout": "horizontal",
+                        "contents": [
+                          {
+                            "type": "filler"
+                          },
+                          {
+                            "type": "box",
+                            "layout": "vertical",
+                            "contents": [],
+                            "width": "2px",
+                            "backgroundColor": venderID[0].time_step1 ? "#1DB446" : "#EF454D"
+                          },
+                          {
+                            "type": "filler"
+                          }
+                        ],
+                        "flex": 1
+                      }
+                    ],
+                    "width": "12px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [],
+                    "flex": 2
+                  }
+                ],
+                "spacing": "lg",
+                "height": "35px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": `${venderID[0].time_step2 ? venderID[0].time_step2.toLocaleDateString("en-US") : null}`,
+                        "gravity": "center",
+                        "size": "xs",
+                        "align": "center"
+                      }
+                    ],
+                    "flex": 1
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "cornerRadius": "30px",
+                        "width": "12px",
+                        "height": "12px",
+                        "borderWidth": "2px",
+                        "borderColor": venderID[0].time_step2 ? "#1DB446" : "#EF454D"
+                      },
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": "อยู่ระหว่างดำเนืนการ",
+                    "gravity": "center",
+                    "flex": 2,
+                    "size": "sm"
+                  }
+                ],
+                "spacing": "lg",
+                "cornerRadius": "30px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 1
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "box",
+                        "layout": "horizontal",
+                        "contents": [
+                          {
+                            "type": "filler"
+                          },
+                          {
+                            "type": "box",
+                            "layout": "vertical",
+                            "contents": [],
+                            "width": "2px",
+                            "backgroundColor": venderID[0].time_step2 ? "#1DB446" : "#EF454D"
+                          },
+                          {
+                            "type": "filler"
+                          }
+                        ],
+                        "flex": 1
+                      }
+                    ],
+                    "width": "12px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [],
+                    "flex": 2
+                  }
+                ],
+                "spacing": "lg",
+                "height": "35px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": `${venderID[0].time_step3 ? venderID[0].time_step3.toLocaleDateString("en-US") : null}`,
+                    "gravity": "center",
+                    "size": "xs",
+                    "align": "center"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "cornerRadius": "30px",
+                        "width": "12px",
+                        "height": "12px",
+                        "borderColor": venderID[0].time_step3 ? "#1DB446" : "#EF454D",
+                        "borderWidth": "2px"
+                      },
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": "ดำเนินการเสร็จสิ้น",
+                    "gravity": "center",
+                    "flex": 2,
+                    "size": "sm"
+                  }
+                ],
+                "spacing": "lg",
+                "cornerRadius": "30px"
+              }
+            ]
+          }
+        },
+        "altText": "Flex Message"
+      }
+      return client.replyMessage(event.replyToken, JSONres)
     } else {
       return client.replyMessage(event.replyToken, { "type": "text", "text": "ยังไม่มีคำสั่งนี้" })
     }
@@ -290,283 +575,26 @@ const handleEventPostback = async (event) => {
   const JSONres = {
     "type": "flex",
     "contents": {
-      "type": "bubble",
-      "size": "mega",
-      "header": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "color": "#ffffff",
-                "size": "xl",
-                "flex": 4,
-                "weight": "bold",
-                "text": `${data.ops_code} (BR : ${data.branch})`
-              }
-            ]
-          }
-        ],
-        "paddingAll": "20px",
-        "backgroundColor": "#0367D3",
-        "spacing": "md",
-        "paddingTop": "22px"
-      },
       "body": {
         "type": "box",
         "layout": "vertical",
         "contents": [
           {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": "2023-02-27",
-                "size": "xs",
-                "gravity": "center",
-                "align": "center"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "filler"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [],
-                    "cornerRadius": "30px",
-                    "height": "12px",
-                    "width": "12px",
-                    "borderColor": "#1DB446",
-                    "borderWidth": "2px"
-                  },
-                  {
-                    "type": "filler"
-                  }
-                ],
-                "flex": 0
-              },
-              {
-                "type": "text",
-                "text": "ยืนยันรายการแล้ว",
-                "gravity": "center",
-                "flex": 2,
-                "size": "sm"
-              }
-            ],
-            "spacing": "lg",
-            "cornerRadius": "30px",
-            "margin": "xl"
+            "type": "text",
+            "text": "แจ้งเตือน !!",
+            "weight": "bold",
+            "color": "#FF0000",
+            "size": "sm"
           },
           {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                  {
-                    "type": "filler"
-                  }
-                ],
-                "flex": 1
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "filler"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [],
-                        "width": "2px",
-                        "backgroundColor": "#1DB446"
-                      },
-                      {
-                        "type": "filler"
-                      }
-                    ],
-                    "flex": 1
-                  }
-                ],
-                "width": "12px"
-              },
-              {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [],
-                "flex": 2
-              }
-            ],
-            "spacing": "lg",
-            "height": "35px"
+            "type": "text",
+            "text": `กลุ่มของท่านได้รับงาน ${data.ops_code} (BR : ${data.branch}) แล้ว`,
+            "size": "xs",
+            "wrap": true
           },
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "2023-03-09",
-                    "gravity": "center",
-                    "size": "xs",
-                    "align": "center"
-                  }
-                ],
-                "flex": 1
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "filler"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [],
-                    "cornerRadius": "30px",
-                    "width": "12px",
-                    "height": "12px",
-                    "borderWidth": "2px",
-                    "borderColor": "#6486E3"
-                  },
-                  {
-                    "type": "filler"
-                  }
-                ],
-                "flex": 0
-              },
-              {
-                "type": "text",
-                "text": "อยู่ระหว่างดำเนืนการ",
-                "gravity": "center",
-                "flex": 2,
-                "size": "sm"
-              }
-            ],
-            "spacing": "lg",
-            "cornerRadius": "30px"
-          },
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [
-                  {
-                    "type": "filler"
-                  }
-                ],
-                "flex": 1
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "filler"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [],
-                        "width": "2px",
-                        "backgroundColor": "#B7B7B7"
-                      },
-                      {
-                        "type": "filler"
-                      }
-                    ],
-                    "flex": 1
-                  }
-                ],
-                "width": "12px"
-              },
-              {
-                "type": "box",
-                "layout": "baseline",
-                "contents": [],
-                "flex": 2
-              }
-            ],
-            "spacing": "lg",
-            "height": "35px"
-          },
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": "NONE TIME",
-                "gravity": "center",
-                "size": "xs",
-                "align": "center"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "filler"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [],
-                    "cornerRadius": "30px",
-                    "width": "12px",
-                    "height": "12px",
-                    "borderColor": "#EF454D",
-                    "borderWidth": "2px"
-                  },
-                  {
-                    "type": "filler"
-                  }
-                ],
-                "flex": 0
-              },
-              {
-                "type": "text",
-                "text": "ดำเนินการเสร็จสิ้น",
-                "gravity": "center",
-                "flex": 2,
-                "size": "sm"
-              }
-            ],
-            "spacing": "lg",
-            "cornerRadius": "30px"
-          }
         ]
-      }
+      },
+      "type": "bubble"
     },
     "altText": "Flex Message"
   }

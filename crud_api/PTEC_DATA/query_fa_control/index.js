@@ -261,15 +261,17 @@ const store_FA_control_create_doc = async (FA_control_create_doc) => {
       .input('des_Department', sql.NVarChar(50), FA_control_create_doc.des_Department)
       .input('des_BU', sql.NVarChar(50), FA_control_create_doc.des_BU)
       .input('des_delivery', sql.NVarChar(10), FA_control_create_doc.des_delivery)
+      .input('desName', sql.NVarChar(50), FA_control_create_doc.desName)
       .input('des_deliveryDate', sql.DateTime, FA_control_create_doc.des_deliveryDate)
       .input('source_Department', sql.NVarChar(50), FA_control_create_doc.source_Department)
       .input('source_BU', sql.NVarChar(50), FA_control_create_doc.source_BU)
       .input('source', sql.NVarChar(10), FA_control_create_doc.source)
+      .input('sourceName', sql.NVarChar(50), FA_control_create_doc.sourceName)
       .input('sourceDate', sql.DateTime, FA_control_create_doc.sourceDate)
       .input('des_Description', sql.NVarChar(200), FA_control_create_doc.des_Description)
       .input('source_Description', sql.NVarChar(200), FA_control_create_doc.source_Description)
       .input('sumPrice', sql.Float, FA_control_create_doc.sumPrice)
-      .query(`exec ${config.PTEC.object_test_ops.sql.database}.dbo.FA_Control_Create_Document_NAC @usercode, @worktype, @sumPrice, @des_Department, @des_BU, @des_delivery, @des_deliveryDate, @des_Description, @source_Department, @source_BU, @source, @sourceDate, @source_Description`);
+      .query(`exec ${config.PTEC.object_test_ops.sql.database}.dbo.FA_Control_Create_Document_NAC @usercode, @worktype, @sumPrice, @des_Department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_Description, @source_Department, @source_BU, @source, @sourceName, @sourceDate, @source_Description`);
     //sql.close()
     return FAcontrol_create_doc.recordset;
   } catch (error) {
