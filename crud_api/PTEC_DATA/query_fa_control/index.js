@@ -261,12 +261,12 @@ const store_FA_control_create_doc = async (FA_control_create_doc) => {
       .input('des_Department', sql.NVarChar(50), FA_control_create_doc.des_Department)
       .input('des_BU', sql.NVarChar(50), FA_control_create_doc.des_BU)
       .input('des_delivery', sql.NVarChar(10), FA_control_create_doc.des_delivery)
-      .input('desName', sql.NVarChar(50), FA_control_create_doc.desName ?? null)
+      .input('desName', sql.NVarChar(50), FA_control_create_doc.nameDes ?? null)
       .input('des_deliveryDate', sql.DateTime, FA_control_create_doc.des_deliveryDate)
       .input('source_Department', sql.NVarChar(50), FA_control_create_doc.source_Department)
       .input('source_BU', sql.NVarChar(50), FA_control_create_doc.source_BU)
       .input('source', sql.NVarChar(10), FA_control_create_doc.source)
-      .input('sourceName', sql.NVarChar(50), FA_control_create_doc.sourceName ?? null)
+      .input('sourceName', sql.NVarChar(50), FA_control_create_doc.nameSource ?? null)
       .input('sourceDate', sql.DateTime, FA_control_create_doc.sourceDate)
       .input('des_Description', sql.NVarChar(200), FA_control_create_doc.des_Description)
       .input('source_Description', sql.NVarChar(200), FA_control_create_doc.source_Description)
@@ -414,15 +414,17 @@ const store_FA_control_update_DTLandHeaders = async (FA_control_update_DTLandHea
       .input('sumPrice', sql.Float, FA_control_update_DTLandHeaders.sumPrice)
       .input('des_department', sql.NVarChar(50), FA_control_update_DTLandHeaders.des_department)
       .input('des_BU', sql.NVarChar(50), FA_control_update_DTLandHeaders.des_BU)
+      .input('desName', sql.NVarChar(50), FA_control_update_DTLandHeaders.nameDes ?? null)
       .input('des_delivery', sql.NVarChar(10), FA_control_update_DTLandHeaders.des_delivery)
       .input('des_deliveryDate', sql.DateTime, FA_control_update_DTLandHeaders.des_deliveryDate)
       .input('des_description', sql.NVarChar(200), FA_control_update_DTLandHeaders.des_description)
       .input('source_department', sql.NVarChar(50), FA_control_update_DTLandHeaders.source_department)
       .input('source_BU', sql.NVarChar(50), FA_control_update_DTLandHeaders.source_BU)
       .input('source', sql.NVarChar(10), FA_control_update_DTLandHeaders.source)
+      .input('sourceName', sql.NVarChar(50), FA_control_update_DTLandHeaders.nameSource ?? null)
       .input('sourceDate', sql.DateTime, FA_control_update_DTLandHeaders.sourceDate)
       .input('source_description', sql.NVarChar(200), FA_control_update_DTLandHeaders.source_description)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Update_DTLandHEADERS @usercode, @nac_code, @nac_status, @sumPrice, @nac_type, @des_department, @des_BU, @des_delivery, @des_deliveryDate, @des_description, @source_department, @source_BU, @source , @sourceDate, @source_description`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Update_DTLandHEADERS @usercode, @nac_code, @nac_status, @sumPrice, @nac_type, @des_department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_description, @source_department, @source_BU, @source, @sourceName, @sourceDate, @source_description`);
     //sql.close()
     return update_DTLandHeaders.recordset;
   } catch (error) {
@@ -495,7 +497,8 @@ const store_FA_control_updateStatus = async (FA_control_updateStatus) => {
       .input('verify_by', sql.NVarChar(10), FA_control_updateStatus.verify_by)
       .input('verify_date', sql.DateTime, FA_control_updateStatus.verify_date)
       .input('new_Price', sql.Float, FA_control_updateStatus.new_Price)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_updateStatus @usercode , @nac_code, @nac_status, @nac_type, @source, @sourceDate, @des_delivery, @des_deliveryDate, @source_approve, @source_approve_date, @des_approve , @des_approve_date, @verify_by, @verify_date, @new_Price`);
+      .input('realPrice_Date', sql.DateTime, FA_control_updateStatus.realPrice_Date ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_updateStatus @usercode , @nac_code, @nac_status, @nac_type, @source, @sourceDate, @des_delivery, @des_deliveryDate, @source_approve, @source_approve_date, @des_approve , @des_approve_date, @verify_by, @verify_date, @new_Price, @realPrice_Date`);
     //sql.close()
     return control_updateStatus.recordset;
   } catch (error) {
