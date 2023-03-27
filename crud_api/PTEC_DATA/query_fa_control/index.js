@@ -450,7 +450,9 @@ const store_FA_control_update_DTL = async (FA_control_update_DTL) => {
       .input('nacdtl_assetsCount', sql.Int, FA_control_update_DTL.nacdtl_assetsCount)
       .input('nacdtl_assetsPrice', sql.Float, FA_control_update_DTL.nacdtl_assetsPrice)
       .input('asset_id', sql.Int, FA_control_update_DTL.asset_id)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Update_DTL @dtl_id, @usercode, @nac_code, @nacdtl_row, @nacdtl_assetsCode, @nacdtl_assetsName, @nacdtl_assetsSeria, @nacdtl_assetsDtl, @nacdtl_assetsCount, @nacdtl_assetsPrice, @asset_id`);
+      .input('image_1', sql.NVarChar, FA_control_update_DTL.image_1 ?? null)
+      .input('image_2', sql.NVarChar, FA_control_update_DTL.image_2 ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Update_DTL @dtl_id, @usercode, @nac_code, @nacdtl_row, @nacdtl_assetsCode, @nacdtl_assetsName, @nacdtl_assetsSeria, @nacdtl_assetsDtl, @nacdtl_assetsCount, @nacdtl_assetsPrice, @asset_id, @image_1, @image_2`);
     //sql.close()
     return update_DTL.recordset;
   } catch (error) {

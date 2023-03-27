@@ -59,8 +59,12 @@ const STrack_callMessages = async (req, res) => {
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const assetslist = await pool.request()
-      .input('messages', sql.NVarChar, req)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[STrack_callMessages] @messages`);
+      .input('message', sql.NVarChar, req.message ?? null)
+      .input('title', sql.NVarChar, req.title ?? null)
+      .input('ops', sql.NVarChar, req.ops_code ?? null)
+      .input('type', sql.NVarChar, req.type ?? null)
+      .input('userid_line', sql.NVarChar, req.userid_line ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[STrack_callMessages] @message, @title, @ops, @type, @userid_line`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {
@@ -73,5 +77,5 @@ module.exports = {
   OPS_Mobile_List_Vender,
   STrack_Registation,
   STrack_CheckVenderID,
-  STrack_callMessages
+  STrack_callMessages,
 }
