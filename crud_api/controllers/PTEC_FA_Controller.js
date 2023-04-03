@@ -686,6 +686,21 @@ const FA_Control_Delete_PATH = async (req, res) => {
   }
 }
 
+const FA_Control_Edit_EBook = async (req, res) => {
+  try {
+    const data = req.body
+    const new_data = await query_fa_control.FA_Control_Edit_EBook(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   getAllasset,
   assetByCode,
@@ -733,5 +748,6 @@ module.exports = {
   FA_Control_import_dataXLSX_toAssets,
   check_files,
   FA_Control_Delete_PATH,
-  check_files_NewNAC
+  check_files_NewNAC,
+  FA_Control_Edit_EBook
 }

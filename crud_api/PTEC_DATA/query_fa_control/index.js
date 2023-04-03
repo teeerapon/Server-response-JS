@@ -892,6 +892,24 @@ const FA_Control_Delete_PATH = async (req) => {
   }
 }
 
+const FA_Control_Edit_EBook = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .input('Code', sql.NVarChar, req.Code ?? null)
+      .input('image_1', sql.NVarChar, req.image_1 ?? '')
+      .input('image_2', sql.NVarChar, req.image_2 ?? '')
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_Edit_EBook] @Code, @image_1, @image_2`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
 
   //Mobile or Some Control
@@ -942,5 +960,6 @@ module.exports = {
   FA_Control_New_Assets_Xlsx,
   FA_Control_import_dataXLSX_toAssets,
   FA_Control_Running_NO,
-  FA_Control_Delete_PATH
+  FA_Control_Delete_PATH,
+  FA_Control_Edit_EBook
 }

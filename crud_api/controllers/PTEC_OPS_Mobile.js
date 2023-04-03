@@ -115,6 +115,7 @@ const STrack_Registation = async (req, res, next) => {
 }
 
 const webhooks = async (req, res) => {
+  console.log(req.body.events);
   try {
     res.status(200).send("OK")
     const events = req.body.events
@@ -247,7 +248,7 @@ const handleEvent = async (event) => {
                 "type": "button",
                 "action": {
                   "type": "postback",
-                  "label": "SELECT",
+                  "label": item.userid_line ? "FOLLOWUP" : "CONFIRM",
                   "data": `{ "title": "jobs" , "type" : "select_job", "ops_code" : "${item.OPS_CODE}", "branch" :  "${item.branch_issue}"}`,
                 },
                 "height": "sm",
