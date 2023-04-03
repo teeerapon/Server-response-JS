@@ -424,7 +424,8 @@ const store_FA_control_update_DTLandHeaders = async (FA_control_update_DTLandHea
       .input('sourceName', sql.NVarChar(50), FA_control_update_DTLandHeaders.nameSource ?? null)
       .input('sourceDate', sql.DateTime, FA_control_update_DTLandHeaders.sourceDate)
       .input('source_description', sql.NVarChar(200), FA_control_update_DTLandHeaders.source_description)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Update_DTLandHEADERS @usercode, @nac_code, @nac_status, @sumPrice, @nac_type, @des_department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_description, @source_department, @source_BU, @source, @sourceName, @sourceDate, @source_description`);
+      .input('realPrice_Date', sql.DateTime, FA_control_update_DTLandHeaders.realPrice_Date ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Update_DTLandHEADERS @usercode, @nac_code, @nac_status, @sumPrice, @nac_type, @des_department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_description, @source_department, @source_BU, @source, @sourceName, @sourceDate, @source_description, @realPrice_Date`);
     //sql.close()
     return update_DTLandHeaders.recordset;
   } catch (error) {
