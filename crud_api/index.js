@@ -21,6 +21,13 @@ const TEST_PDPA_Routes = require('./routes/TEST_PDPA_Routes');
 const TEST_NewNTI_Routes = require('./routes/TEST_NewNTI_Routes');
 const PTEC_OPS_Mobile = require('./routes/PTEC_OPS_Mobile_Routes');
 
+
+const corsOptions ={
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+ }
+
 const app = express();
 
 // app.post('/webhooks', line.middleware(lineConfig), async (req,res) => {
@@ -37,7 +44,7 @@ app.use(bodyParser.urlencoded({ extended:  true }));
 app.use(bodyParser.json());
 app.use(express.static("files"));
 app.use(fileupload());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use('/api', PTEC_USERSRIGHT_Routes.routes);
 app.use('/api', PTEC_FA_Routes.routes);

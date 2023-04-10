@@ -54,17 +54,18 @@ const STrack_CheckVenderID = async (req) => {
 }
 
 const STrack_callMessages = async (req, res) => {
+  console.log(req);
   const sql = require("mssql");
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const assetslist = await pool.request()
       .input('message', sql.NVarChar, req.message ?? null)
-      .input('title', sql.NVarChar, req.title ?? null)
-      .input('ops', sql.NVarChar, req.ops_code ?? null)
-      .input('type', sql.NVarChar, req.type ?? null)
+      // .input('title', sql.NVarChar, req.title ?? null)
+      // .input('stk_code', sql.NVarChar, req.stk_code ?? null)
+      // .input('type', sql.NVarChar, req.type ?? null)
       .input('userid_line', sql.NVarChar, req.userid_line ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[STrack_callMessages] @message, @title, @ops, @type, @userid_line`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[STrack_callMessages] @message, @userid_line`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {
