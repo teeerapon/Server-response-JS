@@ -74,9 +74,27 @@ const STrack_callMessages = async (req, res) => {
   }
 }
 
+const STrack_responseFlex_AfterInsert = async (req, res) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
+    const assetslist = await pool.request()
+      .input('jobcode', sql.VarChar(20), req.jobcode ?? null)
+      .input('dtlid', sql.VarChar(10), req.dtlid ?? null)
+      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STrack_Send_AcceptJobs] @jobcode, @dtlid`);
+    //sql.close()
+    return assetslist.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
   OPS_Mobile_List_Vender,
   STrack_Registation,
   STrack_CheckVenderID,
   STrack_callMessages,
+  STrack_responseFlex_AfterInsert
 }

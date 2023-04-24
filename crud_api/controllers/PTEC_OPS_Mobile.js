@@ -190,6 +190,13 @@ const handleEvent = async (event) => {
           ]
         })
     }
+    else if (venderID[0].response.indexOf('cancel STK') > -1) {
+      return client.replyMessage(event.replyToken,
+        {
+          "type": "text",
+          "text": `${venderID[0].response}`,
+        })
+    }
     else if (venderID[0].response === 'แสดงงาน OPS') {
       const lengthJSON = venderID
       var employees = {
@@ -209,7 +216,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `Title : ${item.title}`,
+                    "text": `${item.OPS_CODE}`,
                     "wrap": true,
                     "weight": "bold",
                     "size": "xl",
@@ -218,7 +225,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": `${item.OPS_CODE}`,
+                    "text": `${item.title}`,
                     "wrap": true,
                     "weight": "bold",
                     "size": "md",
@@ -240,14 +247,14 @@ const handleEvent = async (event) => {
             "contents": [
               {
                 "type": "text",
-                "text": `From Branch : ${item.branch_issue}`,
+                "text": `สาขาผู้แจ้ง : ${item.branch_issue}`,
                 "wrap": true,
                 "color": "#aaaaaa",
                 "size": "xs",
               },
               {
                 "type": "text",
-                "text": `By ${item.suplier_name}`,
+                "text": `ผู้แจ้ง : ${item.suplier_name}`,
                 "wrap": true,
                 "size": "xxs",
                 "margin": "md",
@@ -633,7 +640,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": item.userid_line ? 'FOLLOWUP' : "COMFIRM",
-                  "text": item.userid_line ? `${item.OPS_CODE}` : `#${item.OPS_CODE}`
+                  "text": item.userid_line ? `${item.OPS_CODE}` : `>${item.OPS_CODE}`
                 },
                 "height": "sm",
                 "style": "primary",
@@ -677,7 +684,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `Title : ${item.title}`,
+                    "text": `${item.OPS_CODE}`,
                     "wrap": true,
                     "weight": "bold",
                     "size": "xl",
@@ -686,7 +693,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": `${item.OPS_CODE}`,
+                    "text": `${item.title}`,
                     "wrap": true,
                     "weight": "bold",
                     "size": "md",
@@ -708,14 +715,14 @@ const handleEvent = async (event) => {
             "contents": [
               {
                 "type": "text",
-                "text": `From Branch : ${item.branch_issue}`,
+                "text": `สาขาผู้แจ้ง : ${item.branch_issue}`,
                 "wrap": true,
                 "color": "#aaaaaa",
                 "size": "xs",
               },
               {
                 "type": "text",
-                "text": `By ${item.suplier_name}`,
+                "text": `ผู้แจ้ง : ${item.suplier_name}`,
                 "wrap": true,
                 "size": "xxs",
                 "margin": "md",
@@ -1149,7 +1156,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `Title : ${venderID[0].title}`,
+                    "text": `${venderID[0].OPS_CODE}`,
                     "wrap": true,
                     "weight": "bold",
                     "size": "xl",
@@ -1158,7 +1165,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": `${venderID[0].OPS_CODE}`,
+                    "text": `${venderID[0].title}`,
                     "wrap": true,
                     "weight": "bold",
                     "size": "md",
@@ -1179,14 +1186,14 @@ const handleEvent = async (event) => {
             "contents": [
               {
                 "type": "text",
-                "text": `From Branch : ${venderID[0].branch_issue}`,
+                "text": `สาขาผู้แจ้ง : ${venderID[0].branch_issue}`,
                 "wrap": true,
                 "color": "#aaaaaa",
                 "size": "xs",
               },
               {
                 "type": "text",
-                "text": `By ${venderID[0].suplier_name}`,
+                "text": `เบอร์โหทรติดต่อ : ${venderID[0].OfficeTel}`,
                 "wrap": true,
                 "size": "xxs",
                 "margin": "md",
@@ -1584,7 +1591,7 @@ const handleEvent = async (event) => {
                   "text": `>${venderID[0].OPS_CODE}`
                 },
                 "style": "primary",
-                "color": venderID[0].time_step3 ? "#AAAAAA" : "#1DB446",
+                "color": venderID[0].time_step4 ? "#AAAAAA" : "#1DB446",
                 "margin": "sm"
               }
             ]
@@ -1597,10 +1604,490 @@ const handleEvent = async (event) => {
   }
 }
 
+const STrack_responseFlex_AfterInsert = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const response = await query_OPS_mobile.STrack_responseFlex_AfterInsert(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    const responseJSON = {
+      "type": "bubble",
+      "size": "mega",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${response[0].STrack_Code}`,
+                "wrap": true,
+                "weight": "bold",
+                "size": "xl",
+                "color": "#ffffff",
+                "flex": 4,
+              },
+              {
+                "type": "text",
+                "text": `${response[0].Name}`,
+                "wrap": true,
+                "weight": "bold",
+                "size": "md",
+                "color": "#ffffff",
+                "flex": 4,
+              }
+            ]
+          }
+        ],
+        "paddingAll": "20px",
+        "backgroundColor": "#0367D3",
+        "spacing": "md",
+        "paddingTop": "22px"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "text",
+            "text": `สาขาผู้แจ้ง : ${response[0].BranchID}`,
+            "wrap": true,
+            "color": "#aaaaaa",
+            "size": "xs",
+          },
+          {
+            "type": "text",
+            "text": `เบอร์โทรติดต่อ : ${response[0].OfficeTel}`,
+            "wrap": true,
+            "size": "xxs",
+            "margin": "md",
+            "color": "#aaaaaa",
+          },
+          {
+            "type": "separator",
+            "margin": "lg"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${response[0].time_step1 ? response[0].time_step1.toLocaleDateString("en-US") : null}`,
+                "size": "xs",
+                "gravity": "center",
+                "align": "center"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [],
+                    "cornerRadius": "30px",
+                    "height": "12px",
+                    "width": "12px",
+                    "borderColor": response[0].time_step1 ? "#1DB446" : "#EF454D",
+                    "borderWidth": "2px",
+                    "backgroundColor": response[0].time_step1 ? "#1DB446" : "#EF454D"
+                  },
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "ยืนยันแจ้งงาน",
+                "gravity": "center",
+                "flex": 2,
+                "size": "sm"
+              }
+            ],
+            "spacing": "lg",
+            "cornerRadius": "30px",
+            "margin": "xl"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "2px",
+                        "backgroundColor": response[0].time_step2 ? "#1DB446" : "#EF454D"
+                      },
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 1
+                  }
+                ],
+                "width": "12px"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [],
+                "flex": 2
+              }
+            ],
+            "spacing": "lg",
+            "height": "35px"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": `${response[0].time_step2 ? response[0].time_step2.toLocaleDateString("en-US") : null}`,
+                    "gravity": "center",
+                    "size": "xs",
+                    "align": "center"
+                  }
+                ],
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [],
+                    "cornerRadius": "30px",
+                    "width": "12px",
+                    "height": "12px",
+                    "borderWidth": "2px",
+                    "borderColor": response[0].time_step2 ? "#1DB446" : "#EF454D",
+                    "backgroundColor": response[0].time_step2 ? "#1DB446" : "#EF454D"
+                  },
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "ยืนยันรายการแล้ว",
+                "gravity": "center",
+                "flex": 2,
+                "size": "sm"
+              }
+            ],
+            "spacing": "lg",
+            "cornerRadius": "30px"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "2px",
+                        "backgroundColor": response[0].time_step3 ? "#1DB446" : "#EF454D"
+                      },
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 1
+                  }
+                ],
+                "width": "12px"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [],
+                "flex": 2
+              }
+            ],
+            "spacing": "lg",
+            "height": "35px"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": `${response[0].time_step3 ? response[0].time_step3.toLocaleDateString("en-US") : null}`,
+                    "gravity": "center",
+                    "size": "xs",
+                    "align": "center"
+                  }
+                ],
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [],
+                    "cornerRadius": "30px",
+                    "width": "12px",
+                    "height": "12px",
+                    "borderWidth": "2px",
+                    "borderColor": response[0].time_step3 ? "#1DB446" : "#EF454D",
+                    "backgroundColor": response[0].time_step3 ? "#1DB446" : "#EF454D"
+                  },
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "อยู่ระหว่างดำเนินการ",
+                "gravity": "center",
+                "flex": 2,
+                "size": "sm"
+              }
+            ],
+            "spacing": "lg",
+            "cornerRadius": "30px"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "2px",
+                        "backgroundColor": response[0].time_step4 ? "#1DB446" : "#EF454D"
+                      },
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 1
+                  }
+                ],
+                "width": "12px"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [],
+                "flex": 2
+              }
+            ],
+            "spacing": "lg",
+            "height": "35px"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${response[0].time_step3 ? response[0].time_step4.toLocaleDateString("en-US") : null}`,
+                "gravity": "center",
+                "size": "xs",
+                "align": "center"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [],
+                    "cornerRadius": "30px",
+                    "width": "12px",
+                    "height": "12px",
+                    "borderColor": response[0].time_step4 ? "#1DB446" : "#EF454D",
+                    "borderWidth": "2px",
+                    "backgroundColor": response[0].time_step4 ? "#1DB446" : "#EF454D"
+                  },
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "ดำเนินการเสร็จสิ้น",
+                "gravity": "center",
+                "flex": 2,
+                "size": "sm"
+              }
+            ],
+            "spacing": "lg",
+            "cornerRadius": "30px"
+          },
+        ],
+      },
+      "footer": {
+        "type": "box",
+        "layout": "horizontal",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "Cancel",
+              "text": `!${response[0].STrack_Code}`
+            },
+            "height": "sm",
+            "margin": "sm",
+            "style": "primary",
+            "color": "#EF454D"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": response[0].StatusID !== 1 ? 'FOLLOWUP' : "COMFIRM",
+              "text": response[0].StatusID !== 1 ? `${response[0].STrack_Code}` : `>${response[0].STrack_Code}`
+            },
+            "height": "sm",
+            "style": "primary",
+            "color": response[0].StatusID === 4 ? "#aaaaaa" : "#1DB446",
+            "margin": "sm",
+          },
+        ]
+      },
+    }
+    for (var i = 0; i < response.length; i++) {
+
+      const headers = {
+        Authorization: `Bearer ${env.ACCESSTOKEN}`,
+        "Content-Type": "application/json; charset=utf-8"
+      }
+
+      client
+      .getProfile(response[i].userid)
+      .then(async (profile) => {
+        const sendJSON = {
+          "to": profile.userId,
+          "messages": [{
+            "type": "flex",
+            "contents": responseJSON,
+            "altText": "Flex Message"
+          }]
+        }
+        res.status(200).send(sendJSON);
+        await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
+      })
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 
 module.exports = {
   OPS_Mobile_List_Vender,
   webhooks,
-  STrack_Registation
+  STrack_Registation,
+  STrack_responseFlex_AfterInsert
 }
 
