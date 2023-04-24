@@ -54,7 +54,6 @@ const STrack_CheckVenderID = async (req) => {
 }
 
 const STrack_callMessages = async (req, res) => {
-  console.log(req);
   const sql = require("mssql");
   const config = require('../../config');
   try {
