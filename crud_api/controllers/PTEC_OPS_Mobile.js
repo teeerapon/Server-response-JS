@@ -640,7 +640,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": item.userid_line ? 'FOLLOWUP' : "COMFIRM",
-                  "text": item.userid_line ? `${item.OPS_CODE}` : `>${item.OPS_CODE}`
+                  "text": item.userid_line ? `${item.OPS_CODE}` : `${item.statusid}>${item.OPS_CODE}`
                 },
                 "height": "sm",
                 "style": "primary",
@@ -1106,7 +1106,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": "Back",
-                  "text": `<${item.OPS_CODE}`
+                  "text": `${item.statusid}<${item.OPS_CODE}`
                 },
                 "style": "primary",
                 "margin": "sm",
@@ -1117,7 +1117,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": "Next",
-                  "text": `>${item.OPS_CODE}`
+                  "text": `${item.statusid}>${item.OPS_CODE}`
                 },
                 "style": "primary",
                 "color": item.time_step4 ? "#AAAAAA" : "#1DB446",
@@ -1577,7 +1577,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": "Back",
-                  "text": `<${venderID[0].OPS_CODE}`
+                  "text": `${venderID[0].statusid}<${venderID[0].OPS_CODE}`
                 },
                 "style": "primary",
                 "margin": "sm",
@@ -1588,7 +1588,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": "Next",
-                  "text": `>${venderID[0].OPS_CODE}`
+                  "text": `${venderID[0].statusid}>${venderID[0].OPS_CODE}`
                 },
                 "style": "primary",
                 "color": venderID[0].time_step4 ? "#AAAAAA" : "#1DB446",
@@ -2045,12 +2045,12 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
             "type": "button",
             "action": {
               "type": "message",
-              "label": response[0].StatusID !== 1 ? 'FOLLOWUP' : "COMFIRM",
-              "text": response[0].StatusID !== 1 ? `${response[0].STrack_Code}` : `>${response[0].STrack_Code}`
+              "label": response[0].statusid !== 1 ? 'FOLLOWUP' : "COMFIRM",
+              "text": response[0].statusid !== 1 ? `${response[0].STrack_Code}` : `${response[0].statusid}>${response[0].STrack_Code}`
             },
             "height": "sm",
             "style": "primary",
-            "color": response[0].StatusID === 4 ? "#aaaaaa" : "#1DB446",
+            "color": response[0].statusid === 4 ? "#aaaaaa" : "#1DB446",
             "margin": "sm",
           },
         ]
