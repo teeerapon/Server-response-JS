@@ -640,7 +640,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": item.userid_line ? 'FOLLOWUP' : "COMFIRM",
-                  "text": item.userid_line ? `${item.OPS_CODE}` : `${item.statusid+1}>${item.OPS_CODE}`
+                  "text": item.userid_line ? `${item.OPS_CODE}` : `${item.statusid + 1}>${item.OPS_CODE}`
                 },
                 "height": "sm",
                 "style": "primary",
@@ -1106,7 +1106,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": "Back",
-                  "text": `${item.statusid-1}<${item.OPS_CODE}`
+                  "text": `${item.statusid - 1}<${item.OPS_CODE}`
                 },
                 "style": "primary",
                 "margin": "sm",
@@ -1117,7 +1117,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": "Next",
-                  "text": `${item.statusid-1}>${item.OPS_CODE}`
+                  "text": `${item.statusid - 1}>${item.OPS_CODE}`
                 },
                 "style": "primary",
                 "color": item.time_step4 ? "#AAAAAA" : "#1DB446",
@@ -1577,7 +1577,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": "Back",
-                  "text": `${venderID[0].statusid-1}<${venderID[0].OPS_CODE}`
+                  "text": `${venderID[0].statusid - 1}<${venderID[0].OPS_CODE}`
                 },
                 "style": "primary",
                 "margin": "sm",
@@ -1588,7 +1588,7 @@ const handleEvent = async (event) => {
                 "action": {
                   "type": "message",
                   "label": "Next",
-                  "text": `${venderID[0].statusid+1}>${venderID[0].OPS_CODE}`
+                  "text": `${venderID[0].statusid + 1}>${venderID[0].OPS_CODE}`
                 },
                 "style": "primary",
                 "color": venderID[0].time_step4 ? "#AAAAAA" : "#1DB446",
@@ -1600,6 +1600,13 @@ const handleEvent = async (event) => {
         "altText": "Flex Message"
       }
       return client.replyMessage(event.replyToken, JSONres)
+    }
+    else if (venderID[0].response) {
+      return client.replyMessage(event.replyToken,
+        {
+          "type": "text",
+          "text": `${venderID[0].response}`
+        })
     }
   }
 }
@@ -2046,7 +2053,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
             "action": {
               "type": "message",
               "label": response[0].statusid !== 1 ? 'FOLLOWUP' : "COMFIRM",
-              "text": response[0].statusid !== 1 ? `${response[0].STrack_Code}` : `${response[0].statusid+1}>${response[0].STrack_Code}`
+              "text": response[0].statusid !== 1 ? `${response[0].STrack_Code}` : `${response[0].statusid + 1}>${response[0].STrack_Code}`
             },
             "height": "sm",
             "style": "primary",
@@ -2064,19 +2071,19 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
       }
 
       client
-      .getProfile(response[i].userid)
-      .then(async (profile) => {
-        const sendJSON = {
-          "to": profile.userId,
-          "messages": [{
-            "type": "flex",
-            "contents": responseJSON,
-            "altText": "Flex Message"
-          }]
-        }
-        res.status(200).send(sendJSON);
-        await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
-      })
+        .getProfile(response[i].userid)
+        .then(async (profile) => {
+          const sendJSON = {
+            "to": profile.userId,
+            "messages": [{
+              "type": "flex",
+              "contents": responseJSON,
+              "altText": "Flex Message"
+            }]
+          }
+          res.status(200).send(sendJSON);
+          await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
+        })
     }
   } catch (error) {
     res.status(201).send(error.message);
