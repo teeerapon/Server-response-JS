@@ -2052,7 +2052,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
             "type": "button",
             "action": {
               "type": "message",
-              "label": response[0].statusid !== 1 ? 'FOLLOWUP' : "COMFIRM",
+              "label": response[0].statusid !== 1 ? 'FOLLOWUP>1' : "COMFIRM",
               "text": response[0].statusid !== 1 ? `${response[0].STrack_Code}` : `${response[0].statusid + 1}>${response[0].STrack_Code}`
             },
             "height": "sm",
