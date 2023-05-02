@@ -639,7 +639,7 @@ const handleEvent = async (event) => {
                 "type": "button",
                 "action": {
                   "type": "message",
-                  "label": item.userid_line ? 'FOLLOWUP' : "COMFIRM",
+                  "label": item.userid_line ? 'FOLLOWUP>1' : "COMFIRM",
                   "text": item.userid_line ? `${item.OPS_CODE}` : `${item.statusid + 1}>${item.OPS_CODE}`
                 },
                 "height": "sm",
@@ -2052,7 +2052,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
             "type": "button",
             "action": {
               "type": "message",
-              "label": response[0].statusid !== 1 ? 'FOLLOWUP>1' : "COMFIRM",
+              "label": response[0].statusid !== 1 ? 'FOLLOWUP' : "COMFIRM",
               "text": response[0].statusid !== 1 ? `${response[0].STrack_Code}` : `${response[0].statusid + 1}>${response[0].STrack_Code}`
             },
             "height": "sm",
