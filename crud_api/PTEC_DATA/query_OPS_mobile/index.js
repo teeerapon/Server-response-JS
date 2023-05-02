@@ -81,7 +81,8 @@ const STrack_responseFlex_AfterInsert = async (req, res) => {
     const assetslist = await pool.request()
       .input('jobcode', sql.VarChar(20), req.jobcode ?? null)
       .input('dtlid', sql.VarChar(10), req.dtlid ?? null)
-      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STrack_Send_AcceptJobs] @jobcode, @dtlid`);
+      .input('usercode', sql.VarChar(10), req.usercode ?? null)
+      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STrack_Send_AcceptJobs] @jobcode, @dtlid, @usercode`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {

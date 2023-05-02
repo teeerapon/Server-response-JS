@@ -803,7 +803,8 @@ const FA_Control_New_Assets = async (req) => {
       .input('SerialNo', sql.NVarChar(200), req.SerialNo)
       .input('Price', sql.Float, req.Price)
       .input('Create_Date', sql.NVarChar(50), req.Create_Date)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @BranchID, @Details , @SerialNo, @Price, @Create_Date`);
+      .input('bac_type', sql.NVarChar(50), req.bac_type ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
@@ -820,7 +821,7 @@ const FA_Control_New_Assets_Xlsx = async (req) => {
     const fetch_assets = await pool.request()
       .input('Code', sql.NVarChar, req.Code ?? null)
       .input('Name', sql.NVarChar, req.Name ?? null)
-      .input('BranchID', sql.NVarChar, req.BranchID ?? null)
+      .input('BranchID', sql.Int, req.BranchID ?? null)
       .input('Price', sql.NVarChar, req.Price ?? null)
       .input('OwnerCode', sql.NVarChar, req.OwnerCode ?? null)
       .input('SerialNo', sql.NVarChar, req.SerialNo ?? null)
@@ -828,8 +829,9 @@ const FA_Control_New_Assets_Xlsx = async (req) => {
       .input('CreateBy', sql.NVarChar, req.CreateBy ?? null)
       .input('Position', sql.NVarChar, req.Position ?? null)
       .input('Details', sql.NVarChar, req.Details ?? null)
+      .input('bac_type', sql.NVarChar, req.bac_type ?? null)
       .input('key', sql.NVarChar, req.keyID ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @Code, @Name, @BranchID , @OwnerCode, @SerialNo, @Price, @CreateDate, @CreateBy, @Position, @Details, @key`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @Code, @Name, @BranchID , @OwnerCode, @SerialNo, @Price, @CreateDate, @CreateBy, @Position, @Details, @bac_type, @key`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
