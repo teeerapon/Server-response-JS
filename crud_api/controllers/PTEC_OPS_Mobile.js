@@ -2052,12 +2052,12 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
             "type": "button",
             "action": {
               "type": "message",
-              "label": response[0].userid_line ? 'FOLLOWUP' : "COMFIRM",
-              "text": response[0].userid_line ? `${response[0].STrack_Code}` : `${response[0].statusid + 1}>${response[0].STrack_Code}`
+              "label": "COMFIRM",
+              "text": `${2}>${response[0].STrack_Code}`
             },
             "height": "sm",
             "style": "primary",
-            "color": response[0].userid_line ? "#aaaaaa" : "#1DB446",
+            "color": response[0].time_step4 ? "#aaaaaa" : "#1DB446",
             "margin": "sm",
           },
         ]
