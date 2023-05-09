@@ -912,7 +912,48 @@ const FA_Control_Edit_EBook = async (req) => {
   }
 }
 
+const FA_Control_BPC_Sendmail = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .input('me', sql.NVarChar, req.ME)
+      .input('ktt', sql.NVarChar, req.KTT === false ? undefined : req.KTT)
+      .input('grp', sql.NVarChar, req.GRP === false ? undefined : req.GRP)
+      .input('rod', sql.NVarChar, req.ROD === false ? undefined : req.ROD)
+      .input('data', sql.NVarChar, req.data)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_Sendmail] @me, @ktt, @grp, @rod, @data`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
+const FA_Control_BPC_UpdateDetails = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .input('Code', sql.NVarChar, req.Code)
+      .input('Details', sql.NVarChar, req.Details)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @Code, @Details`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
+
+  //BPC
+  FA_Control_BPC_Sendmail,
+  FA_Control_BPC_UpdateDetails,
 
   //Mobile or Some Control
   createAsset,

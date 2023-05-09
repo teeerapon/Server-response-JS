@@ -702,7 +702,36 @@ const FA_Control_Edit_EBook = async (req, res) => {
   }
 }
 
+const FA_Control_BPC_Sendmail = async (req, res) => {
+  try {
+    const data = req.body
+    const new_data = await query_fa_control.FA_Control_BPC_Sendmail(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const FA_Control_BPC_UpdateDetails = async (req, res) => {
+  try {
+    const data = req.body
+    await query_fa_control.FA_Control_BPC_UpdateDetails(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
+
+  //BPC
+  FA_Control_BPC_Sendmail,
+  FA_Control_BPC_UpdateDetails,
+
   getAllasset,
   assetByCode,
   addAsset,

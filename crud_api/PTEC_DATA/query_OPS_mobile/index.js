@@ -7,7 +7,7 @@ const OPS_Mobile_List_Vender = async (branchIDparam) => {
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops);
     const assetslist = await pool.request()
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[OPS_Mobile_List_Vender]`);
+      .query(`exec ${config.PTEC.object_test_ops.sql}.[dbo].[OPS_Mobile_List_Vender]`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {
@@ -28,7 +28,7 @@ const STrack_Registation = async (req) => {
       .input('name', sql.NVarChar(100), req.name)
       .input('lastname', sql.NVarChar(100), req.lastname)
       .input('phoneNumber', sql.NVarChar(100), req.phoneNumber)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[STrack_Registation] @userCode, @email, @venderCode, @name, @lastName, @phoneNumber`);
+      .query(`exec ${config.PTEC.object_test_ops.sql}.[dbo].[STrack_Registation] @userCode, @email, @venderCode, @name, @lastName, @phoneNumber`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {
@@ -44,7 +44,7 @@ const STrack_CheckVenderID = async (req) => {
     let pool = await sql.connect(config.PTEC.object_ptec_ops);
     const assetslist = await pool.request()
       .input('userid', sql.NVarChar(100), req)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[STrack_CheckVenderID] @userid`);
+      .query(`exec ${config.PTEC.object_test_ops.sql}.[dbo].[STrack_CheckVenderID] @userid`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {
@@ -64,7 +64,7 @@ const STrack_callMessages = async (req, res) => {
       // .input('stk_code', sql.NVarChar, req.stk_code ?? null)
       // .input('type', sql.NVarChar, req.type ?? null)
       .input('userid_line', sql.NVarChar, req.userid_line ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[STrack_callMessages] @message, @userid_line`);
+      .query(`exec ${config.PTEC.object_test_ops.sql}.[dbo].[STrack_callMessages] @message, @userid_line`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {
@@ -82,7 +82,7 @@ const STrack_responseFlex_AfterInsert = async (req, res) => {
       .input('jobcode', sql.VarChar(20), req.jobcode ?? null)
       .input('dtlid', sql.VarChar(10), req.dtlid ?? null)
       .input('usercode', sql.VarChar(10), req.usercode ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[STrack_Send_AcceptJobs] @jobcode, @dtlid, @usercode`);
+      .query(`exec ${config.PTEC.object_test_ops.sql}.[dbo].[STrack_Send_AcceptJobs] @jobcode, @dtlid, @usercode`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {
