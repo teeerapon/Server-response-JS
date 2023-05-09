@@ -938,9 +938,10 @@ const FA_Control_BPC_UpdateDetails = async (req) => {
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const fetch_assets = await pool.request()
+      .input('userCode', sql.NVarChar, req.userCode)
       .input('Code', sql.NVarChar, req.Code)
       .input('Details', sql.NVarChar, req.Details)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @Code, @Details`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @userCode, @Code, @Details`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
