@@ -720,7 +720,12 @@ const FA_Control_BPC_Sendmail = async (req, res) => {
 const FA_Control_BPC_UpdateDetails = async (req, res) => {
   try {
     const data = req.body
-    await query_fa_control.FA_Control_BPC_UpdateDetails(data);
+    const new_data = await query_fa_control.FA_Control_BPC_UpdateDetails(data);
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
   } catch (error) {
     res.status(201).send(error.message);
   }
