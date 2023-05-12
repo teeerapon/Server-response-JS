@@ -819,6 +819,7 @@ const FA_Control_New_Assets_Xlsx = async (req) => {
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const fetch_assets = await pool.request()
+      .input('UserCode', sql.NVarChar, req.UserCode ?? null)
       .input('Code', sql.NVarChar, req.Code ?? null)
       .input('Name', sql.NVarChar, req.Name ?? null)
       .input('BranchID', sql.Int, req.BranchID ?? null)
@@ -831,7 +832,7 @@ const FA_Control_New_Assets_Xlsx = async (req) => {
       .input('Details', sql.NVarChar, req.Details ?? null)
       .input('bac_type', sql.NVarChar, req.bac_type ?? null)
       .input('key', sql.NVarChar, req.keyID ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @Code, @Name, @BranchID , @OwnerCode, @SerialNo, @Price, @CreateDate, @CreateBy, @Position, @Details, @bac_type, @key`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @UserCode, @Code, @Name, @BranchID , @OwnerCode, @SerialNo, @Price, @CreateDate, @CreateBy, @Position, @Details, @bac_type, @key`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
@@ -941,7 +942,45 @@ const FA_Control_BPC_UpdateDetails = async (req) => {
       .input('UserCode', sql.NVarChar, req.userCode)
       .input('Code', sql.NVarChar, req.Code)
       .input('Details', sql.NVarChar, req.Details)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @UserCode, @Code, @Details`);
+      .input('keyID', sql.NVarChar, req.keyID)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @UserCode, @Code, @Details, @keyID`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
+const FA_Control_BPC_Running_NO = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .query(`
+          declare @KeyID varchar(100)
+          declare @date_time datetime = getdate()
+          exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[RunningNo] 'TAB', @date_time, @KeyID output
+
+          select @KeyID as TAB
+      `);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
+const FA_Control_BPC_SELECT_TEMP = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .input('keyID', sql.NVarChar, req.keyID)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_SELECT_TEMP] @KeyID`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
@@ -955,6 +994,8 @@ module.exports = {
   //BPC
   FA_Control_BPC_Sendmail,
   FA_Control_BPC_UpdateDetails,
+  FA_Control_BPC_Running_NO,
+  FA_Control_BPC_SELECT_TEMP,
 
   //Mobile or Some Control
   createAsset,

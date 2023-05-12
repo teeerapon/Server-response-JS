@@ -606,7 +606,6 @@ const FA_Control_New_Assets = async (req, res, next) => {
   try {
     const data = req.body;
     const new_data = await query_fa_control.FA_Control_New_Assets(data);
-    console.log(new_data);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     if (new_data.length == 0) {
       res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
@@ -731,11 +730,40 @@ const FA_Control_BPC_UpdateDetails = async (req, res) => {
   }
 }
 
+const FA_Control_BPC_Running_NO = async (req, res) => {
+  try {
+    const new_data = await query_fa_control.FA_Control_BPC_Running_NO();
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const FA_Control_BPC_SELECT_TEMP = async (req, res) => {
+  try {
+    const data = req.body
+    const new_data = await query_fa_control.FA_Control_BPC_SELECT_TEMP(data);
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
 
   //BPC
   FA_Control_BPC_Sendmail,
   FA_Control_BPC_UpdateDetails,
+  FA_Control_BPC_Running_NO,
+  FA_Control_BPC_SELECT_TEMP,
 
   getAllasset,
   assetByCode,

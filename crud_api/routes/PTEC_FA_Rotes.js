@@ -15,7 +15,8 @@ const { getAllasset, assetByCode, addAsset, getCode, assetByUserBranch, getAllas
     , store_FA_SendMail, store_FA_control_Create_from_reported, store_FA_control_HistorysAssets,
     store_FA_control_fetch_assets, FA_Control_Report_All_Counted_by_Description, FA_Control_New_Assets, FA_Control_New_Assets_Xlsx
     , FA_Control_import_dataXLSX_toAssets, check_files, FA_Control_Delete_PATH, check_files_NewNAC
-    ,FA_Control_Edit_EBook, FA_Control_BPC_Sendmail, FA_Control_BPC_UpdateDetails } = assetController;
+    , FA_Control_Edit_EBook, FA_Control_BPC_Sendmail, FA_Control_BPC_UpdateDetails, FA_Control_BPC_Running_NO
+    , FA_Control_BPC_SELECT_TEMP } = assetController;
 
 router.post('/ReportassetsAll', getAllasset);
 router.post('/getAsset', assetByCode);
@@ -69,6 +70,8 @@ router.post('/FA_Control_Edit_EBook', FA_Control_Edit_EBook);
 // BPC
 router.post('/FA_Control_BPC_Sendmail', FA_Control_BPC_Sendmail);
 router.post('/FA_Control_BPC_UpdateDetails', FA_Control_BPC_UpdateDetails);
+router.post('/FA_Control_BPC_Running_NO', FA_Control_BPC_Running_NO);
+router.post('/FA_Control_BPC_SELECT_TEMP', FA_Control_BPC_SELECT_TEMP);
 
 
 module.exports = {
