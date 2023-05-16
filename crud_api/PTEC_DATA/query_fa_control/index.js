@@ -923,8 +923,9 @@ const FA_Control_BPC_Sendmail = async (req) => {
       .input('ktt', sql.NVarChar, req.KTT === false ? undefined : req.KTT)
       .input('grp', sql.NVarChar, req.GRP === false ? undefined : req.GRP)
       .input('rod', sql.NVarChar, req.ROD === false ? undefined : req.ROD)
+      .input('code_ref', sql.NVarChar, req.code_ref)
       .input('data', sql.NVarChar, req.data)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_Sendmail] @me, @ktt, @grp, @rod, @data`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_Sendmail] @me, @ktt, @grp, @rod, @data, @code_ref`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
