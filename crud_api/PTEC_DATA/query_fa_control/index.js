@@ -804,7 +804,8 @@ const FA_Control_New_Assets = async (req) => {
       .input('Price', sql.Float, req.Price)
       .input('Create_Date', sql.NVarChar(50), req.Create_Date)
       .input('bac_type', sql.NVarChar(50), req.bac_type ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type`);
+      .input('keyID', sql.NVarChar(50), req.keyID ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type, @keyID`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
@@ -943,8 +944,9 @@ const FA_Control_BPC_UpdateDetails = async (req) => {
       .input('UserCode', sql.NVarChar, req.userCode)
       .input('Code', sql.NVarChar, req.Code)
       .input('Details', sql.NVarChar, req.Details)
+      .input('Comments', sql.NVarChar, req.Comments)
       .input('keyID', sql.NVarChar, req.keyID)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @UserCode, @Code, @Details, @keyID`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @UserCode, @Code, @Details, @Comments, @keyID`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
@@ -990,6 +992,21 @@ const FA_Control_BPC_SELECT_TEMP = async (req) => {
   }
 }
 
+const FA_Control_BPC_GroupBy = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_GroupBy]`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
 
   //BPC
@@ -997,6 +1014,7 @@ module.exports = {
   FA_Control_BPC_UpdateDetails,
   FA_Control_BPC_Running_NO,
   FA_Control_BPC_SELECT_TEMP,
+  FA_Control_BPC_GroupBy,
 
   //Mobile or Some Control
   createAsset,

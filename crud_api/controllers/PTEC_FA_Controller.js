@@ -757,6 +757,19 @@ const FA_Control_BPC_SELECT_TEMP = async (req, res) => {
   }
 }
 
+const FA_Control_BPC_GroupBy = async (req, res) => {
+  try {
+    const new_data = await query_fa_control.FA_Control_BPC_GroupBy();
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
 
   //BPC
@@ -764,6 +777,7 @@ module.exports = {
   FA_Control_BPC_UpdateDetails,
   FA_Control_BPC_Running_NO,
   FA_Control_BPC_SELECT_TEMP,
+  FA_Control_BPC_GroupBy,
 
   getAllasset,
   assetByCode,
