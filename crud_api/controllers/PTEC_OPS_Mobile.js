@@ -21,6 +21,20 @@ const OPS_Mobile_List_Vender = async (req, res, next) => {
     const list_Vender = await query_OPS_mobile.OPS_Mobile_List_Vender(assetCode)
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     res.status(200).send(list_Vender);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const STrack_Registation = async (req, res, next) => {
+  const headers = {
+    Authorization: `Bearer ${env.ACCESSTOKEN}`,
+    "Content-Type": "application/json; charset=utf-8"
+  }
+  try {
+    const body = req.body;
+    const response = await query_OPS_mobile.STrack_Registation(body)
+    res.status(200).send(response);
     // if (response[0].res === 'ผู้ใช้งานนี้มีการลงทะเบียนแล้ว') {
     //   client.getProfile(body.userid).then(async (profile) => {
     //     const sendJSON = {
@@ -100,20 +114,6 @@ const OPS_Mobile_List_Vender = async (req, res, next) => {
     //     });
     //   });
     // }
-  } catch (error) {
-    res.status(201).send(error.message);
-  }
-}
-
-const STrack_Registation = async (req, res, next) => {
-  const headers = {
-    Authorization: `Bearer ${env.ACCESSTOKEN}`,
-    "Content-Type": "application/json; charset=utf-8"
-  }
-  try {
-    const body = req.body;
-    const response = await query_OPS_mobile.STrack_Registation(body)
-    res.status(200).send(response.data);
   } catch (error) {
     res.status(201).send(error.message);
   }
