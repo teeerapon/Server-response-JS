@@ -1146,465 +1146,507 @@ const handleEvent = async (event) => {
         return client.replyMessage(event.replyToken, sendJSON)
       }
     } else if (venderID[0].response === 'step_ops') {
-      const JSONres = {
-        "type": "flex",
-        "contents": {
-          "type": "bubble",
-          "size": "mega",
-          "header": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": `${venderID[0].OPS_CODE}`,
-                    "wrap": true,
-                    "weight": "bold",
-                    "size": "xl",
-                    "color": "#ffffff",
-                    "flex": 4,
-                  },
-                  {
-                    "type": "text",
-                    "text": `${venderID[0].title}`,
-                    "wrap": true,
-                    "weight": "bold",
-                    "size": "md",
-                    "color": "#ffffff",
-                    "flex": 4,
-                  }
-                ]
-              }
-            ],
-            "paddingAll": "20px",
-            "backgroundColor": "#0367D3",
-            "spacing": "md",
-            "paddingTop": "22px"
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": `สาขาผู้แจ้ง : ${venderID[0].branch_issue}`,
-                "wrap": true,
-                "color": "#aaaaaa",
-                "size": "xs",
-              },
-              {
-                "type": "text",
-                "text": `เบอร์โหทรติดต่อ : ${venderID[0].OfficeTel}`,
-                "wrap": true,
-                "size": "xxs",
-                "margin": "md",
-                "color": "#aaaaaa",
-              },
-              {
-                "type": "separator",
-                "margin": "lg"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": `${venderID[0].time_step1 ? venderID[0].time_step1 : null}`,
-                    "size": "xs",
-                    "gravity": "center",
-                    "align": "center"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "filler"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [],
-                        "cornerRadius": "30px",
-                        "height": "12px",
-                        "width": "12px",
-                        "borderColor": venderID[0].time_step1 ? "#1DB446" : "#EF454D",
-                        "borderWidth": "2px",
-                        "backgroundColor": venderID[0].time_step1 ? "#1DB446" : "#EF454D"
-                      },
-                      {
-                        "type": "filler"
-                      }
-                    ],
-                    "flex": 0
-                  },
-                  {
-                    "type": "text",
-                    "text": "ยืนยันแจ้งงาน",
-                    "gravity": "center",
-                    "flex": 2,
-                    "size": "sm"
-                  }
-                ],
-                "spacing": "lg",
-                "cornerRadius": "30px",
-                "margin": "xl"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "filler"
-                      }
-                    ],
-                    "flex": 1
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "filler"
-                          },
-                          {
-                            "type": "box",
-                            "layout": "vertical",
-                            "contents": [],
-                            "width": "2px",
-                            "backgroundColor": venderID[0].time_step2 ? "#1DB446" : "#EF454D"
-                          },
-                          {
-                            "type": "filler"
-                          }
-                        ],
-                        "flex": 1
-                      }
-                    ],
-                    "width": "12px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [],
-                    "flex": 2
-                  }
-                ],
-                "spacing": "lg",
-                "height": "35px"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": `${venderID[0].time_step2 ? venderID[0].time_step2 : null}`,
-                        "gravity": "center",
-                        "size": "xs",
-                        "align": "center"
-                      }
-                    ],
-                    "flex": 1
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "filler"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [],
-                        "cornerRadius": "30px",
-                        "width": "12px",
-                        "height": "12px",
-                        "borderWidth": "2px",
-                        "borderColor": venderID[0].time_step2 ? "#1DB446" : "#EF454D",
-                        "backgroundColor": venderID[0].time_step2 ? "#1DB446" : "#EF454D"
-                      },
-                      {
-                        "type": "filler"
-                      }
-                    ],
-                    "flex": 0
-                  },
-                  {
-                    "type": "text",
-                    "text": "ยืนยันรายการแล้ว",
-                    "gravity": "center",
-                    "flex": 2,
-                    "size": "sm"
-                  }
-                ],
-                "spacing": "lg",
-                "cornerRadius": "30px"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "filler"
-                      }
-                    ],
-                    "flex": 1
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "filler"
-                          },
-                          {
-                            "type": "box",
-                            "layout": "vertical",
-                            "contents": [],
-                            "width": "2px",
-                            "backgroundColor": venderID[0].time_step3 ? "#1DB446" : "#EF454D"
-                          },
-                          {
-                            "type": "filler"
-                          }
-                        ],
-                        "flex": 1
-                      }
-                    ],
-                    "width": "12px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [],
-                    "flex": 2
-                  }
-                ],
-                "spacing": "lg",
-                "height": "35px"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": `${venderID[0].time_step3 ? venderID[0].time_step3 : null}`,
-                        "gravity": "center",
-                        "size": "xs",
-                        "align": "center"
-                      }
-                    ],
-                    "flex": 1
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "filler"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [],
-                        "cornerRadius": "30px",
-                        "width": "12px",
-                        "height": "12px",
-                        "borderWidth": "2px",
-                        "borderColor": venderID[0].time_step3 ? "#1DB446" : "#EF454D",
-                        "backgroundColor": venderID[0].time_step3 ? "#1DB446" : "#EF454D"
-                      },
-                      {
-                        "type": "filler"
-                      }
-                    ],
-                    "flex": 0
-                  },
-                  {
-                    "type": "text",
-                    "text": "อยู่ระหว่างดำเนินการ",
-                    "gravity": "center",
-                    "flex": 2,
-                    "size": "sm"
-                  }
-                ],
-                "spacing": "lg",
-                "cornerRadius": "30px"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "filler"
-                      }
-                    ],
-                    "flex": 1
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "filler"
-                          },
-                          {
-                            "type": "box",
-                            "layout": "vertical",
-                            "contents": [],
-                            "width": "2px",
-                            "backgroundColor": venderID[0].time_step4 ? "#1DB446" : "#EF454D"
-                          },
-                          {
-                            "type": "filler"
-                          }
-                        ],
-                        "flex": 1
-                      }
-                    ],
-                    "width": "12px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [],
-                    "flex": 2
-                  }
-                ],
-                "spacing": "lg",
-                "height": "35px"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": `${venderID[0].time_step4 ? venderID[0].time_step4 : null}`,
-                    "gravity": "center",
-                    "size": "xs",
-                    "align": "center"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "filler"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [],
-                        "cornerRadius": "30px",
-                        "width": "12px",
-                        "height": "12px",
-                        "borderColor": venderID[0].time_step4 ? "#1DB446" : "#EF454D",
-                        "borderWidth": "2px",
-                        "backgroundColor": venderID[0].time_step4 ? "#1DB446" : "#EF454D"
-                      },
-                      {
-                        "type": "filler"
-                      }
-                    ],
-                    "flex": 0
-                  },
-                  {
-                    "type": "text",
-                    "text": "ดำเนินการเสร็จสิ้น",
-                    "gravity": "center",
-                    "flex": 2,
-                    "size": "sm"
-                  }
-                ],
-                "spacing": "lg",
-                "cornerRadius": "30px"
-              }
-            ]
-          },
-          "footer": {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "button",
-                "action": {
-                  "type": "message",
-                  "label": "Cancel",
-                  "text": `!${venderID[0].OPS_CODE}`
+      if (venderID[0].time_step4) {
+        const JSONres = {
+          "type": "flex",
+          "contents": {
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "ทำรายการสำเร็จ !!",
+                  "weight": "bold",
+                  "color": "#00FF00",
+                  "size": "sm"
                 },
-                "style": "primary",
-                "margin": "sm",
-                "color": "#EF454D"
-              },
-              {
-                "type": "button",
-                "action": {
-                  "type": "message",
-                  "label": "Back",
-                  "text": `${venderID[0].statusid - 1}<${venderID[0].OPS_CODE}`
+                {
+                  "type": "text",
+                  "text": `รายการ ${venderID[0].OPS_CODE} ถูกดำเนินการเสร็จสิ้น กรุณาที่ปุ่มอธิบายขั้นตอนทำงาน เพื่ออธิบายขั้นตอนการทำงานของท่าน`,
+                  "size": "xs",
+                  "wrap": true
                 },
-                "style": "primary",
-                "margin": "sm",
-                "color": "#FFA500"
-              },
-              {
-                "type": "button",
-                "action": {
-                  "type": "message",
-                  "label": "Next",
-                  "text": `${venderID[0].statusid + 1}>${venderID[0].OPS_CODE}`
-                },
-                "style": "primary",
-                "color": venderID[0].time_step4 ? "#AAAAAA" : "#1DB446",
-                "margin": "sm"
-              }
-            ]
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "uri",
+                    "label": "อธิบายขั้นตอนทำงาน",
+                    "uri": `https://react-ts-9cpjby.stackblitz.io/?stk_code=${venderID[0].OPS_CODE}`
+                  },
+                  "position": "relative",
+                  "margin": "xxl",
+                  "height": "sm",
+                  "style": "primary",
+                }
+              ]
+            },
+            "type": "bubble"
           },
-        },
-        "altText": "Flex Message"
+          "altText": "Flex Message"
+        }
+        return client.replyMessage(event.replyToken, JSONres)
+      } else {
+        const JSONres = {
+          "type": "flex",
+          "contents": {
+            "type": "bubble",
+            "size": "mega",
+            "header": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": `${venderID[0].OPS_CODE}`,
+                      "wrap": true,
+                      "weight": "bold",
+                      "size": "xl",
+                      "color": "#ffffff",
+                      "flex": 4,
+                    },
+                    {
+                      "type": "text",
+                      "text": `${venderID[0].title}`,
+                      "wrap": true,
+                      "weight": "bold",
+                      "size": "md",
+                      "color": "#ffffff",
+                      "flex": 4,
+                    }
+                  ]
+                }
+              ],
+              "paddingAll": "20px",
+              "backgroundColor": "#0367D3",
+              "spacing": "md",
+              "paddingTop": "22px"
+            },
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": `สาขาผู้แจ้ง : ${venderID[0].branch_issue}`,
+                  "wrap": true,
+                  "color": "#aaaaaa",
+                  "size": "xs",
+                },
+                {
+                  "type": "text",
+                  "text": `เบอร์โหทรติดต่อ : ${venderID[0].OfficeTel}`,
+                  "wrap": true,
+                  "size": "xxs",
+                  "margin": "md",
+                  "color": "#aaaaaa",
+                },
+                {
+                  "type": "separator",
+                  "margin": "lg"
+                },
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": `${venderID[0].time_step1 ? venderID[0].time_step1 : null}`,
+                      "size": "xs",
+                      "gravity": "center",
+                      "align": "center"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "filler"
+                        },
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [],
+                          "cornerRadius": "30px",
+                          "height": "12px",
+                          "width": "12px",
+                          "borderColor": venderID[0].time_step1 ? "#1DB446" : "#EF454D",
+                          "borderWidth": "2px",
+                          "backgroundColor": venderID[0].time_step1 ? "#1DB446" : "#EF454D"
+                        },
+                        {
+                          "type": "filler"
+                        }
+                      ],
+                      "flex": 0
+                    },
+                    {
+                      "type": "text",
+                      "text": "ยืนยันแจ้งงาน",
+                      "gravity": "center",
+                      "flex": 2,
+                      "size": "sm"
+                    }
+                  ],
+                  "spacing": "lg",
+                  "cornerRadius": "30px",
+                  "margin": "xl"
+                },
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "box",
+                      "layout": "baseline",
+                      "contents": [
+                        {
+                          "type": "filler"
+                        }
+                      ],
+                      "flex": 1
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "box",
+                          "layout": "horizontal",
+                          "contents": [
+                            {
+                              "type": "filler"
+                            },
+                            {
+                              "type": "box",
+                              "layout": "vertical",
+                              "contents": [],
+                              "width": "2px",
+                              "backgroundColor": venderID[0].time_step2 ? "#1DB446" : "#EF454D"
+                            },
+                            {
+                              "type": "filler"
+                            }
+                          ],
+                          "flex": 1
+                        }
+                      ],
+                      "width": "12px"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "baseline",
+                      "contents": [],
+                      "flex": 2
+                    }
+                  ],
+                  "spacing": "lg",
+                  "height": "35px"
+                },
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "box",
+                      "layout": "horizontal",
+                      "contents": [
+                        {
+                          "type": "text",
+                          "text": `${venderID[0].time_step2 ? venderID[0].time_step2 : null}`,
+                          "gravity": "center",
+                          "size": "xs",
+                          "align": "center"
+                        }
+                      ],
+                      "flex": 1
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "filler"
+                        },
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [],
+                          "cornerRadius": "30px",
+                          "width": "12px",
+                          "height": "12px",
+                          "borderWidth": "2px",
+                          "borderColor": venderID[0].time_step2 ? "#1DB446" : "#EF454D",
+                          "backgroundColor": venderID[0].time_step2 ? "#1DB446" : "#EF454D"
+                        },
+                        {
+                          "type": "filler"
+                        }
+                      ],
+                      "flex": 0
+                    },
+                    {
+                      "type": "text",
+                      "text": "ยืนยันรายการแล้ว",
+                      "gravity": "center",
+                      "flex": 2,
+                      "size": "sm"
+                    }
+                  ],
+                  "spacing": "lg",
+                  "cornerRadius": "30px"
+                },
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "box",
+                      "layout": "baseline",
+                      "contents": [
+                        {
+                          "type": "filler"
+                        }
+                      ],
+                      "flex": 1
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "box",
+                          "layout": "horizontal",
+                          "contents": [
+                            {
+                              "type": "filler"
+                            },
+                            {
+                              "type": "box",
+                              "layout": "vertical",
+                              "contents": [],
+                              "width": "2px",
+                              "backgroundColor": venderID[0].time_step3 ? "#1DB446" : "#EF454D"
+                            },
+                            {
+                              "type": "filler"
+                            }
+                          ],
+                          "flex": 1
+                        }
+                      ],
+                      "width": "12px"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "baseline",
+                      "contents": [],
+                      "flex": 2
+                    }
+                  ],
+                  "spacing": "lg",
+                  "height": "35px"
+                },
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "box",
+                      "layout": "horizontal",
+                      "contents": [
+                        {
+                          "type": "text",
+                          "text": `${venderID[0].time_step3 ? venderID[0].time_step3 : null}`,
+                          "gravity": "center",
+                          "size": "xs",
+                          "align": "center"
+                        }
+                      ],
+                      "flex": 1
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "filler"
+                        },
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [],
+                          "cornerRadius": "30px",
+                          "width": "12px",
+                          "height": "12px",
+                          "borderWidth": "2px",
+                          "borderColor": venderID[0].time_step3 ? "#1DB446" : "#EF454D",
+                          "backgroundColor": venderID[0].time_step3 ? "#1DB446" : "#EF454D"
+                        },
+                        {
+                          "type": "filler"
+                        }
+                      ],
+                      "flex": 0
+                    },
+                    {
+                      "type": "text",
+                      "text": "อยู่ระหว่างดำเนินการ",
+                      "gravity": "center",
+                      "flex": 2,
+                      "size": "sm"
+                    }
+                  ],
+                  "spacing": "lg",
+                  "cornerRadius": "30px"
+                },
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "box",
+                      "layout": "baseline",
+                      "contents": [
+                        {
+                          "type": "filler"
+                        }
+                      ],
+                      "flex": 1
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "box",
+                          "layout": "horizontal",
+                          "contents": [
+                            {
+                              "type": "filler"
+                            },
+                            {
+                              "type": "box",
+                              "layout": "vertical",
+                              "contents": [],
+                              "width": "2px",
+                              "backgroundColor": venderID[0].time_step4 ? "#1DB446" : "#EF454D"
+                            },
+                            {
+                              "type": "filler"
+                            }
+                          ],
+                          "flex": 1
+                        }
+                      ],
+                      "width": "12px"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "baseline",
+                      "contents": [],
+                      "flex": 2
+                    }
+                  ],
+                  "spacing": "lg",
+                  "height": "35px"
+                },
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": `${venderID[0].time_step4 ? venderID[0].time_step4 : null}`,
+                      "gravity": "center",
+                      "size": "xs",
+                      "align": "center"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "filler"
+                        },
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [],
+                          "cornerRadius": "30px",
+                          "width": "12px",
+                          "height": "12px",
+                          "borderColor": venderID[0].time_step4 ? "#1DB446" : "#EF454D",
+                          "borderWidth": "2px",
+                          "backgroundColor": venderID[0].time_step4 ? "#1DB446" : "#EF454D"
+                        },
+                        {
+                          "type": "filler"
+                        }
+                      ],
+                      "flex": 0
+                    },
+                    {
+                      "type": "text",
+                      "text": "ดำเนินการเสร็จสิ้น",
+                      "gravity": "center",
+                      "flex": 2,
+                      "size": "sm"
+                    }
+                  ],
+                  "spacing": "lg",
+                  "cornerRadius": "30px"
+                }
+              ]
+            },
+            "footer": {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "message",
+                    "label": "Cancel",
+                    "text": `!${venderID[0].OPS_CODE}`
+                  },
+                  "style": "primary",
+                  "margin": "sm",
+                  "color": "#EF454D"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "message",
+                    "label": "Back",
+                    "text": `${venderID[0].statusid - 1}<${venderID[0].OPS_CODE}`
+                  },
+                  "style": "primary",
+                  "margin": "sm",
+                  "color": "#FFA500"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "message",
+                    "label": "Next",
+                    "text": `${venderID[0].statusid + 1}>${venderID[0].OPS_CODE}`
+                  },
+                  "style": "primary",
+                  "color": venderID[0].time_step4 ? "#AAAAAA" : "#1DB446",
+                  "margin": "sm"
+                }
+              ]
+            },
+          },
+          "altText": "Flex Message"
+        }
+        return client.replyMessage(event.replyToken, JSONres)
       }
-      return client.replyMessage(event.replyToken, JSONres)
     }
     else if (venderID[0].response) {
       return client.replyMessage(event.replyToken,
