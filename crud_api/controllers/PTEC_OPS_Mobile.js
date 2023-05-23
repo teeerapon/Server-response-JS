@@ -270,7 +270,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step1 ? item.time_step1.toLocaleDateString("en-US") : null}`,
+                    "text": `${item.time_step1 ? item.time_step1 : null}`,
                     "size": "xs",
                     "gravity": "center",
                     "align": "center"
@@ -372,7 +372,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step2 ? item.time_step2.toLocaleDateString("en-US") : null}`,
+                        "text": `${item.time_step2 ? item.time_step2 : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -476,7 +476,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step3 ? item.time_step3.toLocaleDateString("en-US") : null}`,
+                        "text": `${item.time_step3 ? item.time_step3 : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -576,7 +576,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step3 ? item.time_step4.toLocaleDateString("en-US") : null}`,
+                    "text": `${item.time_step3 ? item.time_step4 : null}`,
                     "gravity": "center",
                     "size": "xs",
                     "align": "center"
@@ -738,7 +738,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step1 ? item.time_step1.toLocaleDateString("en-US") : null}`,
+                    "text": `${item.time_step1 ? item.time_step1 : null}`,
                     "size": "xs",
                     "gravity": "center",
                     "align": "center"
@@ -840,7 +840,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step2 ? item.time_step2.toLocaleDateString("en-US") : null}`,
+                        "text": `${item.time_step2 ? item.time_step2 : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -944,7 +944,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step3 ? item.time_step3.toLocaleDateString("en-US") : null}`,
+                        "text": `${item.time_step3 ? item.time_step3 : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -1044,7 +1044,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step3 ? item.time_step4.toLocaleDateString("en-US") : null}`,
+                    "text": `${item.time_step3 ? item.time_step4 : null}`,
                     "gravity": "center",
                     "size": "xs",
                     "align": "center"
@@ -1209,7 +1209,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${venderID[0].time_step1 ? venderID[0].time_step1.toLocaleDateString("en-US") : null}`,
+                    "text": `${venderID[0].time_step1 ? venderID[0].time_step1 : null}`,
                     "size": "xs",
                     "gravity": "center",
                     "align": "center"
@@ -1311,7 +1311,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${venderID[0].time_step2 ? venderID[0].time_step2.toLocaleDateString("en-US") : null}`,
+                        "text": `${venderID[0].time_step2 ? venderID[0].time_step2 : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -1415,7 +1415,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${venderID[0].time_step3 ? venderID[0].time_step3.toLocaleDateString("en-US") : null}`,
+                        "text": `${venderID[0].time_step3 ? venderID[0].time_step3 : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -1515,7 +1515,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${venderID[0].time_step4 ? venderID[0].time_step4.toLocaleDateString("en-US") : null}`,
+                    "text": `${venderID[0].time_step4 ? venderID[0].time_step4 : null}`,
                     "gravity": "center",
                     "size": "xs",
                     "align": "center"
@@ -1683,7 +1683,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
             "contents": [
               {
                 "type": "text",
-                "text": `${response[0].time_step1 ? response[0].time_step1.toLocaleDateString("en-US") : null}`,
+                "text": `${response[0].time_step1 ? response[0].time_step1 : null}`,
                 "size": "xs",
                 "gravity": "center",
                 "align": "center"
@@ -1785,7 +1785,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${response[0].time_step2 ? response[0].time_step2.toLocaleDateString("en-US") : null}`,
+                    "text": `${response[0].time_step2 ? response[0].time_step2 : null}`,
                     "gravity": "center",
                     "size": "xs",
                     "align": "center"
@@ -1889,7 +1889,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${response[0].time_step3 ? response[0].time_step3.toLocaleDateString("en-US") : null}`,
+                    "text": `${response[0].time_step3 ? response[0].time_step3 : null}`,
                     "gravity": "center",
                     "size": "xs",
                     "align": "center"
@@ -1989,7 +1989,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
             "contents": [
               {
                 "type": "text",
-                "text": `${response[0].time_step3 ? response[0].time_step4.toLocaleDateString("en-US") : null}`,
+                "text": `${response[0].time_step3 ? response[0].time_step4 : null}`,
                 "gravity": "center",
                 "size": "xs",
                 "align": "center"
