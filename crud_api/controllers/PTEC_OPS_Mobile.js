@@ -150,7 +150,7 @@ const webhooks = async (req, res) => {
                 "action": {
                   "type": "uri",
                   "label": "กรุณาลงทะเบียนที่นี่",
-                  "uri": "https://react-ts-bxdz2e.stackblitz.io"
+                  "uri": "https://liff.line.me/1657915988-6Jrbvqly"
                 },
                 "position": "relative",
                 "margin": "xxl",
@@ -1172,7 +1172,7 @@ const handleEvent = async (event) => {
                   "action": {
                     "type": "uri",
                     "label": "อธิบายขั้นตอนทำงาน",
-                    "uri": `https://react-ts-9cpjby.stackblitz.io/?stk_code=${venderID[0].OPS_CODE}`
+                    "uri": `https://liff.line.me/1657915988-KLn4ZXyE/?stk_code=${venderID[0].OPS_CODE}`
                   },
                   "position": "relative",
                   "margin": "xxl",
