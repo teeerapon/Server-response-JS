@@ -18,6 +18,7 @@ const {
   , webhooks
   , STrack_Registation
   , STrack_responseFlex_AfterInsert
+  , STrack_End_Comments
 } = ptec_OPS_Mobile;
 
 
@@ -25,6 +26,7 @@ router.get('/OPS_Mobile_List_Vender', OPS_Mobile_List_Vender);
 router.post('/STrack_Registation', STrack_Registation);
 router.post('/webhooks', webhooks, line.middleware(lineConfig));
 router.post('/STrack_responseFlex_AfterInsert', STrack_responseFlex_AfterInsert)
+router.post('/STrack_End_Comments', STrack_End_Comments)
 
 // https://stackblitz.com/edit/react-ts-bxdz2e?file=src%2FApp.js
 

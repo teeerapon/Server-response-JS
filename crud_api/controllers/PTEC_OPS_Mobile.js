@@ -2090,11 +2090,25 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
   }
 }
 
+const STrack_End_Comments = async (req, res) => {
+  try {
+    const new_data = await query_fa_control.STrack_End_Comments();
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 
 module.exports = {
   OPS_Mobile_List_Vender,
   webhooks,
   STrack_Registation,
-  STrack_responseFlex_AfterInsert
+  STrack_responseFlex_AfterInsert,
+  STrack_End_Comments
 }
 
