@@ -150,7 +150,7 @@ const webhooks = async (req, res) => {
                 "action": {
                   "type": "uri",
                   "label": "กรุณาลงทะเบียนที่นี่",
-                  "uri": "https://liff.line.me/1657915988-6Jrbvqly"
+                  "uri": "https://react-ts-bxdz2e.stackblitz.io"
                 },
                 "position": "relative",
                 "margin": "xxl",
