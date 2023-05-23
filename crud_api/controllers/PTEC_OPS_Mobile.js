@@ -21,6 +21,85 @@ const OPS_Mobile_List_Vender = async (req, res, next) => {
     const list_Vender = await query_OPS_mobile.OPS_Mobile_List_Vender(assetCode)
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     res.status(200).send(list_Vender);
+    // if (response[0].res === 'ผู้ใช้งานนี้มีการลงทะเบียนแล้ว') {
+    //   client.getProfile(body.userid).then(async (profile) => {
+    //     const sendJSON = {
+    //       to: profile.userId,
+    //       messages: [
+    //         {
+    //           type: 'flex',
+    //           contents: {
+    //             body: {
+    //               type: 'box',
+    //               layout: 'vertical',
+    //               contents: [
+    //                 {
+    //                   type: 'text',
+    //                   text: `แจ้งเตือน !! ผู้ใช้งาน ${profile.displayName}`,
+    //                   weight: 'bold',
+    //                   color: '#1DB446',
+    //                   size: 'lg',
+    //                 },
+    //                 {
+    //                   type: 'text',
+    //                   text: `${response[0].res}`,
+    //                   weight: 'bold',
+    //                   size: 'md',
+    //                   margin: 'md',
+    //                 },
+    //               ],
+    //             },
+    //             type: 'bubble',
+    //           },
+    //           altText: 'Flex Message',
+    //         },
+    //       ],
+    //     };
+    //     res.status(200).send(sendJSON);
+    //     await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, {
+    //       headers,
+    //     });
+    //   });
+    // } else {
+    //   client.getProfile(body.userid).then(async (profile) => {
+    //     const sendJSON = {
+    //       to: profile.userId,
+    //       messages: [
+    //         {
+    //           type: 'flex',
+    //           contents: {
+    //             body: {
+    //               type: 'box',
+    //               layout: 'vertical',
+    //               contents: [
+    //                 {
+    //                   type: 'text',
+    //                   text: `แจ้งเตือน !! ผู้ใช้งาน ${profile.displayName}`,
+    //                   weight: 'bold',
+    //                   color: '#1DB446',
+    //                   size: 'lg',
+    //                 },
+    //                 {
+    //                   type: 'text',
+    //                   text: `${response[0].res}`,
+    //                   weight: 'bold',
+    //                   size: 'md',
+    //                   margin: 'md',
+    //                 },
+    //               ],
+    //             },
+    //             type: 'bubble',
+    //           },
+    //           altText: 'Flex Message',
+    //         },
+    //       ],
+    //     };
+    //     res.status(200).send(sendJSON);
+    //     await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, {
+    //       headers,
+    //     });
+    //   });
+    // }
   } catch (error) {
     res.status(201).send(error.message);
   }
@@ -34,81 +113,7 @@ const STrack_Registation = async (req, res, next) => {
   try {
     const body = req.body;
     const response = await query_OPS_mobile.STrack_Registation(body)
-    if (response[0].res === 'ผู้ใช้งานนี้มีการลงทะเบียนแล้ว') {
-      client
-        .getProfile(body.userid)
-        .then(async (profile) => {
-          const sendJSON = {
-            "to": profile.userId,
-            "messages": [{
-              "type": "flex",
-              "contents": {
-                "body": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": `แจ้งเตือน !! ผู้ใช้งาน ${profile.displayName}`,
-                      "weight": "bold",
-                      "color": "#1DB446",
-                      "size": "lg"
-                    },
-                    {
-                      "type": "text",
-                      "text": `${response[0].res}`,
-                      "weight": "bold",
-                      "size": "md",
-                      "margin": "md"
-                    }
-                  ]
-                },
-                "type": "bubble"
-              },
-              "altText": "Flex Message"
-            }]
-          }
-          res.status(200).send(sendJSON);
-          await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
-        })
-    } else {
-      client
-        .getProfile(body.userid)
-        .then(async (profile) => {
-          const sendJSON = {
-            "to": profile.userId,
-            "messages": [{
-              "type": "flex",
-              "contents": {
-                "body": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": `แจ้งเตือน !! ผู้ใช้งาน ${profile.displayName}`,
-                      "weight": "bold",
-                      "color": "#1DB446",
-                      "size": "lg"
-                    },
-                    {
-                      "type": "text",
-                      "text": `${response[0].res}`,
-                      "weight": "bold",
-                      "size": "md",
-                      "margin": "md"
-                    }
-                  ]
-                },
-                "type": "bubble"
-              },
-              "altText": "Flex Message"
-            }]
-          }
-          res.status(200).send(sendJSON);
-          await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
-        })
-    }
+    res.status(200).send(response.data);
   } catch (error) {
     res.status(201).send(error.message);
   }
