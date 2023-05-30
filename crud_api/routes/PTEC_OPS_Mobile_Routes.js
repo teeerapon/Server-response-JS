@@ -19,6 +19,7 @@ const {
   , STrack_Registation
   , STrack_responseFlex_AfterInsert
   , STrack_End_Comments
+  , STcheck_files
 } = ptec_OPS_Mobile;
 
 
@@ -27,6 +28,8 @@ router.post('/STrack_Registation', STrack_Registation);
 router.post('/webhooks', webhooks, line.middleware(lineConfig));
 router.post('/STrack_responseFlex_AfterInsert', STrack_responseFlex_AfterInsert)
 router.post('/STrack_End_Comments', STrack_End_Comments)
+router.post('/STcheck_files', STcheck_files)
+
 
 // https://stackblitz.com/edit/react-ts-bxdz2e?file=src%2FApp.js
 

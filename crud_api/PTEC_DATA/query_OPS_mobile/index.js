@@ -108,11 +108,53 @@ const STrack_End_Comments = async (req, res) => {
   }
 }
 
+const FA_Control_Running_NO = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .query(`
+          declare @nac_code varchar(100)
+          declare @date_time datetime = getdate()
+          exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[RunningNo] 'ATT', @date_time, @nac_code output
+
+          select @nac_code as ATT
+      `);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
+const NonPO_Attatch_Save = async (req, res) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
+    const assetslist = await pool.request()
+      .input('nonpocode', sql.NVarChar, req.st_code ?? null)
+      .input('url', sql.NVarChar, req.url ?? null)
+      .input('user', sql.NVarChar, req.user ?? null)
+      .input('description', sql.NVarChar, req.description ?? null)
+      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[NonPO_Attatch_Save] @nonpocode ,@url ,@description ,@user`);
+    //sql.close()
+    return assetslist.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
   OPS_Mobile_List_Vender,
   STrack_Registation,
   STrack_CheckVenderID,
   STrack_callMessages,
   STrack_responseFlex_AfterInsert,
-  STrack_End_Comments
+  STrack_End_Comments,
+  FA_Control_Running_NO,
+  NonPO_Attatch_Save
 }
