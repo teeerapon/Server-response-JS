@@ -2158,7 +2158,7 @@ const STcheck_files = async (req, res) => {
   const st_code = req.body.ST_code;
   const filename = file.name;
   const usercode = 'SYSTEM' //SYSTEM (users)
-  const url = 'http://vpnptec.dyndns.org:33080/files/Supliers_Tacking/'
+  const url = 'http://vpnptec.dyndns.org:33080/Supliers_Tacking/'
 
   const attach = 'ATT'
   const new_path = await query_OPS_mobile.FA_Control_Running_NO(attach)
