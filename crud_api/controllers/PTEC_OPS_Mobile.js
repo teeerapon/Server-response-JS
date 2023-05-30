@@ -2158,6 +2158,7 @@ const STcheck_files = async (req, res) => {
   const st_code = req.body.ST_code;
   const filename = file.name;
   const usercode = 'SYSTEM' //SYSTEM (users)
+  const url = 'http://vpnptec.dyndns.org:33080/files/Supliers_Tacking/'
 
   const attach = 'ATT'
   const new_path = await query_OPS_mobile.FA_Control_Running_NO(attach)
@@ -2165,7 +2166,7 @@ const STcheck_files = async (req, res) => {
     if (err) {
       res.status(500).send({ message: "File upload failed", code: 200 });
     }
-    const body = { "st_code": st_code, "url": `${newpath}${new_path[0].ATT}.${filename}`, "user": usercode, "description": st_code }
+    const body = { "st_code": st_code, "url": `${url}${new_path[0].ATT}.${filename.split('.').pop()}`, "user": usercode, "description": st_code }
     const resposne = await query_OPS_mobile.NonPO_Attatch_Save(body)
     res.status(200).send({ attach: resposne });
   });
