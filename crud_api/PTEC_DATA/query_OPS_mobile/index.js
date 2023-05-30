@@ -92,6 +92,7 @@ const STrack_responseFlex_AfterInsert = async (req, res) => {
 }
 
 const STrack_End_Comments = async (req, res) => {
+  console.log(req);
   const sql = require("mssql");
   const config = require('../../config');
   try {
@@ -99,7 +100,9 @@ const STrack_End_Comments = async (req, res) => {
     const assetslist = await pool.request()
       .input('stk_code', sql.NVarChar, req.stk_code ?? null)
       .input('End_Commetns', sql.NVarChar, req.End_Commetns ?? null)
-      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STrack_End_Comments] @stk_code, @End_Commetns`);
+      .input('BeginDate', sql.NVarChar, req.BeginDate ?? null)
+      .input('EndDate', sql.NVarChar, req.EndDate ?? null)
+      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STrack_End_Comments] @stk_code, @End_Commetns, @BeginDate, @EndDate`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {
