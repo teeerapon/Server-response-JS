@@ -92,7 +92,6 @@ const STrack_responseFlex_AfterInsert = async (req, res) => {
 }
 
 const STrack_End_Comments = async (req, res) => {
-  console.log(req);
   const sql = require("mssql");
   const config = require('../../config');
   try {
