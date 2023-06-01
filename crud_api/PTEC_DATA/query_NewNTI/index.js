@@ -4,7 +4,7 @@ const NewNTI_Station_InPut = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
 
-  let pool = await sql.connect(config.PTEC.object_test_ops.sql);
+  let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
   const addOwner = await pool
     .request()
     .input("Name", sql.NVarChar(255), req.Name)
@@ -25,7 +25,7 @@ const NewNTI_Station_InPut = async (req) => {
     .input("Province", sql.NVarChar(100), req.Province)
     .input("Postcode", sql.NVarChar(100), req.Postcode)
     .input("OfferType", sql.NVarChar(255), req.OfferType)
-    .query(`exec ${config.PTEC.object_test_ops.sql.database}.dbo.NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell,@Owner_Type,@Area_Type,@Tambol,@District,@Province,@Postcode,@OfferType`);
+    .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.NewNTI_Station_InPut @Name,@Tell,@Email,@Latitude,@Longitude,@Remark,@Area_width,@Area_total,@NumberArea,@Owner_Name,@Owner_Tell,@Owner_Type,@Area_Type,@Tambol,@District,@Province,@Postcode,@OfferType`);
 
   //sql.close()
   return addOwner.recordset;
