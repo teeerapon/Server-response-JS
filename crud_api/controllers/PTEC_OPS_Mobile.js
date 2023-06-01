@@ -1239,7 +1239,7 @@ const handleEvent = async (event) => {
                 },
                 {
                   "type": "text",
-                  "text": `เบอร์โหทรติดต่อ : ${venderID[0].OfficeTel}`,
+                  "text": `Office Tel : ${venderID[0].OfficeTel}`,
                   "wrap": true,
                   "size": "xxs",
                   "margin": "md",

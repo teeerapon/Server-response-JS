@@ -5,7 +5,7 @@ const period_login = async (dateLoginRequst) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const dateLogin = await pool.request()
       .input('BranchID', sql.Int, dateLoginRequst.BranchID)
@@ -22,7 +22,7 @@ const store_check_periodForUpdate = async (check_periodForUpdate) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const dateLogin = await pool.request()
       .input('BranchID', sql.Int, check_periodForUpdate.BranchID)
@@ -41,7 +41,7 @@ const period_check_create = async (dateLoginRequst) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const dateLogin = await pool.request()
       .input('BranchID', sql.Int, dateLoginRequst.BranchID)
@@ -58,7 +58,7 @@ const getsperiod_round = async (selectQuery) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const allround_period = await pool.request()
       .input('BranchID', sql.Int, selectQuery.BranchID)
@@ -75,7 +75,7 @@ const fa_permission_branch = async (permission_branch) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const fa_permission_branch = await pool.request()
       .input('userCode', sql.VarChar(10), permission_branch.userCode)
@@ -92,7 +92,7 @@ const craete_period = async (create_period) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const fa_create_period = await pool.request()
       .input('BeginDate', sql.DateTime, create_period.BeginDate)
@@ -113,7 +113,7 @@ const delete_period = async (fa_delete_period) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const fa_delete_period_data = await pool.request()
       .input('PeriodID', sql.BigInt, fa_delete_period.PeriodID)
@@ -131,7 +131,7 @@ const update_period = async (fa_update_period) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const fa_update_period_data = await pool.request()
       .input('PeriodID', sql.BigInt, fa_update_period.PeriodID)
@@ -153,7 +153,7 @@ const check_assets_in_period = async (check_assets_in_period) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const check_assets_in_period_data = await pool.request()
       .input('PeriodID', sql.BigInt, check_assets_in_period.PeriodID)
@@ -170,7 +170,7 @@ const check_BranchID = async (check_BranchID_in_period) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const check_Branch_data = await pool.request()
       .input('BranchID', sql.BigInt, check_BranchID_in_period.BranchID)
@@ -187,7 +187,7 @@ const select_priod = async (call_period) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const check_Branch_data = await pool.request()
       .input('usercode', sql.VarChar(10), call_period.usercode)
@@ -204,7 +204,7 @@ const round_website = async (selectQuery) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('period');
     const allround_period = await pool.request()
       .input('BranchID', sql.Int, selectQuery.BranchID)

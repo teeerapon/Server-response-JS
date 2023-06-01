@@ -6,7 +6,7 @@ const getsAssets = async (branchIDparam) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetslist = await pool.request()
       .input('RoundID', sql.Int, branchIDparam.RoundID)
@@ -23,7 +23,7 @@ const getsAssets2 = async (branchIDparam) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetslist = await pool.request()
       .input('BranchID', sql.Int, branchIDparam.BranchID)
@@ -41,7 +41,7 @@ const getAssetCode = async (Code) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     // console.log(sqlOueries.getAssetByCode);
     const oneAsset = await pool.request()
@@ -59,7 +59,7 @@ const getAssetByUserBranchID = async (userBranchID) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetByUserID = await pool.request()
       .input('RoundID', sql.Int, userBranchID.RoundID)
@@ -78,7 +78,7 @@ const wrongBranchID = async (userBranchID) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetByUserID = await pool.request()
       .input('UserBranch', sql.Int, userBranchID.UserBranch)
@@ -97,7 +97,7 @@ const lostAssets = async (userBranchID) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetByUserID = await pool.request()
       .input('UserBranch', sql.Int, userBranchID.UserBranch)
@@ -116,7 +116,7 @@ const getAssetByCode = async (codeAsset) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetByCode = await pool.request()
       .input('Code', sql.NVarChar(30), codeAsset.Code)
@@ -137,7 +137,7 @@ const scan_check_result = async (codeAsset) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetByCode = await pool.request()
       .input('Code', sql.NVarChar(30), codeAsset.Code)
@@ -155,7 +155,7 @@ const getAssetByCodeForTest = async (codeAsset) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetByCode = await pool.request()
       .input('Code', sql.NVarChar(30), codeAsset.Code)
@@ -180,7 +180,7 @@ const check_code_wrong_branch = async (codeAsset) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetByCode = await pool.request()
       .input('Code', sql.NVarChar(30), codeAsset.Code)
@@ -205,7 +205,7 @@ const createAsset = async (createAssetData) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const insertAsset = await pool.request()
       .input('Code', sql.NVarChar(30), createAssetData.Code)
@@ -230,7 +230,7 @@ const updateReference = async (referenceData) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const update = await pool.request()
       .input('Reference', sql.NVarChar(100), referenceData.Reference)
@@ -253,7 +253,7 @@ const AssetsAll_Control = async (assetsAll_Control) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const assetsBranchID_Control = await pool.request()
       .input('BranchID', sql.Int, assetsAll_Control.BranchID)
@@ -270,7 +270,7 @@ const SelectDTL_Control = async (DTL_Control) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const SelectDTL_Control = await pool.request()
       .input('Code', sql.NVarChar(30), DTL_Control.Code)
@@ -287,7 +287,7 @@ const store_FA_control_create_doc = async (FA_control_create_doc) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const FAcontrol_create_doc = await pool.request()
       .input('usercode', sql.VarChar(10), FA_control_create_doc.usercode)
@@ -316,7 +316,7 @@ const store_FA_control_creat_Detail = async (FA_control_creat_Detail) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_creat_Detail = await pool.request()
       .input('usercode', sql.VarChar(10), FA_control_creat_Detail.usercode)
@@ -342,7 +342,7 @@ const store_FA_control_select_NAC = async (FA_control_select_NAC) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_select_NAC = await pool.request()
       .input('usercode', sql.VarChar(10), FA_control_select_NAC.usercode)
@@ -359,7 +359,7 @@ const store_FA_control_select_NAC_approve = async (control_select_NAC_approve) =
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const FA_control_select_NAC_approve = await pool.request()
       .input('usercode', sql.VarChar(10), control_select_NAC_approve.usercode)
@@ -376,7 +376,7 @@ const store_FA_control_GuaranteeNAC = async (FA_control_GuaranteeNAC) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_GuaranteeNAC = await pool.request()
       .input('usercode', sql.VarChar(10), FA_control_GuaranteeNAC.usercode)
@@ -393,7 +393,7 @@ const store_FA_control_select_dtl = async (FA_control_select_dtl) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_select_dtl = await pool.request()
       .input('nac_code', sql.NVarChar(20), FA_control_select_dtl.nac_code)
@@ -410,7 +410,7 @@ const store_FA_control_select_headers = async (FA_control_select_headers) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_select_headers = await pool.request()
       .input('nac_code', sql.NVarChar(20), FA_control_select_headers.nac_code)
@@ -427,7 +427,7 @@ const store_FA_control_update_DTLandHeaders = async (FA_control_update_DTLandHea
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const update_DTLandHeaders = await pool.request()
       .input('usercode', sql.VarChar(10), FA_control_update_DTLandHeaders.usercode)
@@ -458,7 +458,7 @@ const store_FA_control_update_DTL = async (FA_control_update_DTL) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const update_DTL = await pool.request()
       .input('dtl_id', sql.Int, FA_control_update_DTL.dtl_id)
@@ -485,7 +485,7 @@ const store_FA_control_execDocID = async (FA_control_execDocID) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_execDocID = await pool.request()
       .input('usercode', sql.VarChar(10), FA_control_execDocID.user_source)
@@ -503,7 +503,7 @@ const store_FA_control_updateStatus = async (FA_control_updateStatus) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_updateStatus = await pool.request()
       .input('usercode', sql.VarChar(10), FA_control_updateStatus.usercode)
@@ -534,7 +534,7 @@ const store_FA_control_seals_update = async (FA_control_updateStatus) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_updateStatus = await pool.request()
       .input('usercode', sql.VarChar(10), FA_control_updateStatus.usercode)
@@ -564,7 +564,7 @@ const store_FA_control_updateDTL_seals = async (FA_control_updateDTL_seals) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const update_DTL = await pool.request()
       .input('usercode', sql.VarChar(10), FA_control_updateDTL_seals.usercode)
@@ -589,7 +589,7 @@ const store_FA_control_drop_NAC = async (FA_control_drop_NAC) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_drop_NAC = await pool.request()
       .input('usercode', sql.VarChar(10), FA_control_drop_NAC.usercode)
@@ -607,7 +607,7 @@ const store_FA_control_comment = async (FA_control_comment) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_drop_NAC = await pool.request()
       .input('nac_code', sql.VarChar(20), FA_control_comment.nac_code)
@@ -626,7 +626,7 @@ const stroe_FA_control_Path = async (FA_control_Path) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_Path = await pool.request()
       .input('nac_code', sql.VarChar(20), FA_control_Path.nac_code)
@@ -646,7 +646,7 @@ const qureyNAC_comment = async (NAC_comment) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_drop_NAC = await pool.request()
       .input('nac_code', sql.VarChar(20), NAC_comment.nac_code)
@@ -663,7 +663,7 @@ const qureyNAC_path = async (NAC_comment) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_drop_NAC = await pool.request()
       .input('nac_code', sql.VarChar(20), NAC_comment.nac_code)
@@ -680,7 +680,7 @@ const store_FA_control_CheckAssetCode_Process = async (FA_control_CheckAssetCode
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_drop_NAC = await pool.request()
       .input('nacdtl_assetsCode', sql.VarChar(20), FA_control_CheckAssetCode_Process.nacdtl_assetsCode)
@@ -697,7 +697,7 @@ const stroe_FA_control_DTL_ConfirmSuccess = async (FA_control_DTL_ConfirmSuccess
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_drop_NAC = await pool.request()
       .input('nac_code', sql.VarChar(30), FA_control_DTL_ConfirmSuccess.nac_code)
@@ -718,7 +718,7 @@ const store_FA_control_upadate_table = async (FA_control_upadate_table) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_upadate_table = await pool.request()
       .input('nac_code', sql.VarChar(30), FA_control_upadate_table.nac_code)
@@ -740,7 +740,7 @@ const store_FA_SendMail = async (FA_SendMail) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_upadate_table = await pool.request()
       .input('nac_code', sql.VarChar(30), FA_SendMail.nac_code)
@@ -757,7 +757,7 @@ const store_FA_control_Create_from_reported = async (FA_control_Create_from_repo
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_upadate_table = await pool.request()
       .input('nac_code', sql.VarChar(30), FA_control_Create_from_reported.nac_code)
@@ -777,7 +777,7 @@ const store_FA_control_HistorysAssets = async (FA_control_HistorysAssets) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const control_upadate_table = await pool.request()
       .input('userCode', sql.VarChar(10), FA_control_HistorysAssets.userCode)
@@ -794,7 +794,7 @@ const store_FA_control_fetch_assets = async (FA_control_fetch_assets) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const fetch_assets = await pool.request()
       .input('userCode', sql.VarChar(10), FA_control_fetch_assets.userCode)
@@ -811,7 +811,7 @@ const FA_Control_Report_All_Counted_by_Description = async (Report_All_Counted_b
   const sql = require("mssql");
   const config = require('../../config');
   try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const sqlOueries = await utils.loadSqlOueries('assets');
     const fetch_assets = await pool.request()
       .input('Description', sql.NVarChar(200), Report_All_Counted_by_Description.Description)
