@@ -880,6 +880,21 @@ const FA_Control_Running_NO = async (req) => {
   }
 }
 
+const FA_Control_BPC_SelectStatus = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_BPC_SelectStatus]`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 const FA_Control_Delete_PATH = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
@@ -946,7 +961,9 @@ const FA_Control_BPC_UpdateDetails = async (req) => {
       .input('Details', sql.NVarChar, req.Details)
       .input('Comments', sql.NVarChar, req.Comments)
       .input('keyID', sql.NVarChar, req.keyID)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @UserCode, @Code, @Details, @Comments, @keyID`);
+      .input('image_1', sql.NVarChar, req.image_1)
+      .input('image_2', sql.NVarChar, req.image_2)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @UserCode, @Code, @Details, @Comments, @keyID, @image_1, @image_2`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
@@ -1007,6 +1024,24 @@ const FA_Control_BPC_GroupBy = async (req) => {
   }
 }
 
+const FA_Control_BPC_SubmitVertify = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .input('tab_code', sql.NVarChar, req.tab_code)
+      .input('userid', sql.NVarChar, req.userid)
+      .input('statusid', sql.Int, req.statusid)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_SubmitVertify] @tab_code ,@userid ,@statusid`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
 
   //BPC
@@ -1015,6 +1050,8 @@ module.exports = {
   FA_Control_BPC_Running_NO,
   FA_Control_BPC_SELECT_TEMP,
   FA_Control_BPC_GroupBy,
+  FA_Control_BPC_SelectStatus,
+  FA_Control_BPC_SubmitVertify,
 
   //Mobile or Some Control
   createAsset,

@@ -163,7 +163,7 @@ const webhooks = async (req, res) => {
         },
         "altText": "Flex Message"
       }
-      if (venderID[0].response === 'false') {
+      if ((venderID ? venderID[0].response : undefined) === 'false') {
         return client.replyMessage(events[0].replyToken, textJSON)
       } else {
         return await events.map((items) => handleEvent(items))
@@ -180,7 +180,7 @@ const handleEvent = async (event) => {
   } else if (event.type === 'message') {
     const body = { "message": event.message.text, "userid_line": event.source.userId }
     const venderID = await query_OPS_mobile.STrack_callMessages(body)
-    if (!venderID[0].response) {
+    if (!(venderID ? venderID[0].response : undefined)) {
       const str = 'ยังไม่มีคำสั่งนี้ $'
       return client.replyMessage(event.replyToken,
         {
@@ -195,14 +195,14 @@ const handleEvent = async (event) => {
           ]
         })
     }
-    else if (venderID[0].response.indexOf('cancel STK') > -1) {
+    else if ((venderID ? venderID[0].response : undefined).indexOf('cancel STK') > -1) {
       return client.replyMessage(event.replyToken,
         {
           "type": "text",
           "text": `${venderID[0].response}`,
         })
     }
-    else if (venderID[0].response === 'แสดงงาน OPS') {
+    else if ((venderID ? venderID[0].response : undefined) === 'แสดงงาน OPS') {
       const lengthJSON = venderID
       var employees = {
         accounting: []
@@ -669,7 +669,7 @@ const handleEvent = async (event) => {
       } else if (event.message.type === "text") {
         return client.replyMessage(event.replyToken, sendJSON)
       }
-    } else if (venderID[0].response === 'แสดงงาน OPS ของฉัน') {
+    } else if ((venderID ? venderID[0].response : undefined) === 'แสดงงาน OPS ของฉัน') {
       const lengthJSON = venderID
       var employees = {
         accounting: []
@@ -1145,7 +1145,7 @@ const handleEvent = async (event) => {
       } else if (event.message.type === "text") {
         return client.replyMessage(event.replyToken, sendJSON)
       }
-    } else if (venderID[0].response === 'step_ops') {
+    } else if ((venderID ? venderID[0].response : undefined) === 'step_ops') {
       if (venderID[0].time_step4) {
         const JSONres = {
           "type": "flex",
@@ -1648,7 +1648,7 @@ const handleEvent = async (event) => {
         return client.replyMessage(event.replyToken, JSONres)
       }
     }
-    else if (venderID[0].response) {
+    else if ((venderID ? venderID[0].response : undefined)) {
       return client.replyMessage(event.replyToken,
         {
           "type": "text",
