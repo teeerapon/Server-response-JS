@@ -805,7 +805,8 @@ const FA_Control_New_Assets = async (req) => {
       .input('Create_Date', sql.NVarChar(50), req.Create_Date)
       .input('bac_type', sql.NVarChar(50), req.bac_type ?? null)
       .input('keyID', sql.NVarChar(50), req.keyID ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type, @keyID`);
+      .input('user_name', sql.NVarChar, req.user_name ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type, @keyID, @user_name`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
@@ -833,7 +834,8 @@ const FA_Control_New_Assets_Xlsx = async (req) => {
       .input('Details', sql.NVarChar, req.Details ?? null)
       .input('bac_type', sql.NVarChar, req.bac_type ?? null)
       .input('key', sql.NVarChar, req.keyID ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @UserCode, @Code, @Name, @BranchID , @OwnerCode, @SerialNo, @Price, @CreateDate, @CreateBy, @Position, @Details, @bac_type, @key`);
+      .input('user_name', sql.NVarChar, req.user_name ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @UserCode, @Code, @Name, @BranchID , @OwnerCode, @SerialNo, @Price, @CreateDate, @CreateBy, @Position, @Details, @bac_type, @key, @user_name`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
@@ -963,7 +965,8 @@ const FA_Control_BPC_UpdateDetails = async (req) => {
       .input('keyID', sql.NVarChar, req.keyID)
       .input('image_1', sql.NVarChar, req.image_1)
       .input('image_2', sql.NVarChar, req.image_2)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @UserCode, @Code, @Details, @Comments, @keyID, @image_1, @image_2`);
+      .input('user_name', sql.NVarChar, req.user_name)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateDetails] @UserCode, @Code, @Details, @Comments, @keyID, @image_1, @image_2, @user_name`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
@@ -1030,10 +1033,12 @@ const FA_Control_BPC_SubmitVertify = async (req) => {
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const fetch_assets = await pool.request()
-      .input('tab_code', sql.NVarChar, req.tab_code)
-      .input('userid', sql.NVarChar, req.userid)
-      .input('statusid', sql.Int, req.statusid)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_SubmitVertify] @tab_code ,@userid ,@statusid`);
+      .input('tab_code', sql.NVarChar, req.tab_code ?? null)
+      .input('assetID', sql.Int, req.assetID ?? null)
+      .input('userid', sql.NVarChar, req.userid ?? null)
+      .input('statusid', sql.Int, req.statusid ?? null)
+      .input('count', sql.Int, req.count ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_SubmitVertify] @tab_code, @assetID ,@userid ,@statusid, @count`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
