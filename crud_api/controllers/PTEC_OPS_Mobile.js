@@ -275,7 +275,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step1 ? item.time_step1 : null}`,
+                    "text": `${item.time_step1 ? (item.time_step1).split(':').pop() : null}`,
                     "size": "xs",
                     "gravity": "center",
                     "align": "center"
@@ -377,7 +377,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step2 ? item.time_step2 : null}`,
+                        "text": `${item.time_step2 ? (item.time_step2).split(':').pop() : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -481,7 +481,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step3 ? item.time_step3 : null}`,
+                        "text": `${item.time_step3 ? (item.time_step3).split(':').pop() : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -743,7 +743,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step1 ? item.time_step1 : null}`,
+                    "text": `${item.time_step1 ? (item.time_step1).split(':').pop() : null}`,
                     "size": "xs",
                     "gravity": "center",
                     "align": "center"
@@ -845,7 +845,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step2 ? item.time_step2 : null}`,
+                        "text": `${item.time_step2 ? (item.time_step2).split(':').pop() : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -949,7 +949,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step3 ? item.time_step3 : null}`,
+                        "text": `${item.time_step3 ? (item.time_step3).split(':').pop() : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
