@@ -35,85 +35,6 @@ const STrack_Registation = async (req, res, next) => {
     const body = req.body;
     const response = await query_OPS_mobile.STrack_Registation(body)
     res.status(200).send(response);
-    // if (response[0].res === 'ผู้ใช้งานนี้มีการลงทะเบียนแล้ว') {
-    //   client.getProfile(body.userid).then(async (profile) => {
-    //     const sendJSON = {
-    //       to: profile.userId,
-    //       messages: [
-    //         {
-    //           type: 'flex',
-    //           contents: {
-    //             body: {
-    //               type: 'box',
-    //               layout: 'vertical',
-    //               contents: [
-    //                 {
-    //                   type: 'text',
-    //                   text: `แจ้งเตือน !! ผู้ใช้งาน ${profile.displayName}`,
-    //                   weight: 'bold',
-    //                   color: '#1DB446',
-    //                   size: 'lg',
-    //                 },
-    //                 {
-    //                   type: 'text',
-    //                   text: `${response[0].res}`,
-    //                   weight: 'bold',
-    //                   size: 'md',
-    //                   margin: 'md',
-    //                 },
-    //               ],
-    //             },
-    //             type: 'bubble',
-    //           },
-    //           altText: 'Flex Message',
-    //         },
-    //       ],
-    //     };
-    //     res.status(200).send(sendJSON);
-    //     await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, {
-    //       headers,
-    //     });
-    //   });
-    // } else {
-    //   client.getProfile(body.userid).then(async (profile) => {
-    //     const sendJSON = {
-    //       to: profile.userId,
-    //       messages: [
-    //         {
-    //           type: 'flex',
-    //           contents: {
-    //             body: {
-    //               type: 'box',
-    //               layout: 'vertical',
-    //               contents: [
-    //                 {
-    //                   type: 'text',
-    //                   text: `แจ้งเตือน !! ผู้ใช้งาน ${profile.displayName}`,
-    //                   weight: 'bold',
-    //                   color: '#1DB446',
-    //                   size: 'lg',
-    //                 },
-    //                 {
-    //                   type: 'text',
-    //                   text: `${response[0].res}`,
-    //                   weight: 'bold',
-    //                   size: 'md',
-    //                   margin: 'md',
-    //                 },
-    //               ],
-    //             },
-    //             type: 'bubble',
-    //           },
-    //           altText: 'Flex Message',
-    //         },
-    //       ],
-    //     };
-    //     res.status(200).send(sendJSON);
-    //     await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, {
-    //       headers,
-    //     });
-    //   });
-    // }
   } catch (error) {
     res.status(201).send(error.message);
   }
@@ -230,7 +151,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": `${item.title}`,
+                    "text": `${item.title} (${item.jobDetails})`,
                     "wrap": true,
                     "weight": "bold",
                     "size": "md",
@@ -252,7 +173,7 @@ const handleEvent = async (event) => {
             "contents": [
               {
                 "type": "text",
-                "text": `สาขาผู้แจ้ง : ${item.branch_issue}`,
+                "text": `ผู้แจ้ง : ${item.user_name} ติดต่อ : ${item.user_tel}`,
                 "wrap": true,
                 "color": "#aaaaaa",
                 "size": "xs",
@@ -275,7 +196,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step1 ? (item.time_step1).split(':').pop() : null}`,
+                    "text": `${item.time_step1 ? `${(item.time_step1).split(':')[0]}:${(item.time_step1).split(':')[1]}` : null}`,
                     "size": "xs",
                     "gravity": "center",
                     "align": "center"
@@ -377,7 +298,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step2 ? (item.time_step2).split(':').pop() : null}`,
+                        "text": `${item.time_step2 ? `${(item.time_step2).split(':')[0]}:${(item.time_step2).split(':')[1]}` : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -481,7 +402,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step3 ? (item.time_step3).split(':').pop() : null}`,
+                        "text": `${item.time_step3 ? `${(item.time_step3).split(':')[0]}:${(item.time_step3).split(':')[1]}` : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -581,7 +502,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step3 ? item.time_step4 : null}`,
+                    "text": `${item.time_step3 ? `${(item.time_step4).split(':')[0]}:${(item.time_step4).split(':')[1]}` : null}`,
                     "gravity": "center",
                     "size": "xs",
                     "align": "center"
@@ -698,7 +619,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": `${item.title}`,
+                    "text": `${item.title} (${item.jobDetails})`,
                     "wrap": true,
                     "weight": "bold",
                     "size": "md",
@@ -720,7 +641,7 @@ const handleEvent = async (event) => {
             "contents": [
               {
                 "type": "text",
-                "text": `สาขาผู้แจ้ง : ${item.branch_issue}`,
+                "text": `ผู้แจ้ง : ${item.user_name} ติดต่อ : ${item.user_tel}`,
                 "wrap": true,
                 "color": "#aaaaaa",
                 "size": "xs",
@@ -743,7 +664,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step1 ? (item.time_step1).split(':').pop() : null}`,
+                    "text": `${item.time_step1 ? `${(item.time_step1).split(':')[0]}:${(item.time_step1).split(':')[1]}` : null}`,
                     "size": "xs",
                     "gravity": "center",
                     "align": "center"
@@ -845,7 +766,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step2 ? (item.time_step2).split(':').pop() : null}`,
+                        "text": `${item.time_step2 ? `${(item.time_step2).split(':')[0]}:${(item.time_step2).split(':')[1]}` : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -949,7 +870,7 @@ const handleEvent = async (event) => {
                     "contents": [
                       {
                         "type": "text",
-                        "text": `${item.time_step3 ? (item.time_step3).split(':').pop() : null}`,
+                        "text": `${item.time_step3 ? `${(item.time_step3).split(':')[0]}:${(item.time_step3).split(':')[1]}` : null}`,
                         "gravity": "center",
                         "size": "xs",
                         "align": "center"
@@ -1049,7 +970,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step3 ? item.time_step4 : null}`,
+                    "text": `${item.time_step3 ? `${(item.time_step4).split(':')[0]}:${(item.time_step4).split(':')[1]}` : null}`,
                     "gravity": "center",
                     "size": "xs",
                     "align": "center"
@@ -1211,7 +1132,7 @@ const handleEvent = async (event) => {
                     },
                     {
                       "type": "text",
-                      "text": `${venderID[0].title}`,
+                      "text": `${venderID[0].title} (${venderID[0].jobDetails})`,
                       "wrap": true,
                       "weight": "bold",
                       "size": "md",
@@ -1232,14 +1153,30 @@ const handleEvent = async (event) => {
               "contents": [
                 {
                   "type": "text",
-                  "text": `สาขาผู้แจ้ง : ${venderID[0].branch_issue}`,
+                  "text": `ผู้แจ้ง : ${venderID[0].user_name} ติดต่อ : ${venderID[0].user_tel}`,
                   "wrap": true,
                   "color": "#aaaaaa",
                   "size": "xs",
                 },
                 {
                   "type": "text",
-                  "text": `Office Tel : ${venderID[0].OfficeTel}`,
+                  "text": `สาขาที่เกิดปัญหา : ${venderID[0].branch_issue}`,
+                  "wrap": true,
+                  "size": "xxs",
+                  "margin": "md",
+                  "color": "#aaaaaa",
+                },
+                {
+                  "type": "text",
+                  "text": `ติดต่อออฟฟิศ : ${venderID[0].OfficeTel}`,
+                  "wrap": true,
+                  "size": "xxs",
+                  "margin": "md",
+                  "color": "#aaaaaa",
+                },
+                {
+                  "type": "text",
+                  "text": `ที่อยู่ : ${response[0].address}`,
                   "wrap": true,
                   "size": "xxs",
                   "margin": "md",
@@ -1707,14 +1644,30 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
         "contents": [
           {
             "type": "text",
-            "text": `สาขาผู้แจ้ง : ${response[0].BranchID}`,
+            "text": `ผู้แจ้ง : ${response[0].user_name} ติดต่อ : ${response[0].user_tel}`,
             "wrap": true,
             "color": "#aaaaaa",
             "size": "xs",
           },
           {
             "type": "text",
-            "text": `เบอร์โทรติดต่อ : ${response[0].OfficeTel}`,
+            "text": `สาขาที่เกิดปัญหา : ${response[0].branch_issue}`,
+            "wrap": true,
+            "size": "xxs",
+            "margin": "md",
+            "color": "#aaaaaa",
+          },
+          {
+            "type": "text",
+            "text": `ติดต่อออฟฟิศ : ${response[0].OfficeTel}`,
+            "wrap": true,
+            "size": "xxs",
+            "margin": "md",
+            "color": "#aaaaaa",
+          },
+          {
+            "type": "text",
+            "text": `ที่อยู่ : ${response[0].address}`,
             "wrap": true,
             "size": "xxs",
             "margin": "md",
