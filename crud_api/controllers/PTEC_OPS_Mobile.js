@@ -502,7 +502,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step3 ? `${(item.time_step4).split(':')[0]}:${(item.time_step4).split(':')[1]}` : null}`,
+                    "text": `${item.time_step3 ? item.time_step4 : null}`,
                     "gravity": "center",
                     "size": "xs",
                     "align": "center"
@@ -970,7 +970,7 @@ const handleEvent = async (event) => {
                 "contents": [
                   {
                     "type": "text",
-                    "text": `${item.time_step3 ? `${(item.time_step4).split(':')[0]}:${(item.time_step4).split(':')[1]}` : null}`,
+                    "text": `${item.time_step3 ? item.time_step4 : null}`,
                     "gravity": "center",
                     "size": "xs",
                     "align": "center"
