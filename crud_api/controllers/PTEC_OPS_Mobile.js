@@ -1093,7 +1093,7 @@ const handleEvent = async (event) => {
                   "action": {
                     "type": "uri",
                     "label": "อธิบายขั้นตอนทำงาน",
-                    "uri": `https://liff.line.me/1657915988-KLn4ZXyE/?stk_code=${venderID[0].OPS_CODE}`
+                    "uri": `https://liff.line.me/1657915988-KLn4ZXyE?stk_code=${venderID[0].OPS_CODE}`
                   },
                   "position": "relative",
                   "margin": "xxl",
