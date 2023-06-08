@@ -553,18 +553,6 @@ const handleEvent = async (event) => {
                 "type": "button",
                 "action": {
                   "type": "message",
-                  "label": "Cancel",
-                  "text": `!${item.OPS_CODE}`
-                },
-                "height": "sm",
-                "margin": "sm",
-                "style": "primary",
-                "color": "#EF454D"
-              },
-              {
-                "type": "button",
-                "action": {
-                  "type": "message",
                   "label": item.userid_line ? 'FOLLOWUP' : "COMFIRM",
                   "text": item.userid_line ? `${item.OPS_CODE}` : `${item.statusid + 1}>${item.OPS_CODE}`
                 },
@@ -572,6 +560,18 @@ const handleEvent = async (event) => {
                 "style": "primary",
                 "color": item.userid_line ? "#aaaaaa" : "#1DB446",
                 "margin": "sm",
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "Cancel",
+                  "text": `!${item.OPS_CODE}`
+                },
+                "height": "sm",
+                "margin": "sm",
+                "style": "primary",
+                "color": "#EF454D"
               },
             ]
           },
@@ -1020,17 +1020,6 @@ const handleEvent = async (event) => {
                 "type": "button",
                 "action": {
                   "type": "message",
-                  "label": "Cancel",
-                  "text": `!${item.OPS_CODE}`
-                },
-                "style": "primary",
-                "margin": "sm",
-                "color": "#EF454D"
-              },
-              {
-                "type": "button",
-                "action": {
-                  "type": "message",
                   "label": "Back",
                   "text": `${item.statusid - 1}<${item.OPS_CODE}`
                 },
@@ -1048,7 +1037,18 @@ const handleEvent = async (event) => {
                 "style": "primary",
                 "color": item.time_step4 ? "#AAAAAA" : "#1DB446",
                 "margin": "sm"
-              }
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "Cancel",
+                  "text": `!${item.OPS_CODE}`
+                },
+                "style": "primary",
+                "margin": "sm",
+                "color": "#EF454D"
+              },
             ]
           },
         })
@@ -1548,17 +1548,6 @@ const handleEvent = async (event) => {
                   "type": "button",
                   "action": {
                     "type": "message",
-                    "label": "Cancel",
-                    "text": `!${venderID[0].OPS_CODE}`
-                  },
-                  "style": "primary",
-                  "margin": "sm",
-                  "color": "#EF454D"
-                },
-                {
-                  "type": "button",
-                  "action": {
-                    "type": "message",
                     "label": "Back",
                     "text": `${venderID[0].statusid - 1}<${venderID[0].OPS_CODE}`
                   },
@@ -1576,7 +1565,18 @@ const handleEvent = async (event) => {
                   "style": "primary",
                   "color": venderID[0].time_step4 ? "#AAAAAA" : "#1DB446",
                   "margin": "sm"
-                }
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "message",
+                    "label": "Cancel",
+                    "text": `!${venderID[0].OPS_CODE}`
+                  },
+                  "style": "primary",
+                  "margin": "sm",
+                  "color": "#EF454D"
+                },
               ]
             },
           },
@@ -2040,18 +2040,6 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
             "type": "button",
             "action": {
               "type": "message",
-              "label": "Cancel",
-              "text": `!${response[0].STrack_Code}`
-            },
-            "height": "sm",
-            "margin": "sm",
-            "style": "primary",
-            "color": "#EF454D"
-          },
-          {
-            "type": "button",
-            "action": {
-              "type": "message",
               "label": "COMFIRM",
               "text": `${2}>${response[0].STrack_Code}`
             },
@@ -2059,6 +2047,18 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
             "style": "primary",
             "color": response[0].time_step4 ? "#aaaaaa" : "#1DB446",
             "margin": "sm",
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "Cancel",
+              "text": `!${response[0].STrack_Code}`
+            },
+            "height": "sm",
+            "margin": "sm",
+            "style": "primary",
+            "color": "#EF454D"
           },
         ]
       },
