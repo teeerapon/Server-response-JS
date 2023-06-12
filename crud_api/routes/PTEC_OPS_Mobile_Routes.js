@@ -20,6 +20,7 @@ const {
   , STrack_responseFlex_AfterInsert
   , STrack_End_Comments
   , STcheck_files
+  , STrack_SuccessJob
 } = ptec_OPS_Mobile;
 
 
@@ -29,6 +30,7 @@ router.post('/webhooks', webhooks, line.middleware(lineConfig));
 router.post('/STrack_responseFlex_AfterInsert', STrack_responseFlex_AfterInsert)
 router.post('/STrack_End_Comments', STrack_End_Comments)
 router.post('/STcheck_files', STcheck_files)
+router.post('/STrack_SuccessJob', STrack_SuccessJob)
 
 // https://stackblitz.com/edit/react-ts-bxdz2e?file=src%2FApp.js
 

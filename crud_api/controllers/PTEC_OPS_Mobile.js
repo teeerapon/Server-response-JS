@@ -202,14 +202,6 @@ const handleEvent = async (event) => {
                 "color": "#aaaaaa",
               },
               {
-                "type": "text",
-                "text": `บริษัทผู้ปฏิบัติงาน : ${item.suplier_name}`,
-                "wrap": true,
-                "size": "xs",
-                "margin": "md",
-                "color": "#aaaaaa",
-              },
-              {
                 "type": "separator",
                 "margin": "lg"
               },
@@ -687,14 +679,6 @@ const handleEvent = async (event) => {
               {
                 "type": "text",
                 "text": `ที่อยู่ : ${item.address}`,
-                "wrap": true,
-                "size": "xs",
-                "margin": "md",
-                "color": "#aaaaaa",
-              },
-              {
-                "type": "text",
-                "text": `บริษัทผู้ปฏิบัติงาน : ${item.suplier_name}`,
                 "wrap": true,
                 "size": "xs",
                 "margin": "md",
@@ -1236,14 +1220,6 @@ const handleEvent = async (event) => {
                   "color": "#aaaaaa",
                 },
                 {
-                  "type": "text",
-                  "text": `บริษัทผู้ปฏิบัติงาน : ${venderID[0].suplier_name}`,
-                  "wrap": true,
-                  "size": "xs",
-                  "margin": "md",
-                  "color": "#aaaaaa",
-                },
-                {
                   "type": "separator",
                   "margin": "lg"
                 },
@@ -1646,13 +1622,13 @@ const handleEvent = async (event) => {
         return client.replyMessage(event.replyToken, JSONres)
       }
     }
-    else if ((venderID ? venderID[0].response : undefined)) {
-      return client.replyMessage(event.replyToken,
-        {
-          "type": "text",
-          "text": `${venderID[0].response}`
-        })
-    }
+    // else if ((venderID ? venderID[0].response : undefined)) {
+    //   return client.replyMessage(event.replyToken,
+    //     {
+    //       "type": "text",
+    //       "text": `${venderID[0].response}`
+    //     })
+    // }
   }
 }
 
@@ -1674,7 +1650,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
             "contents": [
               {
                 "type": "text",
-                "text": `${response[0].STrack_Code}`,
+                "text": `${response[0].OPS_CODE}`,
                 "wrap": true,
                 "weight": "bold",
                 "size": "xl",
@@ -1683,7 +1659,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
               },
               {
                 "type": "text",
-                "text": `${response[0].Name}`,
+                "text": `${response[0].title} (${response[0].jobDetails})`,
                 "wrap": true,
                 "weight": "bold",
                 "size": "md",
@@ -1728,14 +1704,6 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
           {
             "type": "text",
             "text": `ที่อยู่ : ${response[0].address}`,
-            "wrap": true,
-            "size": "xs",
-            "margin": "md",
-            "color": "#aaaaaa",
-          },
-          {
-            "type": "text",
-            "text": `บริษัทผู้ปฏิบัติงาน : ${response[0].suplier_name}`,
             "wrap": true,
             "size": "xs",
             "margin": "md",
@@ -2158,6 +2126,469 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
   }
 }
 
+const STrack_SuccessJob = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const response = await query_OPS_mobile.STrack_SuccessJob(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    const responseJSON = {
+      "type": "bubble",
+      "size": "mega",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${response[0].OPS_CODE}`,
+                "wrap": true,
+                "weight": "bold",
+                "size": "xl",
+                "color": "#ffffff",
+                "flex": 4,
+              },
+              {
+                "type": "text",
+                "text": `${response[0].title} (${response[0].jobDetails})`,
+                "wrap": true,
+                "weight": "bold",
+                "size": "md",
+                "color": "#ffffff",
+                "flex": 4,
+              }
+            ]
+          }
+        ],
+        "paddingAll": "20px",
+        "backgroundColor": "#0367D3",
+        "spacing": "md",
+        "paddingTop": "22px"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "text",
+            "text": `ผู้แจ้ง : ${response[0].user_name} (ผู้จัดการสาขา ${response[0].branch_issue})`,
+            "wrap": true,
+            "color": "#aaaaaa",
+            "size": "xs",
+          },
+          {
+            "type": "text",
+            "text": `ติดต่อผู้แจ้ง : ${response[0].user_tel}`,
+            "wrap": true,
+            "color": "#aaaaaa",
+            "size": "xs",
+          },
+          {
+            "type": "text",
+            "text": `ติดต่อออฟฟิศ : ${response[0].OfficeTel}`,
+            "wrap": true,
+            "size": "xs",
+            "margin": "md",
+            "color": "#aaaaaa",
+          },
+          {
+            "type": "text",
+            "text": `ที่อยู่ : ${response[0].address}`,
+            "wrap": true,
+            "size": "xs",
+            "margin": "md",
+            "color": "#aaaaaa",
+          },
+          {
+            "type": "separator",
+            "margin": "lg"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${response[0].time_step1 ? response[0].time_step1 : null}`,
+                "size": "xs",
+                "gravity": "center",
+                "align": "center"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [],
+                    "cornerRadius": "30px",
+                    "height": "12px",
+                    "width": "12px",
+                    "borderColor": response[0].time_step1 ? "#1DB446" : "#EF454D",
+                    "borderWidth": "2px",
+                    "backgroundColor": response[0].time_step1 ? "#1DB446" : "#EF454D"
+                  },
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "แจ้งงานผู้รับเหมา",
+                "gravity": "center",
+                "flex": 2,
+                "size": "sm"
+              }
+            ],
+            "spacing": "lg",
+            "cornerRadius": "30px",
+            "margin": "xl"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "2px",
+                        "backgroundColor": response[0].time_step2 ? "#1DB446" : "#EF454D"
+                      },
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 1
+                  }
+                ],
+                "width": "12px"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [],
+                "flex": 2
+              }
+            ],
+            "spacing": "lg",
+            "height": "35px"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": `${response[0].time_step2 ? response[0].time_step2 : null}`,
+                    "gravity": "center",
+                    "size": "xs",
+                    "align": "center"
+                  }
+                ],
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [],
+                    "cornerRadius": "30px",
+                    "width": "12px",
+                    "height": "12px",
+                    "borderWidth": "2px",
+                    "borderColor": response[0].time_step2 ? "#1DB446" : "#EF454D",
+                    "backgroundColor": response[0].time_step2 ? "#1DB446" : "#EF454D"
+                  },
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "ยืนยันรับงาน",
+                "gravity": "center",
+                "flex": 2,
+                "size": "sm"
+              }
+            ],
+            "spacing": "lg",
+            "cornerRadius": "30px"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "2px",
+                        "backgroundColor": response[0].time_step3 ? "#1DB446" : "#EF454D"
+                      },
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 1
+                  }
+                ],
+                "width": "12px"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [],
+                "flex": 2
+              }
+            ],
+            "spacing": "lg",
+            "height": "35px"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": `${response[0].time_step3 ? response[0].time_step3 : null}`,
+                    "gravity": "center",
+                    "size": "xs",
+                    "align": "center"
+                  }
+                ],
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [],
+                    "cornerRadius": "30px",
+                    "width": "12px",
+                    "height": "12px",
+                    "borderWidth": "2px",
+                    "borderColor": response[0].time_step3 ? "#1DB446" : "#EF454D",
+                    "backgroundColor": response[0].time_step3 ? "#1DB446" : "#EF454D"
+                  },
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "กำลังดำเนินการ",
+                "gravity": "center",
+                "flex": 2,
+                "size": "sm"
+              }
+            ],
+            "spacing": "lg",
+            "cornerRadius": "30px"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "2px",
+                        "backgroundColor": response[0].time_step4 ? "#1DB446" : "#EF454D"
+                      },
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "flex": 1
+                  }
+                ],
+                "width": "12px"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [],
+                "flex": 2
+              }
+            ],
+            "spacing": "lg",
+            "height": "35px"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${response[0].time_step3 ? response[0].time_step4 : null}`,
+                "gravity": "center",
+                "size": "xs",
+                "align": "center"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [],
+                    "cornerRadius": "30px",
+                    "width": "12px",
+                    "height": "12px",
+                    "borderColor": response[0].time_step4 ? "#1DB446" : "#EF454D",
+                    "borderWidth": "2px",
+                    "backgroundColor": response[0].time_step4 ? "#1DB446" : "#EF454D"
+                  },
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "ส่งงาน (Completed)",
+                "gravity": "center",
+                "flex": 2,
+                "size": "sm"
+              }
+            ],
+            "spacing": "lg",
+            "cornerRadius": "30px"
+          },
+        ],
+      },
+    }
+    for (var i = 0; i < response.length; i++) {
+
+      const headers = {
+        Authorization: `Bearer ${env.ACCESSTOKEN}`,
+        "Content-Type": "application/json; charset=utf-8"
+      }
+
+      client
+        .getProfile(response[i].userid)
+        .then(async (profile) => {
+          const sendJSON = {
+            "to": profile.userId,
+            "messages": [{
+              "type": "flex",
+              "contents": responseJSON,
+              "altText": "Flex Message"
+            }]
+          }
+          res.status(200).send(sendJSON);
+          await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
+        })
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 const STrack_End_Comments = async (req, res) => {
   try {
     const data = req.body
@@ -2166,6 +2597,487 @@ const STrack_End_Comments = async (req, res) => {
       res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
     } else {
       res.status(200).send(JSON.stringify(new_data));
+      const responseJSON = {
+        "type": "bubble",
+        "size": "mega",
+        "header": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": `${new_data[0].OPS_CODE}`,
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "xl",
+                  "color": "#ffffff",
+                  "flex": 4,
+                },
+                {
+                  "type": "text",
+                  "text": `${new_data[0].title} (${new_data[0].jobDetails})`,
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "md",
+                  "color": "#ffffff",
+                  "flex": 4,
+                }
+              ]
+            }
+          ],
+          "paddingAll": "20px",
+          "backgroundColor": "#0367D3",
+          "spacing": "md",
+          "paddingTop": "22px"
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "spacing": "sm",
+          "contents": [
+            {
+              "type": "text",
+              "text": `ผู้แจ้ง : ${new_data[0].user_name} (ผู้จัดการสาขา ${new_data[0].branch_issue})`,
+              "wrap": true,
+              "color": "#aaaaaa",
+              "size": "xs",
+            },
+            {
+              "type": "text",
+              "text": `ติดต่อผู้แจ้ง : ${new_data[0].user_tel}`,
+              "wrap": true,
+              "color": "#aaaaaa",
+              "size": "xs",
+            },
+            {
+              "type": "text",
+              "text": `ติดต่อออฟฟิศ : ${new_data[0].OfficeTel}`,
+              "wrap": true,
+              "size": "xs",
+              "margin": "md",
+              "color": "#aaaaaa",
+            },
+            {
+              "type": "text",
+              "text": `ที่อยู่ : ${new_data[0].address}`,
+              "wrap": true,
+              "size": "xs",
+              "margin": "md",
+              "color": "#aaaaaa",
+            },
+            {
+              "type": "separator",
+              "margin": "lg"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": `${new_data[0].time_step1 ? new_data[0].time_step1 : null}`,
+                  "size": "xs",
+                  "gravity": "center",
+                  "align": "center"
+                },
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "filler"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [],
+                      "cornerRadius": "30px",
+                      "height": "12px",
+                      "width": "12px",
+                      "borderColor": new_data[0].time_step1 ? "#1DB446" : "#EF454D",
+                      "borderWidth": "2px",
+                      "backgroundColor": new_data[0].time_step1 ? "#1DB446" : "#EF454D"
+                    },
+                    {
+                      "type": "filler"
+                    }
+                  ],
+                  "flex": 0
+                },
+                {
+                  "type": "text",
+                  "text": "แจ้งงานผู้รับเหมา",
+                  "gravity": "center",
+                  "flex": 2,
+                  "size": "sm"
+                }
+              ],
+              "spacing": "lg",
+              "cornerRadius": "30px",
+              "margin": "xl"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "contents": [
+                    {
+                      "type": "filler"
+                    }
+                  ],
+                  "flex": 1
+                },
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "box",
+                      "layout": "horizontal",
+                      "contents": [
+                        {
+                          "type": "filler"
+                        },
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [],
+                          "width": "2px",
+                          "backgroundColor": new_data[0].time_step2 ? "#1DB446" : "#EF454D"
+                        },
+                        {
+                          "type": "filler"
+                        }
+                      ],
+                      "flex": 1
+                    }
+                  ],
+                  "width": "12px"
+                },
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "contents": [],
+                  "flex": 2
+                }
+              ],
+              "spacing": "lg",
+              "height": "35px"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": `${new_data[0].time_step2 ? new_data[0].time_step2 : null}`,
+                      "gravity": "center",
+                      "size": "xs",
+                      "align": "center"
+                    }
+                  ],
+                  "flex": 1
+                },
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "filler"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [],
+                      "cornerRadius": "30px",
+                      "width": "12px",
+                      "height": "12px",
+                      "borderWidth": "2px",
+                      "borderColor": new_data[0].time_step2 ? "#1DB446" : "#EF454D",
+                      "backgroundColor": new_data[0].time_step2 ? "#1DB446" : "#EF454D"
+                    },
+                    {
+                      "type": "filler"
+                    }
+                  ],
+                  "flex": 0
+                },
+                {
+                  "type": "text",
+                  "text": "ยืนยันรับงาน",
+                  "gravity": "center",
+                  "flex": 2,
+                  "size": "sm"
+                }
+              ],
+              "spacing": "lg",
+              "cornerRadius": "30px"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "contents": [
+                    {
+                      "type": "filler"
+                    }
+                  ],
+                  "flex": 1
+                },
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "box",
+                      "layout": "horizontal",
+                      "contents": [
+                        {
+                          "type": "filler"
+                        },
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [],
+                          "width": "2px",
+                          "backgroundColor": new_data[0].time_step3 ? "#1DB446" : "#EF454D"
+                        },
+                        {
+                          "type": "filler"
+                        }
+                      ],
+                      "flex": 1
+                    }
+                  ],
+                  "width": "12px"
+                },
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "contents": [],
+                  "flex": 2
+                }
+              ],
+              "spacing": "lg",
+              "height": "35px"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": `${new_data[0].time_step3 ? new_data[0].time_step3 : null}`,
+                      "gravity": "center",
+                      "size": "xs",
+                      "align": "center"
+                    }
+                  ],
+                  "flex": 1
+                },
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "filler"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [],
+                      "cornerRadius": "30px",
+                      "width": "12px",
+                      "height": "12px",
+                      "borderWidth": "2px",
+                      "borderColor": new_data[0].time_step3 ? "#1DB446" : "#EF454D",
+                      "backgroundColor": new_data[0].time_step3 ? "#1DB446" : "#EF454D"
+                    },
+                    {
+                      "type": "filler"
+                    }
+                  ],
+                  "flex": 0
+                },
+                {
+                  "type": "text",
+                  "text": "กำลังดำเนินการ",
+                  "gravity": "center",
+                  "flex": 2,
+                  "size": "sm"
+                }
+              ],
+              "spacing": "lg",
+              "cornerRadius": "30px"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "contents": [
+                    {
+                      "type": "filler"
+                    }
+                  ],
+                  "flex": 1
+                },
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "box",
+                      "layout": "horizontal",
+                      "contents": [
+                        {
+                          "type": "filler"
+                        },
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [],
+                          "width": "2px",
+                          "backgroundColor": new_data[0].time_step4 ? "#FFA500" : "#EF454D"
+                        },
+                        {
+                          "type": "filler"
+                        }
+                      ],
+                      "flex": 1
+                    }
+                  ],
+                  "width": "12px"
+                },
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "contents": [],
+                  "flex": 2
+                }
+              ],
+              "spacing": "lg",
+              "height": "35px"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": `${new_data[0].time_step3 ? new_data[0].time_step4 : null}`,
+                  "gravity": "center",
+                  "size": "xs",
+                  "align": "center"
+                },
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "filler"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [],
+                      "cornerRadius": "30px",
+                      "width": "12px",
+                      "height": "12px",
+                      "borderColor": new_data[0].time_step4 ? "#FFA500" : "#EF454D",
+                      "borderWidth": "2px",
+                      "backgroundColor": new_data[0].time_step4 ? "#FFA500" : "#EF454D"
+                    },
+                    {
+                      "type": "filler"
+                    }
+                  ],
+                  "flex": 0
+                },
+                {
+                  "type": "text",
+                  "text": "ส่งงาน (รอประเมิน)",
+                  "gravity": "center",
+                  "flex": 2,
+                  "size": "sm"
+                }
+              ],
+              "spacing": "lg",
+              "cornerRadius": "30px"
+            },
+          ],
+        },
+        "footer": {
+          "type": "box",
+          "layout": "horizontal",
+          "spacing": "sm",
+          "contents": [
+            {
+              "type": "button",
+              "action": {
+                "type": "message",
+                "label": "BACK",
+                "text": `${3}<${new_data[0].STrack_Code}`
+              },
+              "height": "sm",
+              "style": "primary",
+              "color": "#FFA500",
+              "margin": "sm",
+            },
+            {
+              "type": "button",
+              "action": {
+                "type": "message",
+                "label": "Cancel",
+                "text": `!${new_data[0].STrack_Code}`
+              },
+              "height": "sm",
+              "margin": "sm",
+              "style": "primary",
+              "color": "#EF454D"
+            },
+          ]
+        },
+      }
+      const headers = {
+        Authorization: `Bearer ${env.ACCESSTOKEN}`,
+        "Content-Type": "application/json; charset=utf-8"
+      }
+
+      client
+        .getProfile(new_data[0].userid_line)
+        .then(async (profile) => {
+          const sendJSON = {
+            "to": profile.userId,
+            "messages": [{
+              "type": "flex",
+              "contents": responseJSON,
+              "altText": "Flex Message"
+            }]
+          }
+          res.status(200).send(sendJSON);
+          await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
+        })
     }
   } catch (error) {
     res.status(201).send(error.message);
@@ -2203,6 +3115,7 @@ module.exports = {
   STrack_Registation,
   STrack_responseFlex_AfterInsert,
   STrack_End_Comments,
-  STcheck_files
+  STcheck_files,
+  STrack_SuccessJob
 }
 

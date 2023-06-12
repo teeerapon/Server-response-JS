@@ -91,6 +91,24 @@ const STrack_responseFlex_AfterInsert = async (req, res) => {
   }
 }
 
+const STrack_SuccessJob = async (req, res) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
+    const assetslist = await pool.request()
+      .input('jobcode', sql.VarChar(20), req.jobcode ?? null)
+      .input('dtlid', sql.VarChar(10), req.dtlid ?? null)
+      .input('usercode', sql.VarChar(10), req.usercode ?? null)
+      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STrack_SuccessJob] @jobcode, @dtlid, @usercode`);
+    //sql.close()
+    return assetslist.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 const STrack_End_Comments = async (req, res) => {
   const sql = require("mssql");
   const config = require('../../config');
@@ -98,10 +116,11 @@ const STrack_End_Comments = async (req, res) => {
     let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const assetslist = await pool.request()
       .input('stk_code', sql.NVarChar, req.stk_code ?? null)
+      .input('userID', sql.NVarChar, req.userID ?? null)
       .input('End_Commetns', sql.NVarChar, req.End_Commetns ?? null)
       .input('BeginDate', sql.NVarChar, req.BeginDate ?? null)
       .input('EndDate', sql.NVarChar, req.EndDate ?? null)
-      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STrack_End_Comments] @stk_code, @End_Commetns, @BeginDate, @EndDate`);
+      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STrack_End_Comments] @stk_code, @End_Commetns, @BeginDate, @EndDate,@userID`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {
@@ -158,5 +177,6 @@ module.exports = {
   STrack_responseFlex_AfterInsert,
   STrack_End_Comments,
   FA_Control_Running_NO,
-  NonPO_Attatch_Save
+  NonPO_Attatch_Save,
+  STrack_SuccessJob
 }
