@@ -250,7 +250,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": "ยืนยันแจ้งงาน",
+                    "text": "แจ้งงานผู้รับเหมา",
                     "gravity": "center",
                     "flex": 2,
                     "size": "sm"
@@ -355,7 +355,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": "ยืนยันรายการแล้ว",
+                    "text": "ยืนยันรับงาน",
                     "gravity": "center",
                     "flex": 2,
                     "size": "sm"
@@ -459,7 +459,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": "อยู่ระหว่างดำเนินการ",
+                    "text": "กำลังดำเนินการ",
                     "gravity": "center",
                     "flex": 2,
                     "size": "sm"
@@ -556,7 +556,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": "ดำเนินการเสร็จสิ้น",
+                    "text": "ส่งงาน",
                     "gravity": "center",
                     "flex": 2,
                     "size": "sm"
@@ -741,7 +741,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": "ยืนยันแจ้งงาน",
+                    "text": "แจ้งงานผู้รับเหมา",
                     "gravity": "center",
                     "flex": 2,
                     "size": "sm"
@@ -846,7 +846,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": "ยืนยันรายการแล้ว",
+                    "text": "ยืนยันรับงาน",
                     "gravity": "center",
                     "flex": 2,
                     "size": "sm"
@@ -950,7 +950,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": "อยู่ระหว่างดำเนินการ",
+                    "text": "กำลังดำเนินการ",
                     "gravity": "center",
                     "flex": 2,
                     "size": "sm"
@@ -1047,7 +1047,7 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "text",
-                    "text": "ดำเนินการเสร็จสิ้น",
+                    "text": "ส่งงาน",
                     "gravity": "center",
                     "flex": 2,
                     "size": "sm"
@@ -1284,7 +1284,7 @@ const handleEvent = async (event) => {
                     },
                     {
                       "type": "text",
-                      "text": "ยืนยันแจ้งงาน",
+                      "text": "แจ้งงานผู้รับเหมา",
                       "gravity": "center",
                       "flex": 2,
                       "size": "sm"
@@ -1389,7 +1389,7 @@ const handleEvent = async (event) => {
                     },
                     {
                       "type": "text",
-                      "text": "ยืนยันรายการแล้ว",
+                      "text": "ยืนยันรับงาน",
                       "gravity": "center",
                       "flex": 2,
                       "size": "sm"
@@ -1493,7 +1493,7 @@ const handleEvent = async (event) => {
                     },
                     {
                       "type": "text",
-                      "text": "อยู่ระหว่างดำเนินการ",
+                      "text": "กำลังดำเนินการ",
                       "gravity": "center",
                       "flex": 2,
                       "size": "sm"
@@ -1590,7 +1590,7 @@ const handleEvent = async (event) => {
                     },
                     {
                       "type": "text",
-                      "text": "ดำเนินการเสร็จสิ้น",
+                      "text": "ส่งงาน",
                       "gravity": "center",
                       "flex": 2,
                       "size": "sm"
@@ -1782,7 +1782,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
               },
               {
                 "type": "text",
-                "text": "ยืนยันแจ้งงาน",
+                "text": "แจ้งงานผู้รับเหมา",
                 "gravity": "center",
                 "flex": 2,
                 "size": "sm"
@@ -1887,7 +1887,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
               },
               {
                 "type": "text",
-                "text": "ยืนยันรายการแล้ว",
+                "text": "ยืนยันรับงาน",
                 "gravity": "center",
                 "flex": 2,
                 "size": "sm"
@@ -1991,7 +1991,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
               },
               {
                 "type": "text",
-                "text": "อยู่ระหว่างดำเนินการ",
+                "text": "กำลังดำเนินการ",
                 "gravity": "center",
                 "flex": 2,
                 "size": "sm"
@@ -2088,7 +2088,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
               },
               {
                 "type": "text",
-                "text": "ดำเนินการเสร็จสิ้น",
+                "text": "ส่งงาน",
                 "gravity": "center",
                 "flex": 2,
                 "size": "sm"
