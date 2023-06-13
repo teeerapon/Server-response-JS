@@ -101,7 +101,7 @@ const handleEvent = async (event) => {
   } else if (event.type === 'message') {
     const body = { "message": event.message.text, "userid_line": event.source.userId }
     const venderID = await query_OPS_mobile.STrack_callMessages(body)
-    if (venderID.length > 0) {
+    if ((venderID ? venderID.length : 0) > 0) {
       if (!(venderID ? venderID[0].response : undefined)) {
         const str = 'ยังไม่มีคำสั่งนี้ $'
         return client.replyMessage(event.replyToken,
@@ -1098,7 +1098,7 @@ const handleEvent = async (event) => {
           return client.replyMessage(event.replyToken, sendJSON)
         }
       } else if ((venderID ? venderID[0].response : undefined) === 'step_ops') {
-        if (venderID[0].time_step4) {
+        if (venderID[0].statusid === 4) {
           const JSONres = {
             "type": "flex",
             "contents": {
