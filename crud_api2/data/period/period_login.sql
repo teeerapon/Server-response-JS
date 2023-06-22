@@ -1,1 +1,0 @@
-exec FA_Period_Time_Login @BranchID

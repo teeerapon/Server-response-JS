@@ -1,1 +1,0 @@
-exec [dbo].[FA_Control_GuaranteeNAC] @userCode

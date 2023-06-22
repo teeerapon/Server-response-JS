@@ -1,1 +1,0 @@
-SELECT [UserID] ,[UserCode] ,[Name] ,[BranchID] ,[DepID] ,[SecID] ,[AreaID] ,[PositionID] ,[Password] ,[Email] ,[Tel] ,[EmpUpper] ,[Actived] ,[ChangePassword] ,[Admin] ,[Vendor_Code] FROM [Users] WHERE [UserCode]=@UserCode

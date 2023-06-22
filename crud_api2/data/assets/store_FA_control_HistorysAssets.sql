@@ -1,1 +1,0 @@
-exec [PTEC_USERSRIGHT].[dbo].[Fix_Assets_Control_HistoryAssets] @userCode

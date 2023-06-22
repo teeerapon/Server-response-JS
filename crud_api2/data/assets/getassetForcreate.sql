@@ -1,1 +1,0 @@
-exec FA_Mobile_getassetForcreate @Code,@UserBranch,@RoundID
