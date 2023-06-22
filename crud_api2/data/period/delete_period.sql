@@ -1,0 +1,1 @@
+exec FA_Controls_Delete_Period @periodID,@branchid

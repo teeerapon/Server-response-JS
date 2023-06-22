@@ -1,0 +1,1 @@
+exec [dbo].[FA_Control_Drop_DocumentNAC] @usercode, @nac_code

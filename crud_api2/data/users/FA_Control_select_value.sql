@@ -1,0 +1,1 @@
+SELECT [DepID] FROM [Users] WHERE [UserCode]=@UserCode

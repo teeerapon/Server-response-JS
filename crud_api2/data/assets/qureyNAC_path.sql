@@ -1,0 +1,1 @@
+exec FA_Control_qureyNAC_path @nac_code

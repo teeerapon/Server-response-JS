@@ -35,59 +35,101 @@ const STrack_Registation = async (req, res, next) => {
     const body = req.body;
     const response = await query_OPS_mobile.STrack_Registation(body)
     res.status(200).send(response);
+    if (response[0].userReply) {
+      const sendJSON = {
+        "to": response[0].userReply,
+        "messages": [{
+          "type": "flex",
+          "contents": {
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "แจ้งเตือน !!",
+                  "weight": "bold",
+                  "color": "#00FF00",
+                  "size": "sm"
+                },
+                {
+                  "type": "text",
+                  "text": `${response[0].res}`,
+                  "size": "xs",
+                  "wrap": true
+                },
+              ]
+            },
+            "type": "bubble"
+          },
+          "altText": "Flex Message"
+        }]
+      }
+      axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
+    }
   } catch (error) {
     res.status(201).send(error.message);
   }
 }
 
 const webhooks = async (req, res) => {
+  console.log('webhooks');
+  console.log(req);
   try {
     res.status(200).send("OK")
     const events = req.body.events
-    if (events[0].source.userId) {
-      const venderID = await query_OPS_mobile.STrack_CheckVenderID(events[0].source.userId)
-      const textJSON = {
-        "type": "flex",
-        "contents": {
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "แจ้งเตือน !!",
-                "weight": "bold",
-                "color": "#FF0000",
-                "size": "sm"
-              },
-              {
-                "type": "text",
-                "text": "LINE ID ของผู้ใช้งานยังไม่มีการลงทะเบียน",
-                "size": "xs",
-                "wrap": true
-              },
-              {
-                "type": "button",
-                "action": {
-                  "type": "uri",
-                  "label": "กรุณาลงทะเบียนที่นี่",
-                  "uri": "https://liff.line.me/1657915988-6Jrbvqly"
+    if (events.length > 0) {
+      if (events[0].source.userId) {
+        const venderID = await query_OPS_mobile.STrack_CheckVenderID(events[0].source.userId)
+        const textJSON = {
+          "type": "flex",
+          "contents": {
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "แจ้งเตือน !!",
+                  "weight": "bold",
+                  "color": "#FF0000",
+                  "size": "sm"
                 },
-                "position": "relative",
-                "margin": "xxl",
-                "height": "sm",
-                "style": "primary",
-              }
-            ]
+                {
+                  "type": "text",
+                  "text": "LINE ID ของผู้ใช้งานยังไม่มีการลงทะเบียน",
+                  "size": "xs",
+                  "wrap": true
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "uri",
+                    "label": "กรุณาลงทะเบียนที่นี่",
+                    "uri": "https://liff.line.me/1657915988-6Jrbvqly"
+                  },
+                  "position": "relative",
+                  "margin": "xxl",
+                  "height": "sm",
+                  "style": "primary",
+                }
+              ]
+            },
+            "type": "bubble"
           },
-          "type": "bubble"
-        },
-        "altText": "Flex Message"
-      }
-      if ((venderID ? venderID[0].response : undefined) === 'false') {
-        return client.replyMessage(events[0].replyToken, textJSON)
-      } else {
-        return await events.map((items) => handleEvent(items))
+          "altText": "Flex Message"
+        }
+        if ((venderID ? venderID[0].response : undefined) === 'false') {
+          console.log('webhooks in 1 ');
+
+          if (events[0].replyToken) {
+            return client.replyMessage(events[0].replyToken, textJSON)
+          }
+        } else {
+          console.log('webhooks in 2 ');
+
+          return await events.map((items) => handleEvent(items))
+        }
       }
     }
   } catch (error) {
@@ -152,6 +194,15 @@ const handleEvent = async (event) => {
                     },
                     {
                       "type": "text",
+                      "text": `[${item.STK_CODE}]`,
+                      "wrap": true,
+                      "weight": "bold",
+                      "size": "md",
+                      "color": "#ffffff",
+                      "flex": 4,
+                    },
+                    {
+                      "type": "text",
                       "text": `${item.title} (${item.jobDetails})`,
                       "wrap": true,
                       "weight": "bold",
@@ -491,7 +542,7 @@ const handleEvent = async (event) => {
                               "layout": "vertical",
                               "contents": [],
                               "width": "2px",
-                              "backgroundColor": item.time_step4 ? "#1DB446" : "#EF454D"
+                              "backgroundColor": item.time_step4 ? "#FFA500" : "#EF454D"
                             },
                             {
                               "type": "filler"
@@ -537,9 +588,9 @@ const handleEvent = async (event) => {
                           "cornerRadius": "30px",
                           "width": "12px",
                           "height": "12px",
-                          "borderColor": item.time_step4 ? "#1DB446" : "#EF454D",
+                          "borderColor": item.time_step4 ? "#FFA500" : "#EF454D",
                           "borderWidth": "2px",
-                          "backgroundColor": item.time_step4 ? "#1DB446" : "#EF454D"
+                          "backgroundColor": item.time_step4 ? "#FFA500" : "#EF454D"
                         },
                         {
                           "type": "filler"
@@ -570,7 +621,7 @@ const handleEvent = async (event) => {
                   "action": {
                     "type": "message",
                     "label": item.userid_line ? 'FOLLOWUP' : "COMFIRM",
-                    "text": item.userid_line ? `${item.OPS_CODE}` : `${item.statusid + 1}>${item.OPS_CODE}`
+                    "text": item.userid_line ? `${item.STK_CODE}` : `${item.statusid + 1}>${item.STK_CODE}`
                   },
                   "height": "sm",
                   "style": "primary",
@@ -635,6 +686,15 @@ const handleEvent = async (event) => {
                     },
                     {
                       "type": "text",
+                      "text": `[${item.STK_CODE}]`,
+                      "wrap": true,
+                      "weight": "bold",
+                      "size": "md",
+                      "color": "#ffffff",
+                      "flex": 4,
+                    },
+                    {
+                      "type": "text",
                       "text": `${item.title} (${item.jobDetails})`,
                       "wrap": true,
                       "weight": "bold",
@@ -1020,9 +1080,9 @@ const handleEvent = async (event) => {
                           "cornerRadius": "30px",
                           "width": "12px",
                           "height": "12px",
-                          "borderColor": item.time_step4 ? "#1DB446" : "#EF454D",
+                          "borderColor": item.time_step4 ? "#FFA500" : "#EF454D",
                           "borderWidth": "2px",
-                          "backgroundColor": item.time_step4 ? "#1DB446" : "#EF454D"
+                          "backgroundColor": item.time_step4 ? "#FFA500" : "#EF454D"
                         },
                         {
                           "type": "filler"
@@ -1063,7 +1123,7 @@ const handleEvent = async (event) => {
                   "action": {
                     "type": "message",
                     "label": "Next",
-                    "text": `${item.statusid - 1}>${item.OPS_CODE}`
+                    "text": `${item.statusid - 1}>${item.STK_CODE}`
                   },
                   "style": "primary",
                   "color": item.time_step4 ? "#AAAAAA" : "#1DB446",
@@ -1124,7 +1184,7 @@ const handleEvent = async (event) => {
                     "action": {
                       "type": "uri",
                       "label": "อธิบายขั้นตอนทำงาน",
-                      "uri": `https://liff.line.me/1657915988-KLn4ZXyE?stk_code=${venderID[0].OPS_CODE}`
+                      "uri": `https://liff.line.me/1657915988-KLn4ZXyE?stk_code=${venderID[0].STK_CODE}`
                     },
                     "position": "relative",
                     "margin": "xxl",
@@ -1158,6 +1218,15 @@ const handleEvent = async (event) => {
                         "wrap": true,
                         "weight": "bold",
                         "size": "xl",
+                        "color": "#ffffff",
+                        "flex": 4,
+                      },
+                      {
+                        "type": "text",
+                        "text": `[${venderID[0].STK_CODE}]`,
+                        "wrap": true,
+                        "weight": "bold",
+                        "size": "md",
                         "color": "#ffffff",
                         "flex": 4,
                       },
@@ -1509,7 +1578,7 @@ const handleEvent = async (event) => {
                                 "layout": "vertical",
                                 "contents": [],
                                 "width": "2px",
-                                "backgroundColor": venderID[0].time_step4 ? "#1DB446" : "#EF454D"
+                                "backgroundColor": venderID[0].time_step4 ? "#FFA500" : "#EF454D"
                               },
                               {
                                 "type": "filler"
@@ -1555,9 +1624,9 @@ const handleEvent = async (event) => {
                             "cornerRadius": "30px",
                             "width": "12px",
                             "height": "12px",
-                            "borderColor": venderID[0].time_step4 ? "#1DB446" : "#EF454D",
+                            "borderColor": venderID[0].time_step4 ? "#FFA500" : "#EF454D",
                             "borderWidth": "2px",
-                            "backgroundColor": venderID[0].time_step4 ? "#1DB446" : "#EF454D"
+                            "backgroundColor": venderID[0].time_step4 ? "#FFA500" : "#EF454D"
                           },
                           {
                             "type": "filler"
@@ -1595,10 +1664,14 @@ const handleEvent = async (event) => {
                   },
                   {
                     "type": "button",
-                    "action": {
+                    "action": venderID[0].statusid === 3 ? {
+                      "type": "uri",
+                      "label": "Next",
+                      "uri": `https://liff.line.me/1657915988-KLn4ZXyE?stk_code=${venderID[0].STK_CODE}`
+                    } : {
                       "type": "message",
                       "label": "Next",
-                      "text": `${venderID[0].statusid + 1}>${venderID[0].OPS_CODE}`
+                      "text": `${venderID[0].statusid + 1}>${venderID[0].STK_CODE}`
                     },
                     "style": "primary",
                     "color": venderID[0].time_step4 ? "#AAAAAA" : "#1DB446",
@@ -1657,6 +1730,15 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
                   "wrap": true,
                   "weight": "bold",
                   "size": "xl",
+                  "color": "#ffffff",
+                  "flex": 4,
+                },
+                {
+                  "type": "text",
+                  "text": `[${response[0].STK_CODE}]`,
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "md",
                   "color": "#ffffff",
                   "flex": 4,
                 },
@@ -2001,7 +2083,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
                           "layout": "vertical",
                           "contents": [],
                           "width": "2px",
-                          "backgroundColor": response[0].time_step4 ? "#1DB446" : "#EF454D"
+                          "backgroundColor": response[0].time_step4 ? "#FFA500" : "#EF454D"
                         },
                         {
                           "type": "filler"
@@ -2047,9 +2129,9 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
                       "cornerRadius": "30px",
                       "width": "12px",
                       "height": "12px",
-                      "borderColor": response[0].time_step4 ? "#1DB446" : "#EF454D",
+                      "borderColor": response[0].time_step4 ? "#FFA500" : "#EF454D",
                       "borderWidth": "2px",
-                      "backgroundColor": response[0].time_step4 ? "#1DB446" : "#EF454D"
+                      "backgroundColor": response[0].time_step4 ? "#FFA500" : "#EF454D"
                     },
                     {
                       "type": "filler"
@@ -2080,7 +2162,7 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
               "action": {
                 "type": "message",
                 "label": "COMFIRM",
-                "text": `${2}>${response[0].STrack_Code}`
+                "text": `${2}>${response[0].STK_CODE}`
               },
               "height": "sm",
               "style": "primary",
@@ -2102,27 +2184,35 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
           ]
         },
       }
-      for (var i = 0; i < response.length; i++) {
-
-        const headers = {
-          Authorization: `Bearer ${env.ACCESSTOKEN}`,
-          "Content-Type": "application/json; charset=utf-8"
-        }
-
-        client
-          .getProfile(response[i].userid)
-          .then(async (profile) => {
-            const sendJSON = {
-              "to": profile.userId,
-              "messages": [{
-                "type": "flex",
-                "contents": responseJSON,
-                "altText": "Flex Message"
-              }]
+      const hasUserid = (element) => {
+        return element.userid ? true : false;
+      }
+      if (response.every(hasUserid)) {
+        for (var i = 0; i < response.length; i++) {
+          if (response[i].userid) {
+            const headers = {
+              Authorization: `Bearer ${env.ACCESSTOKEN}`,
+              "Content-Type": "application/json; charset=utf-8"
             }
-            res.status(200).send(sendJSON);
-            await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
-          })
+
+            client
+              .getProfile(response[i].userid)
+              .then(async (profile) => {
+                const sendJSON = {
+                  "to": profile.userId,
+                  "messages": [{
+                    "type": "flex",
+                    "contents": responseJSON,
+                    "altText": "Flex Message"
+                  }]
+                }
+                res.status(200).send(sendJSON);
+                await axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
+              })
+          }
+        }
+      } else {
+        res.status(200).send(response);
       }
     }
   } catch (error) {
@@ -2153,6 +2243,15 @@ const STrack_SuccessJob = async (req, res, next) => {
                   "wrap": true,
                   "weight": "bold",
                   "size": "xl",
+                  "color": "#ffffff",
+                  "flex": 4,
+                },
+                {
+                  "type": "text",
+                  "text": `[${response[0].STK_CODE}]`,
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "md",
                   "color": "#ffffff",
                   "flex": 4,
                 },
@@ -2620,6 +2719,15 @@ const STrack_End_Comments = async (req, res) => {
                   "wrap": true,
                   "weight": "bold",
                   "size": "xl",
+                  "color": "#ffffff",
+                  "flex": 4,
+                },
+                {
+                  "type": "text",
+                  "text": `[${new_data[0].STK_CODE}]`,
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "md",
                   "color": "#ffffff",
                   "flex": 4,
                 },
@@ -3112,6 +3220,69 @@ const STcheck_files = async (req, res) => {
 
 }
 
+const STK_unCompletedBy_User = async (req, res) => {
+  try {
+    const data = req.body;
+    const new_data = await query_OPS_mobile.STK_unCompletedBy_User(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify({ message: "success", data: new_data }));
+      const headers = {
+        Authorization: `Bearer ${env.ACCESSTOKEN}`,
+        "Content-Type": "application/json; charset=utf-8"
+      }
+      for(let i = 0; i < new_data.length; i++){
+        const sendJSON = {
+          "to": new_data[i].userid,
+          "messages": [{
+            "type": "flex",
+            "contents": {
+              "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "แจ้งเตือน !!",
+                    "weight": "bold",
+                    "color": "#FF0000",
+                    "size": "sm"
+                  },
+                  {
+                    "type": "text",
+                    "text": "ดำเนินรายการไม่สำเร็จ",
+                    "size": "xs",
+                    "wrap": true
+                  },
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "message",
+                      "label": "ดำเนินการใหม่อีกครั้ง",
+                      "text": `${new_data[i].STrack_Code}`
+                    },
+                    "height": "sm",
+                    "style": "primary",
+                    "color": "#FFA500",
+                    "margin": "sm",
+                  },
+                ]
+              },
+              "type": "bubble"
+            },
+            "altText": "Flex Message"
+          }]
+        }
+        axios.post('https://api.line.me/v2/bot/message/push', sendJSON, { headers })
+      }
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 
 
 
@@ -3122,6 +3293,7 @@ module.exports = {
   STrack_responseFlex_AfterInsert,
   STrack_End_Comments,
   STcheck_files,
-  STrack_SuccessJob
+  STrack_SuccessJob,
+  STK_unCompletedBy_User
 }
 

@@ -1,0 +1,1 @@
+exec FA_Period_check_assets_in_period @PeriodID

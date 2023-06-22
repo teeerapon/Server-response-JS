@@ -14,13 +14,16 @@ const lineConfig = {
 }
 
 const {
-  OPS_Mobile_List_Vender
-  , webhooks
-  , STrack_Registation
-  , STrack_responseFlex_AfterInsert
-  , STrack_End_Comments
-  , STcheck_files
-  , STrack_SuccessJob
+
+  OPS_Mobile_List_Vender,
+  webhooks,
+  STrack_Registation,
+  STrack_responseFlex_AfterInsert,
+  STrack_End_Comments,
+  STcheck_files,
+  STrack_SuccessJob,
+  STK_unCompletedBy_User,
+
 } = ptec_OPS_Mobile;
 
 
@@ -31,6 +34,7 @@ router.post('/STrack_responseFlex_AfterInsert', STrack_responseFlex_AfterInsert)
 router.post('/STrack_End_Comments', STrack_End_Comments)
 router.post('/STcheck_files', STcheck_files)
 router.post('/STrack_SuccessJob', STrack_SuccessJob)
+router.post('/STK_unCompletedBy_User', STK_unCompletedBy_User)
 
 // https://stackblitz.com/edit/react-ts-bxdz2e?file=src%2FApp.js
 

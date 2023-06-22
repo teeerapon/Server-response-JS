@@ -38,6 +38,7 @@ const STrack_Registation = async (req) => {
 }
 
 const STrack_CheckVenderID = async (req) => {
+  console.log('in req',req);
   const sql = require("mssql");
   const config = require('../../config');
   try {
@@ -74,6 +75,7 @@ const STrack_callMessages = async (req, res) => {
 }
 
 const STrack_responseFlex_AfterInsert = async (req, res) => {
+  console.log(req);
   const sql = require("mssql");
   const config = require('../../config');
   try {
@@ -169,6 +171,25 @@ const NonPO_Attatch_Save = async (req, res) => {
   }
 }
 
+const STK_unCompletedBy_User = async (req, res) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
+    const assetslist = await pool.request()
+      .input('jobcode', sql.NVarChar, req.jobcode ?? null)
+      .input('dtlid', sql.NVarChar, req.dtlid ?? null)
+      .input('message', sql.NVarChar, req.message ?? null)
+      .input('user', sql.NVarChar, req.user ?? null)
+      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STK_unCompletedBy_User] @jobcode ,@dtlid ,@message ,@user`);
+    //sql.close()
+    return assetslist.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
   OPS_Mobile_List_Vender,
   STrack_Registation,
@@ -178,5 +199,6 @@ module.exports = {
   STrack_End_Comments,
   FA_Control_Running_NO,
   NonPO_Attatch_Save,
-  STrack_SuccessJob
+  STrack_SuccessJob,
+  STK_unCompletedBy_User
 }
