@@ -798,6 +798,8 @@ const FA_Control_New_Assets = async (req) => {
       .input('UserCode', sql.NVarChar(200), req.UserCode)
       .input('Code', sql.NVarChar(200), req.Code)
       .input('Name', sql.NVarChar(200), req.Name)
+      .input('Asset_group', sql.NVarChar, req.Asset_group ?? null)
+      .input('Group_name', sql.NVarChar, req.Group_name ?? null)
       .input('BranchID', sql.Int, req.BranchID)
       .input('Details', sql.NVarChar(200), req.Details)
       .input('SerialNo', sql.NVarChar(200), req.SerialNo)
@@ -806,7 +808,7 @@ const FA_Control_New_Assets = async (req) => {
       .input('bac_type', sql.NVarChar(50), req.bac_type ?? null)
       .input('keyID', sql.NVarChar(50), req.keyID ?? null)
       .input('user_name', sql.NVarChar, req.user_name ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type, @keyID, @user_name`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @Asset_group, @Group_name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type, @keyID, @user_name`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
@@ -827,6 +829,8 @@ const FA_Control_New_Assets_Xlsx = async (req) => {
       .input('BranchID', sql.Int, req.BranchID ?? null)
       .input('Price', sql.NVarChar, req.Price ?? null)
       .input('OwnerCode', sql.NVarChar, req.OwnerCode ?? null)
+      .input('Asset_group', sql.NVarChar, req.Asset_group ?? null)
+      .input('Group_name', sql.NVarChar, req.Group_name ?? null)
       .input('SerialNo', sql.NVarChar, req.SerialNo ?? null)
       .input('CreateDate', sql.NVarChar, req.CreateDate ?? null)
       .input('CreateBy', sql.NVarChar, req.CreateBy ?? null)
@@ -835,7 +839,7 @@ const FA_Control_New_Assets_Xlsx = async (req) => {
       .input('bac_type', sql.NVarChar, req.bac_type ?? null)
       .input('key', sql.NVarChar, req.keyID ?? null)
       .input('user_name', sql.NVarChar, req.user_name ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @UserCode, @Code, @Name, @BranchID , @OwnerCode, @SerialNo, @Price, @CreateDate, @CreateBy, @Position, @Details, @bac_type, @key, @user_name`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[FA_Control_Upload_Assets_Xlsx] @UserCode, @Code, @Name, @BranchID , @OwnerCode, @Asset_group, @Group_name, @SerialNo, @Price, @CreateDate, @CreateBy, @Position, @Details, @bac_type, @key, @user_name`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
