@@ -1158,47 +1158,6 @@ const handleEvent = async (event) => {
           return client.replyMessage(event.replyToken, sendJSON)
         }
       } else if ((venderID ? venderID[0].response : undefined) === 'step_ops') {
-        if (venderID[0].statusid === 4) {
-          const JSONres = {
-            "type": "flex",
-            "contents": {
-              "body": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "ทำรายการสำเร็จ !!",
-                    "weight": "bold",
-                    "color": "#00FF00",
-                    "size": "sm"
-                  },
-                  {
-                    "type": "text",
-                    "text": `รายการ ${venderID[0].OPS_CODE} ถูกดำเนินการเสร็จสิ้น กรุณาที่ปุ่มอธิบายขั้นตอนทำงาน เพื่ออธิบายขั้นตอนการทำงานของท่าน`,
-                    "size": "xs",
-                    "wrap": true
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "uri",
-                      "label": "อธิบายขั้นตอนทำงาน",
-                      "uri": `https://liff.line.me/1657915988-KLn4ZXyE?stk_code=${venderID[0].STK_CODE}`
-                    },
-                    "position": "relative",
-                    "margin": "xxl",
-                    "height": "sm",
-                    "style": "primary",
-                  }
-                ]
-              },
-              "type": "bubble"
-            },
-            "altText": "Flex Message"
-          }
-          return client.replyMessage(event.replyToken, JSONres)
-        } else {
           const JSONres = {
             "type": "flex",
             "contents": {
@@ -1656,7 +1615,7 @@ const handleEvent = async (event) => {
                     "action": {
                       "type": "message",
                       "label": "Back",
-                      "text": `${venderID[0].statusid - 1}<${venderID[0].OPS_CODE}`
+                      "text": `${venderID[0].statusid - 1}<${venderID[0].STK_CODE}`
                     },
                     "style": "primary",
                     "margin": "sm",
@@ -1694,7 +1653,6 @@ const handleEvent = async (event) => {
             "altText": "Flex Message"
           }
           return client.replyMessage(event.replyToken, JSONres)
-        }
       }
       // else if ((venderID ? venderID[0].response : undefined)) {
       //   return client.replyMessage(event.replyToken,
@@ -3151,7 +3109,7 @@ const STrack_End_Comments = async (req, res) => {
               "action": {
                 "type": "message",
                 "label": "BACK",
-                "text": `${3}<${new_data[0].STrack_Code}`
+                "text": `${3}<${new_data[0].STK_CODE}`
               },
               "height": "sm",
               "style": "primary",
@@ -3163,7 +3121,7 @@ const STrack_End_Comments = async (req, res) => {
               "action": {
                 "type": "message",
                 "label": "Cancel",
-                "text": `!${new_data[0].STrack_Code}`
+                "text": `!${new_data[0].STK_CODE}`
               },
               "height": "sm",
               "margin": "sm",

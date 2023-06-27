@@ -181,7 +181,7 @@ const STK_unCompletedBy_User = async (req, res) => {
       .input('dtlid', sql.NVarChar, req.dtlid ?? null)
       .input('message', sql.NVarChar, req.message ?? null)
       .input('user', sql.NVarChar, req.user ?? null)
-      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STK_unCompletedBy_User] @jobcode ,@dtlid ,@message ,@user`);
+      .query(`exec ${config.PTEC.object_test_ops.sql.database}.[dbo].[STrack_unCompletedBy_User] @jobcode ,@dtlid ,@message ,@user`);
     //sql.close()
     return assetslist.recordset;
   } catch (error) {
