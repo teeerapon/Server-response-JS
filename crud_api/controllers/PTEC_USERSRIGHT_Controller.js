@@ -123,6 +123,17 @@ const Fix_Assets_Control_UPDATE_Permission = async (req, res, next) => {
   }
 }
 
+const Department_List = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const data_new = await userData.Department_List(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(JSON.stringify({ message: "success", data: data_new }));
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   getsUser,
   getUserCode,
@@ -132,5 +143,6 @@ module.exports = {
   ChackUserWeb,
   select_Permission_Menu_NAC,
   Permission_Menu_NAC,
-  Fix_Assets_Control_UPDATE_Permission
+  Fix_Assets_Control_UPDATE_Permission,
+  Department_List
 }

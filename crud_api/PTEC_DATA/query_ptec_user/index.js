@@ -144,6 +144,22 @@ const Fix_Assets_Control_UPDATE_Permission = async (res) => {
   }
 }
 
+const Department_List = async (res) => {
+  const config = require('../../config');
+  const sql = require('mssql');
+  try {
+    let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
+    const auto_DeapartMent = await pool.request()
+      .input('branchid', sql.Int, res.branchid)
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.[Department_List] @branchid`);
+    //sql.close()
+    return auto_DeapartMent.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
   getsUser,
   getById,
@@ -152,5 +168,6 @@ module.exports = {
   ChackUserWeb,
   select_Permission_Menu_NAC,
   Permission_Menu_NAC,
-  Fix_Assets_Control_UPDATE_Permission
+  Fix_Assets_Control_UPDATE_Permission,
+  Department_List
 }
