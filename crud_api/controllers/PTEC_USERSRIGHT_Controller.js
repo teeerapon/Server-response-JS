@@ -134,6 +134,16 @@ const Department_List = async (req, res, next) => {
   }
 }
 
+const Branch_ListAll = async (req, res, next) => {
+  try {
+    const data_new = await userData.Branch_ListAll();
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(JSON.stringify({ message: "success", data: data_new }));
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   getsUser,
   getUserCode,
@@ -144,5 +154,6 @@ module.exports = {
   select_Permission_Menu_NAC,
   Permission_Menu_NAC,
   Fix_Assets_Control_UPDATE_Permission,
-  Department_List
+  Department_List,
+  Branch_ListAll
 }

@@ -73,8 +73,8 @@ const STrack_Registation = async (req, res, next) => {
 }
 
 const webhooks = async (req, res) => {
-  console.log('webhooks');
-  console.log(req);
+  // console.log('webhooks');
+  // console.log(req);
   try {
     res.status(200).send("OK")
     const events = req.body.events
@@ -120,13 +120,13 @@ const webhooks = async (req, res) => {
           "altText": "Flex Message"
         }
         if ((venderID ? venderID[0].response : undefined) === 'false') {
-          console.log('webhooks in 1 ');
+          // console.log('webhooks in 1 ');
 
           if (events[0].replyToken) {
             return client.replyMessage(events[0].replyToken, textJSON)
           }
         } else {
-          console.log('webhooks in 2 ');
+          // console.log('webhooks in 2 ');
 
           return await events.map((items) => handleEvent(items))
         }

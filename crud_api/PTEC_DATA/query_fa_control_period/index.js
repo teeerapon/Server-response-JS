@@ -81,6 +81,7 @@ const fa_permission_branch = async (permission_branch) => {
 }
 
 const craete_period = async (create_period) => {
+
   const sql = require('mssql');
   const config = require('../../config');
   try {
@@ -91,7 +92,8 @@ const craete_period = async (create_period) => {
       .input('BranchID', sql.VarChar(200), create_period.BranchID)
       .input('Description', sql.NVarChar(100), create_period.Description)
       .input('usercode', sql.VarChar(10), create_period.usercode)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Create_Assets_Counted_After_Period @begindate ,@enddate ,@branchid ,@Description ,@usercode`);
+      .input('depcode', sql.VarChar(10), create_period.depcode)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Create_Assets_Counted_After_Period @begindate ,@enddate ,@branchid ,@Description ,@usercode, @depcode`);
     //sql.close()
     return fa_create_period.recordset;
   } catch (error) {
