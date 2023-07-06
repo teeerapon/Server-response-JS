@@ -80,20 +80,21 @@ const fa_permission_branch = async (permission_branch) => {
   }
 }
 
-const craete_period = async (create_period) => {
+const craete_period = async (res) => {
 
   const sql = require('mssql');
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const fa_create_period = await pool.request()
-      .input('BeginDate', sql.DateTime, create_period.BeginDate)
-      .input('EndDate', sql.DateTime, create_period.EndDate)
-      .input('BranchID', sql.VarChar(200), create_period.BranchID)
-      .input('Description', sql.NVarChar(100), create_period.Description)
-      .input('usercode', sql.VarChar(10), create_period.usercode)
-      .input('depcode', sql.VarChar(10), create_period.depcode)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Create_Assets_Counted_After_Period @begindate ,@enddate ,@branchid ,@Description ,@usercode, @depcode`);
+      .input('BeginDate', sql.DateTime, res.BeginDate)
+      .input('EndDate', sql.DateTime, res.EndDate)
+      .input('BranchID', sql.VarChar(200), res.BranchID)
+      .input('Description', sql.NVarChar(100), res.Description)
+      .input('usercode', sql.VarChar(10), res.usercode)
+      .input('depCode', sql.VarChar(10), res.depcode ?? null)
+      .input('keyID', sql.VarChar(100), res.keyID ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Create_Assets_Counted_After_Period @begindate ,@enddate ,@branchid ,@Description ,@usercode, @depCode, @keyID`);
     //sql.close()
     return fa_create_period.recordset;
   } catch (error) {
