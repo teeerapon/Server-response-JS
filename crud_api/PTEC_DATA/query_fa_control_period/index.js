@@ -32,13 +32,13 @@ const store_check_periodForUpdate = async (check_periodForUpdate) => {
   }
 }
 
-const period_check_create = async (dateLoginRequst) => {
+const period_check_create = async (res) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const dateLogin = await pool.request()
-      .input('BranchID', sql.Int, dateLoginRequst.BranchID)
+      .input('BranchID', sql.Int, parseInt(res.BranchID))
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_Time_Login @BranchID`);
     //sql.close()
     return dateLogin.recordset;

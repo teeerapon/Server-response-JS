@@ -59,8 +59,7 @@ const assetByCode = async (req, res, next) => {
         // const accessToken = TokenManager.getGenarateToken({ "Code": assetsData.Code });
         const accessToken = Math.random().toString(36).substr(2)
         res.status(200).send(JSON.stringify({ message: "success", data: assetsData, token: accessToken, date: today.toLocaleString("sv-SE") }));
-      }
-      else {
+      } else {
         const assetsData = await query_fa_control.check_code_wrong_branch(assetByCode);
         res.status(400).send(JSON.stringify({ message: "ทรัพย์สินนี้ถูกบันทึกแล้วที่สาขา ", data: assetsData[0]['UserBranch'], date: today.toLocaleString("sv-SE") }));
       }
@@ -125,6 +124,7 @@ const addAsset = async (req, res, next) => {
   try {
     const dataAsset = req.body;
     const period_loginDateTrue = await query_fa_control_period.period_check_create(dataAsset);
+    console.log(dataAsset);
     if (period_loginDateTrue.length != 0) {
       const dataAssetAndUser = await query_fa_control.getAssetByCodeForTest(dataAsset);
       res.setHeader("Content-Type", "application/json; charset=utf-8");
