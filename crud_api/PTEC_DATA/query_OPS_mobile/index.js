@@ -38,7 +38,6 @@ const STrack_Registation = async (req) => {
 }
 
 const STrack_CheckVenderID = async (req) => {
-  console.log('in req',req);
   const sql = require("mssql");
   const config = require('../../config');
   try {
@@ -75,7 +74,6 @@ const STrack_callMessages = async (req, res) => {
 }
 
 const STrack_responseFlex_AfterInsert = async (req, res) => {
-  console.log(req);
   const sql = require("mssql");
   const config = require('../../config');
   try {
