@@ -124,7 +124,6 @@ const addAsset = async (req, res, next) => {
   try {
     const dataAsset = req.body;
     const period_loginDateTrue = await query_fa_control_period.period_check_create(dataAsset);
-    console.log(dataAsset);
     if (period_loginDateTrue.length != 0) {
       const dataAssetAndUser = await query_fa_control.getAssetByCodeForTest(dataAsset);
       res.setHeader("Content-Type", "application/json; charset=utf-8");

@@ -89,12 +89,13 @@ const craete_period = async (res) => {
     const fa_create_period = await pool.request()
       .input('BeginDate', sql.DateTime, res.BeginDate)
       .input('EndDate', sql.DateTime, res.EndDate)
-      .input('BranchID', sql.VarChar(200), res.BranchID)
+      .input('branchid', sql.VarChar(200), res.BranchID)
       .input('Description', sql.NVarChar(100), res.Description)
       .input('usercode', sql.VarChar(10), res.usercode)
-      .input('depCode', sql.VarChar(10), res.depcode ?? null)
+      .input('depcode', sql.VarChar(200), res.depcode ?? null)
+      .input('personID', sql.VarChar(200), res.personID ?? null)
       .input('keyID', sql.VarChar(100), res.keyID ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Create_Assets_Counted_After_Period @begindate ,@enddate ,@branchid ,@Description ,@usercode, @depCode, @keyID`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Create_Assets_Counted_After_Period @begindate ,@enddate ,@branchid ,@Description ,@usercode, @depcode, @personID,@keyID`);
     //sql.close()
     return fa_create_period.recordset;
   } catch (error) {

@@ -47,13 +47,8 @@ const craete_period = async (req, res, next) => {
   try {
     const craete_period = req.body;
     res.setHeader("Content-Type", "application/json; charset=utf-8");
-    if (craete_period.BranchID == 0) {
-      const craete_period_branch = await query_fa_control_period.craete_period(craete_period);
-      res.status(200).send(JSON.stringify({ message: "success", data: craete_period_branch }));
-    } else {
-      const craete_period_branch = await query_fa_control_period.craete_period(craete_period);
-      res.status(200).send(JSON.stringify({ message: "success", data: craete_period_branch }));
-    }
+    const craete_period_branch = await query_fa_control_period.craete_period(craete_period);
+    res.status(200).send(JSON.stringify({ message: "success", data: craete_period_branch }));
   } catch (error) {
     res.status(400).send(error.message)
   }
