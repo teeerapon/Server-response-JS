@@ -7,7 +7,9 @@ const period_login = async (dateLoginRequst) => {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const dateLogin = await pool.request()
       .input('BranchID', sql.Int, dateLoginRequst.BranchID)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_Time_Login @BranchID`);
+      .input('personID', sql.NVarChar, dateLoginRequst.personID ?? null)
+      .input('depCode', sql.NVarChar, dateLoginRequst.depCode ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_Time_Login @BranchID, @personID, @depCode`);
     //sql.close()
     return dateLogin.recordset;
   } catch (error) {

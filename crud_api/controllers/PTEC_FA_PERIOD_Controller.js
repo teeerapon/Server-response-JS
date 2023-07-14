@@ -10,7 +10,11 @@ const period_login = async (req, res, next) => {
     if (period_loginDateTrue.length == 0) {
       res.status(400).send(JSON.stringify({ message: "unsuccess", data: "ไม่พบการเปิดช่วงเวลานี้" }));
     } else {
-      res.status(200).send(JSON.stringify({ message: "success", PeriodRound: period_loginDateTrue[0].PeriodID }));
+      res.status(200).send(JSON.stringify({
+        message: "success",
+        PeriodRound: period_loginDateTrue[0].PeriodID,
+        personID: period_loginDateTrue[0].personID
+      }));
     }
   } catch (error) {
     res.status(400).send(error.message)
