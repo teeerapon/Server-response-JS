@@ -40,6 +40,18 @@ const STrack_Registation = async (req, res, next) => {
         "to": response[0].userReply,
         "messages": [{
           "type": "flex",
+          "quickReply": { // ②
+            "items": [
+              {
+                "type": "action", // ③
+                "action": {
+                  "type": "message",
+                  "label": "แสดงงาน OPS",
+                  "text": "แสดงงาน OPS"
+                }
+              },
+            ]
+          },
           "contents": {
             "body": {
               "type": "box",
@@ -83,6 +95,18 @@ const webhooks = async (req, res) => {
         const venderID = await query_OPS_mobile.STrack_CheckVenderID(events[0].source.userId)
         const textJSON = {
           "type": "flex",
+          "quickReply": { // ②
+            "items": [
+              {
+                "type": "action", // ③
+                "action": {
+                  "type": "message",
+                  "label": "แสดงงาน OPS",
+                  "text": "แสดงงาน OPS"
+                }
+              },
+            ]
+          },
           "contents": {
             "body": {
               "type": "box",
@@ -150,6 +174,18 @@ const handleEvent = async (event) => {
           {
             "type": "text",
             "text": `${str}`,
+            "quickReply": { // ②
+              "items": [
+                {
+                  "type": "action", // ③
+                  "action": {
+                    "type": "message",
+                    "label": "แสดงงาน OPS",
+                    "text": "แสดงงาน OPS"
+                  }
+                },
+              ]
+            },
             "emojis": [
               {
                 "index": str.indexOf('$'),
@@ -646,6 +682,18 @@ const handleEvent = async (event) => {
         }
         const sendJSON = {
           "type": "flex",
+          "quickReply": { // ②
+            "items": [
+              {
+                "type": "action", // ③
+                "action": {
+                  "type": "message",
+                  "label": "แสดงงาน OPS",
+                  "text": "แสดงงาน OPS"
+                }
+              },
+            ]
+          },
           "contents": {
             "type": "carousel",
             "contents": employees.accounting
@@ -1146,6 +1194,18 @@ const handleEvent = async (event) => {
         }
         const sendJSON = {
           "type": "flex",
+          "quickReply": { // ②
+            "items": [
+              {
+                "type": "action", // ③
+                "action": {
+                  "type": "message",
+                  "label": "แสดงงาน OPS",
+                  "text": "แสดงงาน OPS"
+                }
+              },
+            ]
+          },
           "contents": {
             "type": "carousel",
             "contents": employees.accounting
@@ -1160,6 +1220,18 @@ const handleEvent = async (event) => {
       } else if ((venderID ? venderID[0].response : undefined) === 'step_ops') {
           const JSONres = {
             "type": "flex",
+            "quickReply": { // ②
+              "items": [
+                {
+                  "type": "action", // ③
+                  "action": {
+                    "type": "message",
+                    "label": "แสดงงาน OPS",
+                    "text": "แสดงงาน OPS"
+                  }
+                },
+              ]
+            },
             "contents": {
               "type": "bubble",
               "size": "mega",
@@ -2160,6 +2232,18 @@ const STrack_responseFlex_AfterInsert = async (req, res, next) => {
                   "to": profile.userId,
                   "messages": [{
                     "type": "flex",
+                    "quickReply": { // ②
+                      "items": [
+                        {
+                          "type": "action", // ③
+                          "action": {
+                            "type": "message",
+                            "label": "แสดงงาน OPS",
+                            "text": "แสดงงาน OPS"
+                          }
+                        },
+                      ]
+                    },
                     "contents": responseJSON,
                     "altText": "Flex Message"
                   }]
@@ -2638,6 +2722,18 @@ const STrack_SuccessJob = async (req, res, next) => {
               "to": profile.userId,
               "messages": [{
                 "type": "flex",
+                "quickReply": { // ②
+                  "items": [
+                    {
+                      "type": "action", // ③
+                      "action": {
+                        "type": "message",
+                        "label": "แสดงงาน OPS",
+                        "text": "แสดงงาน OPS"
+                      }
+                    },
+                  ]
+                },
                 "contents": responseJSON,
                 "altText": "Flex Message"
               }]
@@ -3143,6 +3239,18 @@ const STrack_End_Comments = async (req, res) => {
             "to": profile.userId,
             "messages": [{
               "type": "flex",
+              "quickReply": { // ②
+                "items": [
+                  {
+                    "type": "action", // ③
+                    "action": {
+                      "type": "message",
+                      "label": "แสดงงาน OPS",
+                      "text": "แสดงงาน OPS"
+                    }
+                  },
+                ]
+              },
               "contents": responseJSON,
               "altText": "Flex Message"
             }]
@@ -3196,6 +3304,18 @@ const STK_unCompletedBy_User = async (req, res) => {
           "to": new_data[i].userid,
           "messages": [{
             "type": "flex",
+            "quickReply": { // ②
+              "items": [
+                {
+                  "type": "action", // ③
+                  "action": {
+                    "type": "message",
+                    "label": "แสดงงาน OPS",
+                    "text": "แสดงงาน OPS"
+                  }
+                },
+              ]
+            },
             "contents": {
               "body": {
                 "type": "box",
