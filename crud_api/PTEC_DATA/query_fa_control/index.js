@@ -207,7 +207,8 @@ const updateReference = async (referenceData) => {
       .input('RoundID', sql.BigInt, referenceData.RoundID)
       .input('UserID', sql.BigInt, referenceData.UserID)
       .input('choice', sql.BigInt, referenceData.choice ?? 0)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Mobile_update_reference @Reference, @UserID, @Code, @RoundID, @choice`);
+      .input('comment', sql.NVarChar, referenceData.comment ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Mobile_update_reference @Reference, @UserID, @Code, @RoundID, @choice, @comment`);
     //sql.close()
     return update.recordset;
   } catch (error) {
@@ -808,7 +809,8 @@ const FA_Control_New_Assets = async (req) => {
       .input('bac_type', sql.NVarChar(50), req.bac_type ?? null)
       .input('keyID', sql.NVarChar(50), req.keyID ?? null)
       .input('user_name', sql.NVarChar, req.user_name ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @Asset_group, @Group_name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type, @keyID, @user_name`);
+      .input('image_2', sql.NVarChar, req.image_2 ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @Asset_group, @Group_name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type, @keyID, @user_name, @image_2`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
