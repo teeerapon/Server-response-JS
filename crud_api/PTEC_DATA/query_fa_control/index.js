@@ -1053,6 +1053,25 @@ const FA_Control_BPC_SubmitVertify = async (req) => {
   }
 }
 
+const FA_Control_BPC_UpdateTemp = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .input('Code', sql.NVarChar, req.Code ?? null)
+      .input('keyID', sql.NVarChar, req.keyID ?? null)
+      .input('Comments', sql.NVarChar, req.Comments ?? null)
+      .input('image_2', sql.NVarChar, req.image_2 ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Control_BPC_UpdateTemp] @Code, @keyID ,@Comments ,@image_2`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
 
   //BPC
@@ -1063,6 +1082,7 @@ module.exports = {
   FA_Control_BPC_GroupBy,
   FA_Control_BPC_SelectStatus,
   FA_Control_BPC_SubmitVertify,
+  FA_Control_BPC_UpdateTemp,
 
   //Mobile or Some Control
   createAsset,

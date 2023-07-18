@@ -47,11 +47,13 @@ const {
     FA_Control_import_dataXLSX_toAssets, check_files,
     FA_Control_Delete_PATH, check_files_NewNAC,
     FA_Control_Edit_EBook, FA_Control_BPC_Sendmail,
+    //BPC
     FA_Control_BPC_UpdateDetails, FA_Control_BPC_Running_NO,
     FA_Control_BPC_SELECT_TEMP,
     FA_Control_BPC_GroupBy,
     FA_Control_BPC_SelectStatus,
-    FA_Control_BPC_SubmitVertify
+    FA_Control_BPC_SubmitVertify,
+    FA_Control_BPC_UpdateTemp
 } = assetController;
 
 router.post('/ReportassetsAll', getAllasset);
@@ -111,6 +113,7 @@ router.post('/FA_Control_BPC_SELECT_TEMP', FA_Control_BPC_SELECT_TEMP);
 router.post('/FA_Control_BPC_GroupBy', FA_Control_BPC_GroupBy);
 router.post('/FA_Control_BPC_SelectStatus', FA_Control_BPC_SelectStatus)
 router.post('/FA_Control_BPC_SubmitVertify', FA_Control_BPC_SubmitVertify)
+router.post('/FA_Control_BPC_UpdateTemp', FA_Control_BPC_UpdateTemp)
 
 
 module.exports = {

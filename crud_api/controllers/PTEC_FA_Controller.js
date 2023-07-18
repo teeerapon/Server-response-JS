@@ -799,6 +799,20 @@ const FA_Control_BPC_SubmitVertify = async (req, res) => {
   }
 }
 
+const FA_Control_BPC_UpdateTemp = async (req, res) => {
+  try {
+    const data = req.body
+    const new_data = await query_fa_control.FA_Control_BPC_UpdateTemp(data);
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
 
   //BPC
@@ -809,6 +823,7 @@ module.exports = {
   FA_Control_BPC_GroupBy,
   FA_Control_BPC_SelectStatus,
   FA_Control_BPC_SubmitVertify,
+  FA_Control_BPC_UpdateTemp,
 
   getAllasset,
   assetByCode,
