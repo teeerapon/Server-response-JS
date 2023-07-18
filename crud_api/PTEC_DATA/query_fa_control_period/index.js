@@ -51,14 +51,15 @@ const period_check_create = async (res) => {
 }
 
 const getsperiod_round = async (selectQuery) => {
-
   const sql = require('mssql');
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const allround_period = await pool.request()
       .input('BranchID', sql.Int, selectQuery.BranchID)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_all_rounds @BranchID`);
+      .input('depCode', sql.NVarChar, selectQuery.depCode ?? null)
+      .input('personID', sql.NVarChar, selectQuery.personID ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_all_rounds @BranchID, @depCode, @personID`);
     //sql.close()
     return allround_period.recordset;
   } catch (error) {
