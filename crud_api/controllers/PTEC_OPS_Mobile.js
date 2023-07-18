@@ -669,7 +669,7 @@ const handleEvent = async (event) => {
                   "action": {
                     "type": "message",
                     "label": "Cancel",
-                    "text": `!${item.OPS_CODE}`
+                    "text": `!${item.STK_CODE}`
                   },
                   "height": "sm",
                   "margin": "sm",
@@ -1182,7 +1182,7 @@ const handleEvent = async (event) => {
                   "action": {
                     "type": "message",
                     "label": "Cancel",
-                    "text": `!${item.OPS_CODE}`
+                    "text": `!${item.STK_CODE}`
                   },
                   "style": "primary",
                   "margin": "sm",
