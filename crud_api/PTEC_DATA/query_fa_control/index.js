@@ -550,9 +550,9 @@ const store_FA_control_updateDTL_seals = async (res) => {
       .input('nac_code', sql.VarChar(20), res.nac_code)
       .input('nac_status', sql.Int, res.nac_status)
       .input('nac_type', sql.Int, res.nac_type)
-      .input('nacdtl_bookV', sql.Float, res.nacdtl_bookV ?? 0)
-      .input('nacdtl_PriceSeals', sql.Float, res.nacdtl_PriceSeals)
-      .input('nacdtl_profit', sql.Float, res.nacdtl_profit)
+      .input('nacdtl_bookV', sql.Float, parseFloat(res.nacdtl_bookV ?? 0))
+      .input('nacdtl_PriceSeals', sql.Float, parseFloat(res.nacdtl_PriceSeals))
+      .input('nacdtl_profit', sql.Float, parseFloat(res.nacdtl_profit))
       .input('asset_id', sql.Int, parseFloat(res.asset_id))
       .input('nacdtl_assetsCode', sql.VarChar(20), res.nacdtl_assetsCode)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_UpdateDTL_Seals @usercode, @nac_code, @nac_status, @nac_type, @nacdtl_bookV, @nacdtl_PriceSeals, @nacdtl_profit, @asset_id, @nacdtl_assetsCode`);
