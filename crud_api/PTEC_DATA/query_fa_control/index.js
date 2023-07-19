@@ -550,7 +550,7 @@ const store_FA_control_updateDTL_seals = async (FA_control_updateDTL_seals) => {
       .input('nac_code', sql.VarChar(20), FA_control_updateDTL_seals.nac_code)
       .input('nac_status', sql.Int, FA_control_updateDTL_seals.nac_status)
       .input('nac_type', sql.Int, FA_control_updateDTL_seals.nac_type)
-      .input('nacdtl_bookV', sql.Float, FA_control_updateDTL_seals.nacdtl_bookV ?? 0)
+      .input('nacdtl_bookV', sql.Float, parseFloat(FA_control_updateDTL_seals.nacdtl_bookV ?? 0))
       .input('nacdtl_PriceSeals', sql.Float, FA_control_updateDTL_seals.nacdtl_PriceSeals)
       .input('nacdtl_profit', sql.Float, FA_control_updateDTL_seals.nacdtl_profit)
       .input('asset_id', sql.Int, parseFloat(FA_control_updateDTL_seals.asset_id))
