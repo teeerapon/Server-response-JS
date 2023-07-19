@@ -41,8 +41,8 @@ const period_check_create = async (res) => {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const dateLogin = await pool.request()
       .input('BranchID', sql.Int, parseInt(res.BranchID))
-      .input('personID', sql.NVarChar, res.personID ?? null)
-      .input('depCode', sql.NVarChar, res.depCode ?? null)
+      .input('personID', sql.NVarChar, res.personID ?? null) // api
+      .input('depCode', sql.NVarChar, res.depCode ?? null) // api
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_Time_Login @BranchID,@personID,@depCode`);
     //sql.close()
     return dateLogin.recordset;
