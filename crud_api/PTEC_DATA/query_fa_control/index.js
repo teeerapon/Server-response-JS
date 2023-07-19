@@ -540,21 +540,21 @@ const store_FA_control_seals_update = async (FA_control_updateStatus) => {
   }
 }
 
-const store_FA_control_updateDTL_seals = async (FA_control_updateDTL_seals) => {
+const store_FA_control_updateDTL_seals = async (res) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const update_DTL = await pool.request()
-      .input('usercode', sql.VarChar(10), FA_control_updateDTL_seals.usercode)
-      .input('nac_code', sql.VarChar(20), FA_control_updateDTL_seals.nac_code)
-      .input('nac_status', sql.Int, FA_control_updateDTL_seals.nac_status)
-      .input('nac_type', sql.Int, FA_control_updateDTL_seals.nac_type)
-      .input('nacdtl_bookV', sql.Float, FA_control_updateDTL_seals.nacdtl_bookV ?? 0)
-      .input('nacdtl_PriceSeals', sql.Float, FA_control_updateDTL_seals.nacdtl_PriceSeals)
-      .input('nacdtl_profit', sql.Float, FA_control_updateDTL_seals.nacdtl_profit)
-      .input('asset_id', sql.Int, parseFloat(FA_control_updateDTL_seals.asset_id))
-      .input('nacdtl_assetsCode', sql.VarChar(20), FA_control_updateDTL_seals.nacdtl_assetsCode)
+      .input('usercode', sql.VarChar(10), res.usercode)
+      .input('nac_code', sql.VarChar(20), res.nac_code)
+      .input('nac_status', sql.Int, res.nac_status)
+      .input('nac_type', sql.Int, res.nac_type)
+      .input('nacdtl_bookV', sql.Float, res.nacdtl_bookV ?? 0)
+      .input('nacdtl_PriceSeals', sql.Float, res.nacdtl_PriceSeals)
+      .input('nacdtl_profit', sql.Float, res.nacdtl_profit)
+      .input('asset_id', sql.Int, parseFloat(res.asset_id))
+      .input('nacdtl_assetsCode', sql.VarChar(20), res.nacdtl_assetsCode)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_UpdateDTL_Seals @usercode, @nac_code, @nac_status, @nac_type, @nacdtl_bookV, @nacdtl_PriceSeals, @nacdtl_profit, @asset_id, @nacdtl_assetsCode`);
     //sql.close()
     return update_DTL.recordset;
