@@ -1,1 +1,0 @@
-exec [dbo].[FA_Control_CheckAssetCode_Process] @nacdtl_assetsCode

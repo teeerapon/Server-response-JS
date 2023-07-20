@@ -1,1 +1,0 @@
-exec [dbo].[FA_Control_Select_MyNAC] @usercode

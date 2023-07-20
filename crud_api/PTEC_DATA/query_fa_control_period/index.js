@@ -93,8 +93,8 @@ const craete_period = async (res) => {
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const fa_create_period = await pool.request()
-      .input('BeginDate', sql.DateTime, res.BeginDate)
-      .input('EndDate', sql.DateTime, res.EndDate)
+      .input('BeginDate', sql.NVarChar, res.BeginDate)
+      .input('EndDate', sql.NVarChar, res.EndDate)
       .input('branchid', sql.VarChar(200), res.BranchID)
       .input('Description', sql.NVarChar(100), res.Description)
       .input('usercode', sql.VarChar(10), res.usercode)
@@ -134,8 +134,8 @@ const update_period = async (fa_update_period) => {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const fa_update_period_data = await pool.request()
       .input('PeriodID', sql.BigInt, fa_update_period.PeriodID)
-      .input('BeginDate', sql.DateTime, fa_update_period.BeginDate)
-      .input('EndDate', sql.DateTime, fa_update_period.EndDate)
+      .input('BeginDate', sql.NVarChar, fa_update_period.BeginDate)
+      .input('EndDate', sql.NVarChar, fa_update_period.EndDate)
       .input('BranchID', sql.Int, fa_update_period.BranchID)
       .input('Description', sql.NVarChar(100), fa_update_period.Description)
       .input('usercode', sql.VarChar(10), fa_update_period.usercode)
