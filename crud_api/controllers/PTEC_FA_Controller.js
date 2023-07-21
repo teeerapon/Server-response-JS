@@ -123,7 +123,7 @@ const getAllasset2 = async (req, res, next) => {
 const addAsset = async (req, res, next) => {
   try {
     const dataAsset = req.body;
-    const period_loginDateTrue = await query_fa_control_period.period_check_create(dataAsset);
+    const period_loginDateTrue = await query_fa_control_period.period_login(dataAsset);
     if (period_loginDateTrue.length != 0) {
       const dataAssetAndUser = await query_fa_control.getAssetByCodeForTest(dataAsset);
       res.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -144,12 +144,13 @@ const addAsset = async (req, res, next) => {
 const updateReference = async (req, res, next) => {
   try {
     const data = req.body;
-    const period_loginDateTrue = await query_fa_control_period.period_check_create(data);
+    const period_loginDateTrue = await query_fa_control_period.period_login(data);
     if (!data.choice) {
       if (period_loginDateTrue.length != 0) {
         const updated = await query_fa_control.updateReference(data);
         res.setHeader("Content-Type", "application/json; charset=utf-8");
         res.status(200).send(JSON.stringify({ message: "ทำการเปลียนแปลงข้อมูลเสร็จสิ้น", data: updated }));
+        console.log(updated);
       } else {
         res.status(400).send(JSON.stringify({ message: "ไม่สามารถแก้ไขได้เนื่องจากรอบบันทึกไม่ตรงถูกต้อง" }));
       }

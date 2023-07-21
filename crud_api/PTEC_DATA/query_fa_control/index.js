@@ -172,22 +172,21 @@ const check_code_wrong_branch = async (codeAsset) => {
   }
 }
 
-const createAsset = async (createAssetData) => {
+const createAsset = async (res) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const insertAsset = await pool.request()
-      .input('Code', sql.NVarChar(30), createAssetData.Code)
-      .input('Name', sql.NVarChar(150), createAssetData.Name)
-      .input('BranchID', sql.Int, createAssetData.BranchID)
-      .input('Date', sql.NVarChar, createAssetData.Date)
-      .input('Status', sql.Bit, createAssetData.Status)
-      .input('UserID', sql.BigInt, createAssetData.UserID)
-      .input('UserBranch', sql.Int, createAssetData.UserBranch)
-      .input('RoundID', sql.BigInt, createAssetData.RoundID)
-      .input('Reference', sql.NVarChar(100), createAssetData.Reference)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Add_Assets_Counted @Reference, @Date, @Status, @RoundID, @UserBranch, @UserID, @Code`);
+      .input('Code', sql.NVarChar(30), res.Code)
+      .input('Name', sql.NVarChar(150), res.Name)
+      .input('BranchID', sql.Int, res.BranchID)
+      .input('Status', sql.Bit, res.Status)
+      .input('UserID', sql.BigInt, res.UserID)
+      .input('UserBranch', sql.Int, res.UserBranch)
+      .input('RoundID', sql.BigInt, res.RoundID)
+      .input('Reference', sql.NVarChar(100), res.Reference)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Add_Assets_Counted @Reference, @Status, @RoundID, @UserBranch, @UserID, @Code`);
     //sql.close()
     return insertAsset.recordset;
   } catch (error) {
@@ -196,18 +195,19 @@ const createAsset = async (createAssetData) => {
   }
 }
 
-const updateReference = async (referenceData) => {
+const updateReference = async (res) => {
+  console.log(res);
   const sql = require("mssql");
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const update = await pool.request()
-      .input('Reference', sql.NVarChar(100), referenceData.Reference)
-      .input('Code', sql.NVarChar(30), referenceData.Code)
-      .input('RoundID', sql.BigInt, referenceData.RoundID)
-      .input('UserID', sql.BigInt, referenceData.UserID)
-      .input('choice', sql.BigInt, referenceData.choice ?? 0)
-      .input('comment', sql.NVarChar, referenceData.comment ?? null)
+      .input('Reference', sql.NVarChar(100), res.Reference)
+      .input('Code', sql.NVarChar(30), res.Code)
+      .input('RoundID', sql.BigInt, res.RoundID)
+      .input('UserID', sql.BigInt, res.UserID)
+      .input('choice', sql.Int, res.choice ?? 0)
+      .input('comment', sql.NVarChar, res.comment ?? null)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Mobile_update_reference @Reference, @UserID, @Code, @RoundID, @choice, @comment`);
     //sql.close()
     return update.recordset;

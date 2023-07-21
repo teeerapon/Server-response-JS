@@ -1,15 +1,14 @@
 'use strict';
 
-const period_login = async (dateLoginRequst) => {
+const period_login = async (res) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const dateLogin = await pool.request()
-      .input('BranchID', sql.Int, dateLoginRequst.BranchID)
-      .input('personID', sql.NVarChar, dateLoginRequst.personID ?? null)
-      .input('depCode', sql.NVarChar, dateLoginRequst.depCode ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_Time_Login @BranchID, @personID, @depCode`);
+      .input('BranchID', sql.Int, res.BranchID)
+      .input('RoundID', sql.Int, res.RoundID ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_Time_Login @BranchID, @RoundID`);
     //sql.close()
     return dateLogin.recordset;
   } catch (error) {
@@ -26,24 +25,6 @@ const store_check_periodForUpdate = async (check_periodForUpdate) => {
     const dateLogin = await pool.request()
       .input('PeriodID', sql.BigInt, check_periodForUpdate.PeriodID)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_check_periodForUpdate @PeriodID`);
-    //sql.close()
-    return dateLogin.recordset;
-  } catch (error) {
-    //sql.close()
-    return error.message;
-  }
-}
-
-const period_check_create = async (res) => {
-  const sql = require('mssql');
-  const config = require('../../config');
-  try {
-    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
-    const dateLogin = await pool.request()
-      .input('BranchID', sql.Int, parseInt(res.BranchID))
-      .input('personID', sql.NVarChar, res.personID ?? null) // api
-      .input('depCode', sql.NVarChar, res.depCode ?? null) // api
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_Time_Login @BranchID,@personID,@depCode`);
     //sql.close()
     return dateLogin.recordset;
   } catch (error) {
@@ -87,7 +68,6 @@ const fa_permission_branch = async (permission_branch) => {
 }
 
 const craete_period = async (res) => {
-
   const sql = require('mssql');
   const config = require('../../config');
   try {
@@ -127,18 +107,18 @@ const delete_period = async (fa_delete_period) => {
   }
 }
 
-const update_period = async (fa_update_period) => {
+const update_period = async (res) => {
   const sql = require('mssql');
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const fa_update_period_data = await pool.request()
-      .input('PeriodID', sql.BigInt, fa_update_period.PeriodID)
-      .input('BeginDate', sql.NVarChar, fa_update_period.BeginDate)
-      .input('EndDate', sql.NVarChar, fa_update_period.EndDate)
-      .input('BranchID', sql.Int, fa_update_period.BranchID)
-      .input('Description', sql.NVarChar(100), fa_update_period.Description)
-      .input('usercode', sql.VarChar(10), fa_update_period.usercode)
+      .input('PeriodID', sql.BigInt, res.PeriodID)
+      .input('BeginDate', sql.NVarChar, res.BeginDate)
+      .input('EndDate', sql.NVarChar, res.EndDate)
+      .input('BranchID', sql.Int, res.BranchID)
+      .input('Description', sql.NVarChar(100), res.Description)
+      .input('usercode', sql.VarChar(10), res.usercode)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Period_update_period @BranchID, @BeginDate, @EndDate, @Description, @usercode, @PeriodID`);
     //sql.close()
     return fa_update_period_data.recordset;
@@ -247,7 +227,6 @@ const FA_Period_GroupBy = async (selectQuery) => {
 module.exports = {
   period_login,
   getsperiod_round,
-  period_check_create,
   fa_permission_branch,
   craete_period,
   update_period,
