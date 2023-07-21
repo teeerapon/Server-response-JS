@@ -1,1 +1,0 @@
-EXEC [dbo].[FA_Permission_Branch] @userCode

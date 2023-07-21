@@ -172,22 +172,21 @@ const check_code_wrong_branch = async (codeAsset) => {
   }
 }
 
-const createAsset = async (createAssetData) => {
+const createAsset = async (res) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const insertAsset = await pool.request()
-      .input('Code', sql.NVarChar(30), createAssetData.Code)
-      .input('Name', sql.NVarChar(150), createAssetData.Name)
-      .input('BranchID', sql.Int, createAssetData.BranchID)
-      .input('Date', sql.DateTime, createAssetData.Date)
-      .input('Status', sql.Bit, createAssetData.Status)
-      .input('UserID', sql.BigInt, createAssetData.UserID)
-      .input('UserBranch', sql.Int, createAssetData.UserBranch)
-      .input('RoundID', sql.BigInt, createAssetData.RoundID)
-      .input('Reference', sql.NVarChar(100), createAssetData.Reference)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Add_Assets_Counted @Reference, @Date, @Status, @RoundID, @UserBranch, @UserID, @Code`);
+      .input('Code', sql.NVarChar(30), res.Code)
+      .input('Name', sql.NVarChar(150), res.Name)
+      .input('BranchID', sql.Int, res.BranchID)
+      .input('Status', sql.Bit, res.Status)
+      .input('UserID', sql.BigInt, res.UserID)
+      .input('UserBranch', sql.Int, res.UserBranch)
+      .input('RoundID', sql.BigInt, res.RoundID)
+      .input('Reference', sql.NVarChar(100), res.Reference)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Add_Assets_Counted @Reference, @Status, @RoundID, @UserBranch, @UserID, @Code`);
     //sql.close()
     return insertAsset.recordset;
   } catch (error) {
@@ -196,18 +195,19 @@ const createAsset = async (createAssetData) => {
   }
 }
 
-const updateReference = async (referenceData) => {
+const updateReference = async (res) => {
+  console.log(res);
   const sql = require("mssql");
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const update = await pool.request()
-      .input('Reference', sql.NVarChar(100), referenceData.Reference)
-      .input('Code', sql.NVarChar(30), referenceData.Code)
-      .input('RoundID', sql.BigInt, referenceData.RoundID)
-      .input('UserID', sql.BigInt, referenceData.UserID)
-      .input('choice', sql.BigInt, referenceData.choice ?? 0)
-      .input('comment', sql.NVarChar, referenceData.comment ?? null)
+      .input('Reference', sql.NVarChar(100), res.Reference)
+      .input('Code', sql.NVarChar(30), res.Code)
+      .input('RoundID', sql.BigInt, res.RoundID)
+      .input('UserID', sql.BigInt, res.UserID)
+      .input('choice', sql.Int, res.choice ?? 0)
+      .input('comment', sql.NVarChar, res.comment ?? null)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Mobile_update_reference @Reference, @UserID, @Code, @RoundID, @choice, @comment`);
     //sql.close()
     return update.recordset;
@@ -263,12 +263,12 @@ const store_FA_control_create_doc = async (FA_control_create_doc) => {
       .input('des_BU', sql.NVarChar(50), FA_control_create_doc.des_BU)
       .input('des_delivery', sql.NVarChar(10), FA_control_create_doc.des_delivery)
       .input('desName', sql.NVarChar(50), FA_control_create_doc.nameDes ?? null)
-      .input('des_deliveryDate', sql.DateTime, FA_control_create_doc.des_deliveryDate)
+      .input('des_deliveryDate', sql.NVarChar, FA_control_create_doc.des_deliveryDate)
       .input('source_Department', sql.NVarChar(50), FA_control_create_doc.source_Department)
       .input('source_BU', sql.NVarChar(50), FA_control_create_doc.source_BU)
       .input('source', sql.NVarChar(10), FA_control_create_doc.source)
       .input('sourceName', sql.NVarChar(50), FA_control_create_doc.nameSource ?? null)
-      .input('sourceDate', sql.DateTime, FA_control_create_doc.sourceDate)
+      .input('sourceDate', sql.NVarChar, FA_control_create_doc.sourceDate)
       .input('des_Description', sql.NVarChar(200), FA_control_create_doc.des_Description)
       .input('source_Description', sql.NVarChar(200), FA_control_create_doc.source_Description)
       .input('sumPrice', sql.Float, FA_control_create_doc.sumPrice)
@@ -296,7 +296,7 @@ const store_FA_control_creat_Detail = async (FA_control_creat_Detail) => {
       .input('nacdtl_assetsDtl', sql.NVarChar, FA_control_creat_Detail.nacdtl_assetsDtl)
       .input('nacdtl_assetsCount', sql.Int, FA_control_creat_Detail.nacdtl_assetsCount)
       .input('nacdtl_assetsPrice', sql.Float, FA_control_creat_Detail.nacdtl_assetsPrice)
-      .input('nacdtl_date_asset', sql.DateTime, FA_control_creat_Detail.nacdtl_date_asset)
+      .input('nacdtl_date_asset', sql.NVarChar, FA_control_creat_Detail.nacdtl_date_asset)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Create_Detail_NAC @usercode, @nac_code, @nacdtl_row, @nacdtl_assetsCode, @nacdtl_assetsName, @nacdtl_assetsSeria, @nacdtl_assetsDtl, @nacdtl_assetsCount, @nacdtl_assetsPrice, @nacdtl_date_asset`);
     //sql.close()
     return control_creat_Detail.recordset;
@@ -417,15 +417,15 @@ const store_FA_control_update_DTLandHeaders = async (FA_control_update_DTLandHea
       .input('des_BU', sql.NVarChar(50), FA_control_update_DTLandHeaders.des_BU)
       .input('desName', sql.NVarChar(50), FA_control_update_DTLandHeaders.nameDes ?? null)
       .input('des_delivery', sql.NVarChar(10), FA_control_update_DTLandHeaders.des_delivery)
-      .input('des_deliveryDate', sql.DateTime, FA_control_update_DTLandHeaders.des_deliveryDate)
+      .input('des_deliveryDate', sql.NVarChar, FA_control_update_DTLandHeaders.des_deliveryDate)
       .input('des_description', sql.NVarChar(200), FA_control_update_DTLandHeaders.des_description)
       .input('source_department', sql.NVarChar(50), FA_control_update_DTLandHeaders.source_department)
       .input('source_BU', sql.NVarChar(50), FA_control_update_DTLandHeaders.source_BU)
       .input('source', sql.NVarChar(10), FA_control_update_DTLandHeaders.source)
       .input('sourceName', sql.NVarChar(50), FA_control_update_DTLandHeaders.nameSource ?? null)
-      .input('sourceDate', sql.DateTime, FA_control_update_DTLandHeaders.sourceDate)
+      .input('sourceDate', sql.NVarChar, FA_control_update_DTLandHeaders.sourceDate)
       .input('source_description', sql.NVarChar(200), FA_control_update_DTLandHeaders.source_description)
-      .input('realPrice_Date', sql.DateTime, FA_control_update_DTLandHeaders.realPrice_Date ?? null)
+      .input('realPrice_Date', sql.NVarChar, FA_control_update_DTLandHeaders.realPrice_Date ?? null)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Update_DTLandHEADERS @usercode, @nac_code, @nac_status, @sumPrice, @nac_type, @des_department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_description, @source_department, @source_BU, @source, @sourceName, @sourceDate, @source_description, @realPrice_Date`);
     //sql.close()
     return update_DTLandHeaders.recordset;
@@ -491,17 +491,17 @@ const store_FA_control_updateStatus = async (FA_control_updateStatus) => {
       .input('nac_status', sql.Int, FA_control_updateStatus.nac_status)
       .input('nac_type', sql.Int, FA_control_updateStatus.nac_type)
       .input('source', sql.NVarChar(10), FA_control_updateStatus.source)
-      .input('sourceDate', sql.DateTime, FA_control_updateStatus.sourceDate)
+      .input('sourceDate', sql.NVarChar, FA_control_updateStatus.sourceDate)
       .input('des_delivery', sql.NVarChar(10), FA_control_updateStatus.des_delivery)
-      .input('des_deliveryDate', sql.DateTime, FA_control_updateStatus.des_deliveryDate)
+      .input('des_deliveryDate', sql.NVarChar, FA_control_updateStatus.des_deliveryDate)
       .input('source_approve', sql.NVarChar(10), FA_control_updateStatus.source_approve)
-      .input('source_approve_date', sql.DateTime, FA_control_updateStatus.source_approve_date)
+      .input('source_approve_date', sql.NVarChar, FA_control_updateStatus.source_approve_date)
       .input('des_approve', sql.NVarChar(10), FA_control_updateStatus.des_approve)
-      .input('des_approve_date', sql.DateTime, FA_control_updateStatus.des_approve_date)
+      .input('des_approve_date', sql.NVarChar, FA_control_updateStatus.des_approve_date)
       .input('verify_by', sql.NVarChar(10), FA_control_updateStatus.verify_by)
-      .input('verify_date', sql.DateTime, FA_control_updateStatus.verify_date)
+      .input('verify_date', sql.NVarChar, FA_control_updateStatus.verify_date)
       .input('new_Price', sql.Float, FA_control_updateStatus.new_Price)
-      .input('realPrice_Date', sql.DateTime, FA_control_updateStatus.realPrice_Date ?? null)
+      .input('realPrice_Date', sql.NVarChar, FA_control_updateStatus.realPrice_Date ?? null)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_updateStatus @usercode , @nac_code, @nac_status, @nac_type, @source, @sourceDate, @des_delivery, @des_deliveryDate, @source_approve, @source_approve_date, @des_approve , @des_approve_date, @verify_by, @verify_date, @new_Price, @realPrice_Date`);
     //sql.close()
     return control_updateStatus.recordset;
@@ -522,15 +522,15 @@ const store_FA_control_seals_update = async (FA_control_updateStatus) => {
       .input('nac_status', sql.Int, FA_control_updateStatus.nac_status)
       .input('nac_type', sql.Int, FA_control_updateStatus.nac_type)
       .input('source', sql.NVarChar(10), FA_control_updateStatus.source)
-      .input('sourceDate', sql.DateTime, FA_control_updateStatus.sourceDate)
+      .input('sourceDate', sql.NVarChar, FA_control_updateStatus.sourceDate)
       .input('des_delivery', sql.NVarChar(10), FA_control_updateStatus.des_delivery)
-      .input('des_deliveryDate', sql.DateTime, FA_control_updateStatus.des_deliveryDate)
+      .input('des_deliveryDate', sql.NVarChar, FA_control_updateStatus.des_deliveryDate)
       .input('source_approve', sql.NVarChar(10), FA_control_updateStatus.source_approve)
-      .input('source_approve_date', sql.DateTime, FA_control_updateStatus.source_approve_date)
+      .input('source_approve_date', sql.NVarChar, FA_control_updateStatus.source_approve_date)
       .input('des_approve', sql.NVarChar(10), FA_control_updateStatus.des_approve)
-      .input('des_approve_date', sql.DateTime, FA_control_updateStatus.des_approve_date)
+      .input('des_approve_date', sql.NVarChar, FA_control_updateStatus.des_approve_date)
       .input('verify_by', sql.NVarChar(10), FA_control_updateStatus.verify_by)
-      .input('verify_date', sql.DateTime, FA_control_updateStatus.verify_date)
+      .input('verify_date', sql.NVarChar, FA_control_updateStatus.verify_date)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Update_Seals @usercode, @nac_code, @nac_status, @nac_type, @source, @sourceDate, @des_delivery, @des_deliveryDate, @source_approve, @source_approve_date, @des_approve, @des_approve_date, @verify_by, @verify_date`);
     //sql.close()
     return control_updateStatus.recordset;

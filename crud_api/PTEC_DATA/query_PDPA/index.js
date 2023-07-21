@@ -1,7 +1,5 @@
 "use strict";
 
-const utils = require("../../data/untils");
-
 const Ropa_addCollection = async (req) => {
   const sql = require("mssql");
   const config = require('../../config');
@@ -141,7 +139,7 @@ const Ropa_Save = async (req) => {
     .input("target", sql.NVarChar(255), req.target)
     .input("collectiontype", sql.VarChar(5), req.collectiontype)
     .input("step", sql.NVarChar(255), req.step)
-    .input("lastreview", sql.DateTime, req.lastreview ?? null)
+    .input("lastreview", sql.NVarChar, req.lastreview ?? null)
     .input("user", sql.VarChar(20), req.user)
     .query(`exec [${config.PTEC.objcn_pdpa.sql.database}].[dbo].[Ropa_Save] @ropaid,@depcode,@name,@target,@collectiontype,@step,@lastreview,@user`);
 
@@ -190,8 +188,8 @@ const Ropa_UserSave = async (req) => {
     .input("ropauserid", sql.BigInt, req.ropauserid ?? 0)
     .input("ropaid", sql.BigInt, req.ropaid)
     .input("name", sql.NVarChar(255), req.name)
-    .input("consentdate", sql.DateTime, req.consentdate ?? null)
-    .input("collectiondate", sql.DateTime, req.collectiondate ?? null)
+    .input("consentdate", sql.NVarChar, req.consentdate ?? null)
+    .input("collectiondate", sql.NVarChar, req.collectiondate ?? null)
     .input("remark", sql.NVarChar(255), req.remark)
     .input("user", sql.VarChar(20), req.user)
     .input("active", sql.Bit, parseInt(req.active))

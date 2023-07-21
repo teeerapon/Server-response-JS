@@ -1,1 +1,0 @@
-exec [PTEC_USERSRIGHT].[dbo].[User_Login] @UserCode,@Password 

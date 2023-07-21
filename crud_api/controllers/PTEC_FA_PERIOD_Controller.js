@@ -13,7 +13,10 @@ const period_login = async (req, res, next) => {
       res.status(200).send(JSON.stringify({
         message: "success",
         PeriodRound: period_loginDateTrue[0].PeriodID,
-        personID: period_loginDateTrue[0].personID
+        PeriodName: period_loginDateTrue[0].Description,
+        personID: period_loginDateTrue[0].personID,
+        BranchID: period_loginDateTrue[0].BranchID,
+        DepCode: period_loginDateTrue[0].DepCode
       }));
     }
   } catch (error) {
@@ -62,7 +65,7 @@ const update_period = async (req, res, next) => {
   try {
     const craete_period = req.body;
     await query_fa_control_period.update_period(craete_period)
-    res.status(200).send(JSON.stringify({ message: "ทำการแก้ไขข้อมูลรอบตรวจนับที่ " + craete_period.PeriodID + ' เสร็จสิ้น' }));
+    res.status(200).send(JSON.stringify({ message: "ทำการแก้ไขข้อมูลรอบตรวจนับที่ " + craete_period.Description + ' เสร็จสิ้น' }));
   } catch (error) {
     res.status(400).send(error.message);
   }

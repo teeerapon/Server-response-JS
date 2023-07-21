@@ -1,1 +1,0 @@
-exec FA_Mobile_lost_asset @UserBranch,@BranchID,@RoundID
