@@ -150,7 +150,6 @@ const updateReference = async (req, res, next) => {
         const updated = await query_fa_control.updateReference(data);
         res.setHeader("Content-Type", "application/json; charset=utf-8");
         res.status(200).send(JSON.stringify({ message: "ทำการเปลียนแปลงข้อมูลเสร็จสิ้น", data: updated }));
-        console.log(updated);
       } else {
         res.status(400).send(JSON.stringify({ message: "ไม่สามารถแก้ไขได้เนื่องจากรอบบันทึกไม่ตรงถูกต้อง" }));
       }
