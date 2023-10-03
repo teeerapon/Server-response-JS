@@ -809,7 +809,9 @@ const FA_Control_New_Assets = async (req) => {
       .input('keyID', sql.NVarChar(50), req.keyID ?? null)
       .input('user_name', sql.NVarChar, req.user_name ?? null)
       .input('image_2', sql.NVarChar, req.image_2 ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @Asset_group, @Group_name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type, @keyID, @user_name, @image_2`);
+      .input('OwnerCode', sql.NVarChar, req.OwnerCode ?? null)
+      .input('Position', sql.NVarChar, req.Position ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_New_Assets @UserCode, @Code, @Name, @Asset_group, @Group_name, @BranchID, @Details , @SerialNo, @Price, @Create_Date, @bac_type, @keyID, @user_name, @image_2,@OwnerCode,@Position`);
     //sql.close()
     return fetch_assets.recordset;
   } catch (error) {
