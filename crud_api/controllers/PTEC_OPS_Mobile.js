@@ -86,10 +86,17 @@ const STrack_Registation = async (req, res, next) => {
 
 const webhooks = async (req, res) => {
   // console.log('webhooks');
+  // console.log(req.userid);
   // console.log(req);
   try {
+    
+    
+    console.log('#########################################################');
+    console.log('try');
     res.status(200).send("OK")
     const events = req.body.events
+    console.log('------');
+    console.log(events);
     if (events.length > 0) {
       if (events[0].source.userId) {
         const venderID = await query_OPS_mobile.STrack_CheckVenderID(events[0].source.userId)
@@ -144,19 +151,25 @@ const webhooks = async (req, res) => {
           "altText": "Flex Message"
         }
         if ((venderID ? venderID[0].response : undefined) === 'false') {
-          // console.log('webhooks in 1 ');
+          console.log('webhooks in 1 ');
 
           if (events[0].replyToken) {
+            console.log('webhooks in 1.1 ');
+            console.log(events[0].replyToken);
+            console.log(textJSON);
+            
             return client.replyMessage(events[0].replyToken, textJSON)
           }
         } else {
-          // console.log('webhooks in 2 ');
+           console.log('webhooks in 2 ');
 
           return await events.map((items) => handleEvent(items))
         }
       }
     }
   } catch (error) {
+    console.log('#########################################################');
+    console.log('catch');
     res.status(500).end
   }
 }
@@ -167,8 +180,14 @@ const handleEvent = async (event) => {
   } else if (event.type === 'message') {
     const body = { "message": event.message.text, "userid_line": event.source.userId }
     const venderID = await query_OPS_mobile.STrack_callMessages(body)
+    
+    console.log(venderID);
+    console.log('in handleEvent 0');
     if ((venderID ? venderID.length : 0) > 0) {
+      
+      console.log('in handleEvent 0.1');
       if (!(venderID ? venderID[0].response : undefined)) {
+        console.log('in handleEvent 1');
         const str = 'ยังไม่มีคำสั่งนี้ $'
         return client.replyMessage(event.replyToken,
           {
@@ -196,6 +215,8 @@ const handleEvent = async (event) => {
           })
       }
       else if ((venderID ? venderID[0].response : undefined).indexOf('cancel STK') > -1) {
+        
+        console.log('in handleEvent 2');
         return client.replyMessage(event.replyToken,
           {
             "type": "text",
@@ -203,6 +224,8 @@ const handleEvent = async (event) => {
           })
       }
       else if ((venderID ? venderID[0].response : undefined) === 'แสดงงาน OPS') {
+        
+        console.log('in handleEvent 3');
         const lengthJSON = venderID
         var employees = {
           accounting: []
@@ -738,6 +761,8 @@ const handleEvent = async (event) => {
           return client.replyMessage(event.replyToken, sendJSON)
         }
       } else if ((venderID ? venderID[0].response : undefined) === 'แสดงงาน OPS ของฉัน') {
+        
+        console.log('in handleEvent 4');
         const lengthJSON = venderID
         var employees = {
           accounting: []
@@ -1250,6 +1275,8 @@ const handleEvent = async (event) => {
           return client.replyMessage(event.replyToken, sendJSON)
         }
       } else if ((venderID ? venderID[0].response : undefined) === 'step_ops') {
+        
+        console.log('in handleEvent 5');
         const JSONres = {
           "type": "flex",
           "quickReply": { // ②
