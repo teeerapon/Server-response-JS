@@ -175,6 +175,21 @@ const Branch_ListAll = async (res) => {
   }
 }
 
+const useright_getWelfare = async (res) => {
+  const config = require('../../config');
+  const sql = require('mssql');
+  try {
+    let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
+    const auto_DeapartMent = await pool.request()
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.[useright_getWelfare]`);
+    //sql.close()
+    return auto_DeapartMent.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
   getsUser,
   getById,
@@ -185,5 +200,6 @@ module.exports = {
   Permission_Menu_NAC,
   Fix_Assets_Control_UPDATE_Permission,
   Department_List,
-  Branch_ListAll
+  Branch_ListAll,
+  useright_getWelfare
 }

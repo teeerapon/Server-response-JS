@@ -12,7 +12,8 @@ const { getsUser,
     Permission_Menu_NAC,
     Fix_Assets_Control_UPDATE_Permission,
     Department_List,
-    Branch_ListAll
+    Branch_ListAll,
+    useright_getWelfare
 } = userController;
 
 router.get('/users', getsUser);
@@ -26,6 +27,7 @@ router.post('/Permission_Menu_NAC', Permission_Menu_NAC);
 router.post('/Fix_Assets_Control_UPDATE_Permission', Fix_Assets_Control_UPDATE_Permission);
 router.post('/Department_List', Department_List);
 router.get('/Branch_ListAll', Branch_ListAll);
+router.get('/useright_getWelfare', useright_getWelfare);
 
 module.exports = {
     routes: router

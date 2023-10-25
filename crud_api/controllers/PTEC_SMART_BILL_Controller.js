@@ -5,7 +5,7 @@ const SmartBill_CreateForms = async (req, res, next) => {
   try {
     const dataBody = req.body;
     const reqSmartBill_Header = {
-      userid: dataBody.smartBill_Header[0].userid === '' ? 145 : parseInt(dataBody.smartBill_Header[0].userid),
+      usercode: dataBody.smartBill_Header[0].usercode === '' ? 'SYSTEM' : dataBody.smartBill_Header[0].usercode,
       sb_name: dataBody.smartBill_Header[0].sb_name,
       sb_fristName: dataBody.smartBill_Header[0].sb_fristName,
       sb_lastName: dataBody.smartBill_Header[0].sb_lastName,
@@ -117,12 +117,199 @@ const SmartBill_ESGQuery = async (req, res, next) => {
   }
 }
 
+const SmartBill_Withdraw_Save = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_Withdraw_Save(body);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_Withdraw_SelectAllForms = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_Withdraw_SelectAllForms(body);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_CreateCost = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_CreateCost(body[0]);
+    if (data[0][0].Cost_id) {
+      for (let i = 0; i < body.length; i++) {
+        await billData.SmartBill_CreateCostAllowance({
+          sbwdtl_id: body[i].sbwdtl_id,
+          cost_id: data[0][0].Cost_id,
+          category_id: body[i].category_id,
+          usercode: body[i].usercode,
+          amount: body[i].amount,
+        });
+      }
+    }
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    // res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_WithdrawDtl_SelectCategory = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_WithdrawDtl_SelectCategory(body);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_WithdrawDtl_SaveChangesCategory = async (req, res, next) => {
+  try {
+    const body = req.body;
+    for (let i = 0; i < body.length; i++) {
+      const data = await billData.SmartBill_WithdrawDtl_SaveChangesCategory(body[i])
+      if (i + 1 === body.length) {
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.status(200).send(data);
+      }
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_WithdrawDtl_DeleteCategory = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_WithdrawDtl_DeleteCategory(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_Withdraw_Delete = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_Withdraw_Delete(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_WithdrawDtl_SaveChangesHotelGroup = async (req, res, next) => {
+  try {
+    const body = req.body;
+    for (let i = 0; i < body.length; i++) {
+      const data = await billData.SmartBill_WithdrawDtl_SaveChangesHotelGroup(body[i])
+      if (i + 1 === body.length) {
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.status(200).send(data);
+      }
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_WithdrawDtl_SelectHotelGroup = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_WithdrawDtl_SelectHotelGroup(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_WithdrawDtl_DeleteHotelGroup = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_WithdrawDtl_DeleteHotelGroup(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_Withdraw_Addrow = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_Withdraw_Addrow(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_Withdraw_AddrowDtl = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_Withdraw_AddrowDtl(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_WithdrawDtl_Delete = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_WithdrawDtl_Delete(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const SmartBill_Withdraw_updateSBW = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_Withdraw_updateSBW(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   SmartBill_CreateForms,
   SmartBill_CarInfoSearch,
   SmartBill_files,
   SmartBill_SelectHeaders,
   SmartBill_SelectAllForms,
-  SmartBill_ESGQuery
+  SmartBill_ESGQuery,
+  SmartBill_Withdraw_Save,
+  SmartBill_Withdraw_SelectAllForms,
+  SmartBill_CreateCost,
+  SmartBill_WithdrawDtl_SelectCategory,
+  SmartBill_WithdrawDtl_SaveChangesCategory,
+  SmartBill_WithdrawDtl_DeleteCategory,
+  SmartBill_Withdraw_Delete,
+  SmartBill_WithdrawDtl_SaveChangesHotelGroup,
+  SmartBill_WithdrawDtl_SelectHotelGroup,
+  SmartBill_WithdrawDtl_DeleteHotelGroup,
+  SmartBill_Withdraw_Addrow,
+  SmartBill_Withdraw_AddrowDtl,
+  SmartBill_WithdrawDtl_Delete,
+  SmartBill_Withdraw_updateSBW
 }
 // SmartBill_CreateFormsUploadFile
