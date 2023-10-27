@@ -335,10 +335,10 @@ const SmartBill_Withdraw_Delete = async (res) => {
   try {
     let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const resdata = await pool.request()
-      .input('sbwdtl_code', sql.VarChar, res.sbwdtl_code)
+      .input('sbw_code', sql.VarChar, res.sbw_code)
       .query(`
       exec ${config.PTEC.object_test_ops.sql.database}.dbo.[SmartBill_Withdraw_Delete] 
-            @sbwdtl_code
+            @sbw_code
       `);
     if (resdata !== null) {
       return resdata.recordsets;
