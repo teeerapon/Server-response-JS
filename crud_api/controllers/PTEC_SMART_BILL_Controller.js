@@ -290,6 +290,16 @@ const SmartBill_Withdraw_updateSBW = async (req, res, next) => {
   }
 }
 
+const SmartBill_Withdraw_SelectCostOther = async (req, res, next) => {
+  try {
+    const data = await billData.SmartBill_Withdraw_SelectCostOther()
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   SmartBill_CreateForms,
   SmartBill_CarInfoSearch,
@@ -310,6 +320,7 @@ module.exports = {
   SmartBill_Withdraw_Addrow,
   SmartBill_Withdraw_AddrowDtl,
   SmartBill_WithdrawDtl_Delete,
-  SmartBill_Withdraw_updateSBW
+  SmartBill_Withdraw_updateSBW,
+  SmartBill_Withdraw_SelectCostOther
 }
 // SmartBill_CreateFormsUploadFile

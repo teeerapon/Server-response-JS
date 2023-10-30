@@ -25,7 +25,8 @@ const {
   SmartBill_Withdraw_Addrow,
   SmartBill_Withdraw_AddrowDtl,
   SmartBill_WithdrawDtl_Delete,
-  SmartBill_Withdraw_updateSBW
+  SmartBill_Withdraw_updateSBW,
+  SmartBill_Withdraw_SelectCostOther
   
 } = billController;
 
@@ -49,6 +50,7 @@ router.post('/SmartBill_Withdraw_Addrow', SmartBill_Withdraw_Addrow);
 router.post('/SmartBill_Withdraw_AddrowDtl', SmartBill_Withdraw_AddrowDtl);
 router.post('/SmartBill_WithdrawDtl_Delete', SmartBill_WithdrawDtl_Delete);
 router.post('/SmartBill_Withdraw_updateSBW', SmartBill_Withdraw_updateSBW);
+router.get('/SmartBill_Withdraw_SelectCostOther', SmartBill_Withdraw_SelectCostOther);
 
 module.exports = {
   routes: router
