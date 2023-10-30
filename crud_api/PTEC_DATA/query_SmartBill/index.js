@@ -524,6 +524,27 @@ const SmartBill_Withdraw_SelectCostOther = async (res) => {
   }
 }
 
+const NonPO_Delete_Attach_By_attachid = async (res) => {
+  const config = require('../../config');
+  const sql = require('mssql');
+  try {
+    let pool = await sql.connect(config.PTEC.object_test_ops.sql);
+    const resdata = await pool.request()
+      .input('attachid', sql.Int, res.sbw_code)
+      .input('userid', sql.Int, 145)
+      .query(`
+      exec ${config.PTEC.object_test_ops.sql.database}.dbo.[NonPO_Delete_Attach_By_attachid]
+      @attachid,
+      @userid
+      `);
+    if (resdata !== null) {
+      return resdata.recordsets;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}
+
 module.exports = {
   SmartBill_CreateForms,
   SmartBill_CreateOperation,
@@ -547,5 +568,6 @@ module.exports = {
   SmartBill_Withdraw_AddrowDtl,
   SmartBill_WithdrawDtl_Delete,
   SmartBill_Withdraw_updateSBW,
-  SmartBill_Withdraw_SelectCostOther
+  SmartBill_Withdraw_SelectCostOther,
+  NonPO_Delete_Attach_By_attachid
 }
