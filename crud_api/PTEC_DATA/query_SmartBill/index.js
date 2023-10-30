@@ -533,7 +533,7 @@ const NonPO_Delete_Attach_By_attachid = async (res) => {
       .input('attachid', sql.Int, res.attachid)
       .input('userid', sql.Int, 145)
       .query(`
-      exec ${config.PTEC.object_test_ops.sql.database}.dbo.[NonPO_Delete_Attach_By_attachid]
+      exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[NonPO_Delete_Attach_By_attachid]
       @attachid,
       @userid
       `);
