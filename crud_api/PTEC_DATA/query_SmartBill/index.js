@@ -530,7 +530,7 @@ const NonPO_Delete_Attach_By_attachid = async (res) => {
   try {
     let pool = await sql.connect(config.PTEC.object_test_ops.sql);
     const resdata = await pool.request()
-      .input('attachid', sql.Int, res.sbw_code)
+      .input('attachid', sql.Int, res.attachid)
       .input('userid', sql.Int, 145)
       .query(`
       exec ${config.PTEC.object_test_ops.sql.database}.dbo.[NonPO_Delete_Attach_By_attachid]
