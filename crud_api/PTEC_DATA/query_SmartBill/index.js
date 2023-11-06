@@ -12,7 +12,7 @@ const SmartBill_CreateForms = async (res) => {
       .input('sb_lastName', sql.NVarChar, res.sb_lastName)
       .input('clean_status', sql.Int, res.clean_status)
       .input('group_status', sql.Int, res.group_status)
-      .input('remarks', sql.NVarChar, res.remarks)
+      .input('reamarks', sql.NVarChar, res.reamarks)
       .input('car_infocode', sql.NVarChar, res.car_infocode)
       .input('car_infostatus_companny', sql.Bit, res.car_infostatus_companny)
       .input('car_categaryid', sql.Int, res.car_categaryid)
@@ -28,7 +28,7 @@ const SmartBill_CreateForms = async (res) => {
             @sb_lastName,
             @clean_status,
             @group_status,
-            @remarks,
+            @reamarks,
             @car_infocode,
             @car_infostatus_companny,
             @car_categaryid,

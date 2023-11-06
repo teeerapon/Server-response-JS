@@ -146,7 +146,8 @@ const Branch_ListAll = async (req, res, next) => {
 
 const useright_getWelfare = async (req, res, next) => {
   try {
-    const data_new = await userData.useright_getWelfare();
+    const data = req.body;
+    const data_new = await userData.useright_getWelfare(data);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     res.status(200).send(JSON.stringify({ message: "success", data: data_new }));
   } catch (error) {

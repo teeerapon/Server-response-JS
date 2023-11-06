@@ -181,7 +181,10 @@ const useright_getWelfare = async (res) => {
   try {
     let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
     const auto_DeapartMent = await pool.request()
-      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.[useright_getWelfare]`);
+      .input('welfaretypeid', sql.Int, res.welfaretypeid ?? null)
+      .input('sbc_hotelProvince', sql.NVarChar, res.sbc_hotelProvince ?? null)
+      .input('usercode', sql.NVarChar, res.usercode ?? null)
+      .query(`exec ${config.PTEC.objcn_usersright.sql.database}.dbo.[useright_getWelfare] @welfaretypeid, @sbc_hotelProvince, @usercode`);
     //sql.close()
     return auto_DeapartMent.recordset;
   } catch (error) {
