@@ -12,7 +12,7 @@ const SmartBill_CreateForms = async (req, res, next) => {
       clean_status: parseInt(dataBody.smartBill_Header[0].clean_status),
       group_status: parseInt(dataBody.smartBill_Header[0].group_status),
       car_infocode: dataBody.carInfo[0].car_infocode,
-      remarks: dataBody.smartBill_Header[0].remarks,
+      reamarks: dataBody.smartBill_Header[0].reamarks,
       car_infostatus_companny: dataBody.carInfo[0].car_infostatus_companny,
       car_categaryid: dataBody.carInfo[0].car_categaryid,
       car_typeid: dataBody.carInfo[0].car_typeid,
