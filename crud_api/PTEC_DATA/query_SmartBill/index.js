@@ -14,7 +14,7 @@ const SmartBill_CreateForms = async (res) => {
       .input('group_status', sql.Int, res.group_status)
       .input('reamarks', sql.NVarChar, res.reamarks)
       .input('car_infocode', sql.NVarChar, res.car_infocode)
-      .input('car_infostatus_companny', sql.Bit, res.car_infostatus_companny)
+      .input('car_infostatus_companny', sql.Bit, (res.car_infostatus_companny === '' || !res.car_infostatus_companny) ? 0 : res.car_infostatus_companny)
       .input('car_categaryid', sql.Int, res.car_categaryid)
       .input('car_typeid', sql.Int, res.car_typeid)
       .input('car_band', sql.NVarChar, res.car_band)
