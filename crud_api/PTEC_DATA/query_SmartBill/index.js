@@ -53,10 +53,10 @@ const SmartBill_CreateOperation = async (res) => {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const resdata = await pool.request()
       .input('sb_code', sql.NVarChar, res.sb_code)
-      .input('sb_operationid_startdate', sql.DateTime, res.data.sb_operationid_startdate)
+      .input('sb_operationid_startdate', sql.NVarChar, res.data.sb_operationid_startdate)
       .input('sb_operationid_startmile', sql.Float, parseFloat(res.data.sb_operationid_startmile))
       .input('sb_operationid_startoil', sql.Float, parseFloat(res.data.sb_operationid_startoil))
-      .input('sb_operationid_enddate', sql.DateTime, res.data.sb_operationid_enddate)
+      .input('sb_operationid_enddate', sql.NVarChar, res.data.sb_operationid_enddate)
       .input('sb_operationid_endoil', sql.Float, parseFloat(res.data.sb_operationid_endoil))
       .input('sb_operationid_endmile', sql.Float, parseFloat(res.data.sb_operationid_endmile))
       .input('sb_paystatus', sql.Int, parseInt(res.data.sb_paystatus))
@@ -88,8 +88,8 @@ const SmartBill_CreateAssociate = async (res) => {
     const resdata = await pool.request()
       .input('sb_code', sql.NVarChar, res.sb_code)
       .input('allowance_usercode', sql.VarChar, res.data.allowance_usercode)
-      .input('sb_associate_startdate', sql.DateTime, res.data.sb_associate_startdate)
-      .input('sb_associate_enddate', sql.DateTime, res.data.sb_associate_enddate)
+      .input('sb_associate_startdate', sql.NVarChar, res.data.sb_associate_startdate)
+      .input('sb_associate_enddate', sql.NVarChar, res.data.sb_associate_enddate)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[SmartBill_CreateAssociate] 
             @sb_code,
             @allowance_usercode,
@@ -159,8 +159,8 @@ const SmartBill_ESGQuery = async (res) => {
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const resdata = await pool.request()
-      .input('startDate', sql.DateTime, res.startDate)
-      .input('endDate', sql.DateTime, res.endDate)
+      .input('startDate', sql.NVarChar, res.startDate)
+      .input('endDate', sql.NVarChar, res.endDate)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[SmartBill_ESGQuery] @startDate, @endDate`);
     if (resdata !== null) {
       return resdata.recordsets;
@@ -270,8 +270,8 @@ const SmartBill_WithdrawDtl_SaveChangesCategory = async (res) => {
       .input('id', sql.Int, res.id)
       .input('category_id', sql.Int, parseInt(res.category_id))
       .input('count', sql.Int, res.count)
-      .input('startdate', sql.DateTime, res.startdate)
-      .input('enddate', sql.DateTime, res.enddate)
+      .input('startdate', sql.NVarChar, res.startdate)
+      .input('enddate', sql.NVarChar, res.enddate)
       .input('sbc_hotelProvince', sql.NVarChar, res.sbc_hotelProvince)
       .input('sbc_hotelname', sql.NVarChar, res.sbc_hotelname)
       .input('usercode', sql.NVarChar, res.usercode ?? "SYSTEM")
@@ -439,8 +439,8 @@ const SmartBill_Withdraw_AddrowDtl = async (res) => {
       .input('ownercode', sql.NVarChar, res.ownercode)
       .input('car_infocode', sql.NVarChar, res.car_infocode)
       .input('remark', sql.NVarChar, res.remark)
-      .input('sbwdtl_operationid_startdate', sql.DateTime, res.sbwdtl_operationid_startdate)
-      .input('sbwdtl_operationid_enddate', sql.DateTime, res.sbwdtl_operationid_enddate)
+      .input('sbwdtl_operationid_startdate', sql.NVarChar, res.sbwdtl_operationid_startdate)
+      .input('sbwdtl_operationid_enddate', sql.NVarChar, res.sbwdtl_operationid_enddate)
       .input('sbwdtl_operationid_endmile', sql.Float, res.sbwdtl_operationid_endmile)
       .input('sbwdtl_operationid_startmile', sql.Float, res.sbwdtl_operationid_startmile)
       .query(`
