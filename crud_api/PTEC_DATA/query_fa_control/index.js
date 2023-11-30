@@ -268,10 +268,10 @@ const store_FA_control_create_doc = async (FA_control_create_doc) => {
       .input('source', sql.NVarChar(10), FA_control_create_doc.source)
       .input('sourceName', sql.NVarChar(100), FA_control_create_doc.nameSource ?? null)
       .input('sourceDate', sql.NVarChar, FA_control_create_doc.sourceDate)
-      .input('des_Description', sql.NVarChar(200), FA_control_create_doc.des_Description)
-      .input('source_Description', sql.NVarChar(200), FA_control_create_doc.source_Description)
+      .input('des_description', sql.NVarChar(200), FA_control_create_doc.des_description)
+      .input('source_description', sql.NVarChar(200), FA_control_create_doc.source_description)
       .input('sumPrice', sql.Float, FA_control_create_doc.sumPrice)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Create_Document_NAC @usercode, @worktype, @sumPrice, @des_Department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_Description, @source_Department, @source_BU, @source, @sourceName, @sourceDate, @source_Description`);
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Create_Document_NAC @usercode, @worktype, @sumPrice, @des_Department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_description, @source_Department, @source_BU, @source, @sourceName, @sourceDate, @source_description`);
     //sql.close()
     return FAcontrol_create_doc.recordset;
   } catch (error) {
@@ -435,6 +435,7 @@ const store_FA_control_update_DTLandHeaders = async (FA_control_update_DTLandHea
 }
 
 const store_FA_control_update_DTL = async (FA_control_update_DTL) => {
+  console.log(FA_control_update_DTL);
   const sql = require("mssql");
   const config = require('../../config');
   try {

@@ -47,6 +47,7 @@ const SmartBill_CreateForms = async (res) => {
 }
 
 const SmartBill_CreateOperation = async (res) => {
+  console.log(res);
   const config = require('../../config');
   const sql = require('mssql');
   try {
