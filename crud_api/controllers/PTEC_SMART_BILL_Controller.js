@@ -311,6 +311,17 @@ const NonPO_Delete_Attach_By_attachid = async (req, res, next) => {
   }
 }
 
+const SmartBill_AcceptHeader = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const data = await billData.SmartBill_AcceptHeader(body)
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   SmartBill_CreateForms,
   SmartBill_CarInfoSearch,
@@ -333,6 +344,7 @@ module.exports = {
   SmartBill_WithdrawDtl_Delete,
   SmartBill_Withdraw_updateSBW,
   SmartBill_Withdraw_SelectCostOther,
-  NonPO_Delete_Attach_By_attachid
+  NonPO_Delete_Attach_By_attachid,
+  SmartBill_AcceptHeader
 }
 // SmartBill_CreateFormsUploadFile
