@@ -6,6 +6,7 @@ const SmartBill_CreateForms = async (req, res, next) => {
     const dataBody = req.body;
     const reqSmartBill_Header = {
       usercode: dataBody.smartBill_Header[0].usercode === '' ? 'SYSTEM' : dataBody.smartBill_Header[0].usercode,
+      sb_code: dataBody.sb_code ?? '',
       sb_name: dataBody.smartBill_Header[0].sb_name,
       sb_fristName: dataBody.smartBill_Header[0].sb_fristName,
       sb_lastName: dataBody.smartBill_Header[0].sb_lastName,
@@ -24,8 +25,8 @@ const SmartBill_CreateForms = async (req, res, next) => {
     const dataSmartBill_Header = await billData.SmartBill_CreateForms(reqSmartBill_Header);
     if (dataSmartBill_Header[0].sb_code) {
       if (parseInt(dataBody.smartBill_Header[0].group_status) === 1) {
-        for (let i = 0; i < dataBody.smartBill_Operation.length; i++) {
-          await billData.SmartBill_CreateOperation({ data: dataBody.smartBill_Operation[i], sb_code: dataSmartBill_Header[0].sb_code });
+        for (const element of dataBody.smartBill_Operation) {
+          await billData.SmartBill_CreateOperation({ data: element, sb_code: dataSmartBill_Header[0].sb_code });
         }
         for (let i = 0; i < dataBody.smartBill_Associate.length; i++) {
           await billData.SmartBill_CreateAssociate({ data: dataBody.smartBill_Associate[i], sb_code: dataSmartBill_Header[0].sb_code });
@@ -60,7 +61,7 @@ const SmartBill_CarInfoSearch = async (req, res, next) => {
 
 const SmartBill_files = async (req, res) => {
   try {
-    var newpath = 'D:' + "/files/smartBill/";
+    let newpath = 'D:' + "/files/smartBill/";
     const file = req.files.file;
     const st_code = req.body.sb_code;
     const filename = file.name;
@@ -144,18 +145,17 @@ const SmartBill_CreateCost = async (req, res, next) => {
     const body = req.body;
     const data = await billData.SmartBill_CreateCost(body[0]);
     if (data[0][0].Cost_id) {
-      for (let i = 0; i < body.length; i++) {
+      for (const element of body) {
         await billData.SmartBill_CreateCostAllowance({
-          sbwdtl_id: body[i].sbwdtl_id,
+          sbwdtl_id: element.sbwdtl_id,
           cost_id: data[0][0].Cost_id,
-          category_id: body[i].category_id,
-          usercode: body[i].usercode,
-          amount: body[i].amount,
+          category_id: element.category_id,
+          usercode: element.usercode,
+          amount: element.amount,
         });
       }
     }
     res.setHeader("Content-Type", "application/json; charset=utf-8");
-    // res.status(200).send(data);
   } catch (error) {
     res.status(201).send(error.message);
   }

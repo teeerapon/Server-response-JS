@@ -6,6 +6,7 @@ const SmartBill_CreateForms = async (res) => {
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const resdata = await pool.request()
+      .input('sb_code', sql.NVarChar, res.sb_code ?? '')
       .input('usercode', sql.NVarChar, res.usercode)
       .input('sb_name', sql.NVarChar, res.sb_name)
       .input('sb_fristName', sql.NVarChar, res.sb_fristName)
@@ -22,6 +23,7 @@ const SmartBill_CreateForms = async (res) => {
       .input('car_color', sql.NVarChar, res.car_color)
       .input('car_remarks', sql.NVarChar, res.car_remarks)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[SmartBill_CreateForms] 
+            @sb_code,
             @usercode,
             @sb_name,
             @sb_fristName,
