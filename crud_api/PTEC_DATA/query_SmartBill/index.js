@@ -555,7 +555,7 @@ const SmartBill_AcceptHeader = async (res) => {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const resdata = await pool.request()
       .input('sb_code', sql.NVarChar, res.sb_code)
-      .input('usercode',sql.NVarChar, res.usercode)
+      .input('usercode', sql.NVarChar, res.usercode)
       .query(`
       exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[SmartBill_AcceptHeader] 
         @sb_code,
