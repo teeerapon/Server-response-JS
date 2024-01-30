@@ -269,7 +269,7 @@ const store_FA_control_create_doc = async (FA_control_create_doc) => {
       .input('sourceName', sql.NVarChar(100), FA_control_create_doc.nameSource ?? null)
       .input('sourceDate', sql.NVarChar, FA_control_create_doc.sourceDate)
       .input('des_description', sql.NVarChar(200), FA_control_create_doc.des_description)
-      .input('source_description', sql.NVarChar(200), FA_control_create_doc.source_description)
+      .input('source_description', sql.NVarChar(200), FA_control_create_doc.source_Description)
       .input('sumPrice', sql.Float, FA_control_create_doc.sumPrice)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Create_Document_NAC @usercode, @worktype, @sumPrice, @des_Department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_description, @source_Department, @source_BU, @source, @sourceName, @sourceDate, @source_description`);
     //sql.close()
