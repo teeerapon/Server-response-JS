@@ -155,6 +155,17 @@ const useright_getWelfare = async (req, res, next) => {
   }
 }
 
+const ReactJS_LaunchingMenu = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const data_new = await userData.ReactJS_LaunchingMenu(data);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(JSON.stringify({ message: "success", data: data_new }));
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   getsUser,
   getUserCode,
@@ -167,5 +178,6 @@ module.exports = {
   Fix_Assets_Control_UPDATE_Permission,
   Department_List,
   Branch_ListAll,
-  useright_getWelfare
+  useright_getWelfare,
+  ReactJS_LaunchingMenu
 }

@@ -193,6 +193,22 @@ const useright_getWelfare = async (res) => {
   }
 }
 
+const ReactJS_LaunchingMenu = async (res) => {
+  const config = require('../../config');
+  const sql = require('mssql');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const data = await pool.request()
+      .input('userid', sql.Int, res.userid)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[ReactJS_LaunchingMenu] @userid`);
+    //sql.close()
+    return data.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
   getsUser,
   getById,
@@ -204,5 +220,6 @@ module.exports = {
   Fix_Assets_Control_UPDATE_Permission,
   Department_List,
   Branch_ListAll,
-  useright_getWelfare
+  useright_getWelfare,
+  ReactJS_LaunchingMenu
 }

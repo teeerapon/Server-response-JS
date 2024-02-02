@@ -13,7 +13,8 @@ const { getsUser,
     Fix_Assets_Control_UPDATE_Permission,
     Department_List,
     Branch_ListAll,
-    useright_getWelfare
+    useright_getWelfare,
+    ReactJS_LaunchingMenu
 } = userController;
 
 router.get('/users', getsUser);
@@ -28,6 +29,7 @@ router.post('/Fix_Assets_Control_UPDATE_Permission', Fix_Assets_Control_UPDATE_P
 router.post('/Department_List', Department_List);
 router.get('/Branch_ListAll', Branch_ListAll);
 router.post('/useright_getWelfare', useright_getWelfare);
+router.post('/ReactJS_LaunchingMenu', ReactJS_LaunchingMenu);
 
 module.exports = {
     routes: router
