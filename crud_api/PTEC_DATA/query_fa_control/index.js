@@ -250,27 +250,27 @@ const SelectDTL_Control = async (DTL_Control) => {
   }
 }
 
-const store_FA_control_create_doc = async (FA_control_create_doc) => {
+const store_FA_control_create_doc = async (res) => {
   const sql = require("mssql");
   const config = require('../../config');
   try {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const FAcontrol_create_doc = await pool.request()
-      .input('usercode', sql.VarChar(10), FA_control_create_doc.usercode)
-      .input('worktype', sql.Int, FA_control_create_doc.worktype)
-      .input('des_Department', sql.NVarChar(50), FA_control_create_doc.des_Department)
-      .input('des_BU', sql.NVarChar(50), FA_control_create_doc.des_BU)
-      .input('des_delivery', sql.NVarChar(10), FA_control_create_doc.des_delivery)
-      .input('desName', sql.NVarChar(100), FA_control_create_doc.nameDes ?? null)
-      .input('des_deliveryDate', sql.NVarChar, FA_control_create_doc.des_deliveryDate)
-      .input('source_Department', sql.NVarChar(50), FA_control_create_doc.source_Department)
-      .input('source_BU', sql.NVarChar(50), FA_control_create_doc.source_BU)
-      .input('source', sql.NVarChar(10), FA_control_create_doc.source)
-      .input('sourceName', sql.NVarChar(100), FA_control_create_doc.nameSource ?? null)
-      .input('sourceDate', sql.NVarChar, FA_control_create_doc.sourceDate)
-      .input('des_description', sql.NVarChar(200), FA_control_create_doc.des_description)
-      .input('source_description', sql.NVarChar(200), FA_control_create_doc.source_Description)
-      .input('sumPrice', sql.Float, FA_control_create_doc.sumPrice)
+      .input('usercode', sql.VarChar(10), res.usercode)
+      .input('worktype', sql.Int, res.worktype)
+      .input('des_Department', sql.NVarChar(50), res.des_Department)
+      .input('des_BU', sql.NVarChar(50), res.des_BU)
+      .input('des_delivery', sql.NVarChar(10), res.des_delivery)
+      .input('desName', sql.NVarChar(100), res.desName ?? null)
+      .input('des_deliveryDate', sql.NVarChar, res.des_deliveryDate)
+      .input('source_Department', sql.NVarChar(50), res.source_Department)
+      .input('source_BU', sql.NVarChar(50), res.source_BU)
+      .input('source', sql.NVarChar(10), res.source)
+      .input('sourceName', sql.NVarChar(100), res.nameSource ?? null)
+      .input('sourceDate', sql.NVarChar, res.sourceDate)
+      .input('des_description', sql.NVarChar(200), res.des_description)
+      .input('source_description', sql.NVarChar(200), res.source_Description)
+      .input('sumPrice', sql.Float, res.sumPrice)
       .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Create_Document_NAC @usercode, @worktype, @sumPrice, @des_Department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_description, @source_Department, @source_BU, @source, @sourceName, @sourceDate, @source_description`);
     //sql.close()
     return FAcontrol_create_doc.recordset;
