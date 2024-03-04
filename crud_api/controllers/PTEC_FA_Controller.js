@@ -171,7 +171,7 @@ const AssetsAll_Control = async (req, res, next) => {
     const data = req.body;
     const allAssets = await query_fa_control.AssetsAll_Control(data);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
-    if (allAssets.length > 0) {
+    if (allAssets.length > 0 && allAssets) {
       res.status(200).send(JSON.stringify({ message: "success", data: allAssets }));
     } else {
       res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
