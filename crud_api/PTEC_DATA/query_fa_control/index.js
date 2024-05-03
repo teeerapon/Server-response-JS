@@ -414,7 +414,7 @@ const store_FA_control_update_DTLandHeaders = async (FA_control_update_DTLandHea
       .input('sumPrice', sql.Float, FA_control_update_DTLandHeaders.sumPrice)
       .input('des_department', sql.NVarChar(50), FA_control_update_DTLandHeaders.des_department)
       .input('des_BU', sql.NVarChar(50), FA_control_update_DTLandHeaders.des_BU)
-      .input('desName', sql.NVarChar(50), FA_control_update_DTLandHeaders.nameDes ?? null)
+      .input('desName', sql.NVarChar(50), FA_control_update_DTLandHeaders.desName ?? null)
       .input('des_delivery', sql.NVarChar(10), FA_control_update_DTLandHeaders.des_delivery)
       .input('des_deliveryDate', sql.NVarChar, FA_control_update_DTLandHeaders.des_deliveryDate)
       .input('des_description', sql.NVarChar(200), FA_control_update_DTLandHeaders.des_description)
