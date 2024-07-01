@@ -261,17 +261,38 @@ const store_FA_control_create_doc = async (res) => {
       .input('des_Department', sql.NVarChar(50), res.des_Department)
       .input('des_BU', sql.NVarChar(50), res.des_BU)
       .input('des_delivery', sql.NVarChar(10), res.des_delivery)
-      .input('desName', sql.NVarChar(100), res.desName ?? null)
+      .input('desFristName', sql.NVarChar(50), res.desFristName ?? null)
+      .input('desLastNameName', sql.NVarChar(50), res.desLastNameName ?? null)
       .input('des_deliveryDate', sql.NVarChar, res.des_deliveryDate)
       .input('source_Department', sql.NVarChar(50), res.source_Department)
       .input('source_BU', sql.NVarChar(50), res.source_BU)
       .input('source', sql.NVarChar(10), res.source)
-      .input('sourceName', sql.NVarChar(100), res.nameSource ?? null)
+      .input('sourceFristName', sql.NVarChar(50), res.sourceFristName ?? null)
+      .input('sourceLastName', sql.NVarChar(50), res.sourceLastName ?? null)
       .input('sourceDate', sql.NVarChar, res.sourceDate)
       .input('des_description', sql.NVarChar(200), res.des_description)
       .input('source_description', sql.NVarChar(200), res.source_Description)
       .input('sumPrice', sql.Float, res.sumPrice)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Create_Document_NAC @usercode, @worktype, @sumPrice, @des_Department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_description, @source_Department, @source_BU, @source, @sourceName, @sourceDate, @source_description`);
+      .query(`
+        exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Create_Document_NAC 
+        @usercode, 
+        @worktype, 
+        @sumPrice, 
+        @des_Department, 
+        @des_BU, 
+        @des_delivery, 
+        @desFristName, 
+        @desLastNameName,
+        @des_deliveryDate, 
+        @des_description, 
+        @source_Department, 
+        @source_BU, 
+        @source,
+        @sourceFristName, 
+        @sourceLastName, 
+        @sourceDate, 
+        @source_description
+        `);
     //sql.close()
     return FAcontrol_create_doc.recordset;
   } catch (error) {
@@ -414,18 +435,42 @@ const store_FA_control_update_DTLandHeaders = async (FA_control_update_DTLandHea
       .input('sumPrice', sql.Float, FA_control_update_DTLandHeaders.sumPrice)
       .input('des_department', sql.NVarChar(50), FA_control_update_DTLandHeaders.des_department)
       .input('des_BU', sql.NVarChar(50), FA_control_update_DTLandHeaders.des_BU)
-      .input('desName', sql.NVarChar(50), FA_control_update_DTLandHeaders.desName ?? null)
+      .input('desFristName', sql.NVarChar(50), FA_control_update_DTLandHeaders.desFristName ?? null)
+      .input('desLastNameName', sql.NVarChar(50), FA_control_update_DTLandHeaders.desLastNameName ?? null)
       .input('des_delivery', sql.NVarChar(10), FA_control_update_DTLandHeaders.des_delivery)
       .input('des_deliveryDate', sql.NVarChar, FA_control_update_DTLandHeaders.des_deliveryDate)
       .input('des_description', sql.NVarChar(200), FA_control_update_DTLandHeaders.des_description)
       .input('source_department', sql.NVarChar(50), FA_control_update_DTLandHeaders.source_department)
       .input('source_BU', sql.NVarChar(50), FA_control_update_DTLandHeaders.source_BU)
       .input('source', sql.NVarChar(10), FA_control_update_DTLandHeaders.source)
-      .input('sourceName', sql.NVarChar(50), FA_control_update_DTLandHeaders.nameSource ?? null)
+      .input('sourceFristName', sql.NVarChar(50), FA_control_update_DTLandHeaders.sourceFristName ?? null)
+      .input('sourceLastName', sql.NVarChar(50), FA_control_update_DTLandHeaders.sourceLastName ?? null)
       .input('sourceDate', sql.NVarChar, FA_control_update_DTLandHeaders.sourceDate)
       .input('source_description', sql.NVarChar(200), FA_control_update_DTLandHeaders.source_description)
       .input('realPrice_Date', sql.NVarChar, FA_control_update_DTLandHeaders.realPrice_Date ?? null)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Update_DTLandHEADERS @usercode, @nac_code, @nac_status, @sumPrice, @nac_type, @des_department, @des_BU, @des_delivery, @desName, @des_deliveryDate, @des_description, @source_department, @source_BU, @source, @sourceName, @sourceDate, @source_description, @realPrice_Date`);
+      .query(
+        `exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Control_Update_DTLandHEADERS 
+        @usercode, 
+        @nac_code, 
+        @nac_status, 
+        @sumPrice, 
+        @nac_type, 
+        @des_department,
+        @des_BU, 
+        @des_delivery, 
+        @desFristName, 
+        @desLastNameName,
+        @des_deliveryDate, 
+        @des_description, 
+        @source_department, 
+        @source_BU, 
+        @source, 
+        @sourceFristName, 
+        @sourceLastName, 
+        @sourceDate, 
+        @source_description,
+        @realPrice_Date`
+      );
     //sql.close()
     return update_DTLandHeaders.recordset;
   } catch (error) {

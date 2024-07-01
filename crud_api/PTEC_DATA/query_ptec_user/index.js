@@ -33,6 +33,7 @@ const getById = async (UserCode) => {
 }
 
 const getByEmailAndCode = async (loginuser) => {
+  console.log(loginuser);
   const config = require('../../config');
   const sql = require('mssql');
   try {
@@ -209,6 +210,32 @@ const ReactJS_LaunchingMenu = async (res) => {
   }
 }
 
+const test_root = async (res) => {
+  const config = require('../../config');
+  const sql = require('mssql');
+  try {
+    let pool = await sql.connect(config.PTEC.objcn_usersright.sql);
+    const list = await pool
+      .request()
+      .query(`SELECT '1' as menuid ,NULL as upperid ,'1' as groupid,'IAS' as menuname,NULL as path , 'fa-solid fa-shield' as iconMenu
+              union 
+              SELECT '2' as menuid ,1 as upperid ,'1' as groupid,'Job List' as menuname,'/Audit/JobList' as path, NULL as iconMenu
+              union 
+              SELECT '3' as menuid ,1 as upperid ,'1' as groupid,'Report' as menuname,NULL as path , NULL as iconMenu
+              union
+              SELECT '4' as menuid ,NULL as upperid ,'2' as groupid,'Admin' as menuname,NULL as path , 'fa-solid fa-user' as iconMenu
+              union 
+              SELECT '5' as menuid ,4 as upperid ,'2' as groupid,'Setup Permission' as menuname,NULL as path , NULL as iconMenu
+              union 
+              SELECT '6' as menuid ,4 as upperid ,'2' as groupid,'Setup Menu' as menuname,NULL as path , NULL as iconMenu`);
+    //sql.close()
+    return list.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
   getsUser,
   getById,
@@ -221,5 +248,6 @@ module.exports = {
   Department_List,
   Branch_ListAll,
   useright_getWelfare,
-  ReactJS_LaunchingMenu
+  ReactJS_LaunchingMenu,
+  test_root
 }

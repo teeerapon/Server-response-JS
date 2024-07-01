@@ -14,7 +14,9 @@ const { getsUser,
     Department_List,
     Branch_ListAll,
     useright_getWelfare,
-    ReactJS_LaunchingMenu
+    ReactJS_LaunchingMenu,
+    test_root,
+    get_otp
 } = userController;
 
 router.get('/users', getsUser);
@@ -30,6 +32,8 @@ router.post('/Department_List', Department_List);
 router.get('/Branch_ListAll', Branch_ListAll);
 router.post('/useright_getWelfare', useright_getWelfare);
 router.post('/ReactJS_LaunchingMenu', ReactJS_LaunchingMenu);
+router.get('/test_root', test_root);
+router.post('/get_otp', get_otp);
 
 module.exports = {
     routes: router

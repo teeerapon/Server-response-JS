@@ -166,6 +166,32 @@ const ReactJS_LaunchingMenu = async (req, res, next) => {
   }
 }
 
+const test_root = async (req, res, next) => {
+  try {
+    const users = await userData.test_root();
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).send(users);
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
+const get_otp = async (req, res, next) => {
+  try {
+    const df_otp = 'PTECOTP'
+    const data = req.body;
+    if (data.res === df_otp) {
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      res.status(200).send(JSON.stringify({ message: "Reset Password Successfully" }));
+    } else {
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      res.status(400).send(JSON.stringify({ message: "Your OTP Wrong" }));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
   getsUser,
   getUserCode,
@@ -179,5 +205,7 @@ module.exports = {
   Department_List,
   Branch_ListAll,
   useright_getWelfare,
-  ReactJS_LaunchingMenu
+  ReactJS_LaunchingMenu,
+  test_root,
+  get_otp
 }
