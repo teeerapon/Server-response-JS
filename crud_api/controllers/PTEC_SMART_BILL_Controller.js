@@ -175,6 +175,7 @@ const SmartBill_WithdrawDtl_SelectCategory = async (req, res, next) => {
 const SmartBill_WithdrawDtl_SaveChangesCategory = async (req, res, next) => {
   try {
     const body = req.body;
+    console.log(body);
     for (let i = 0; i < body.length; i++) {
       const data = await billData.SmartBill_WithdrawDtl_SaveChangesCategory(body[i])
       if (i + 1 === body.length) {

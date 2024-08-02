@@ -49,7 +49,6 @@ const SmartBill_CreateForms = async (res) => {
 }
 
 const SmartBill_CreateOperation = async (res) => {
-  console.log(res);
   const config = require('../../config');
   const sql = require('mssql');
   try {
@@ -181,7 +180,9 @@ const SmartBill_Withdraw_Save = async (res) => {
     const resdata = await pool.request()
       .input('ownercode', sql.NVarChar, res.ownercode)
       .input('car_infocode', sql.NVarChar, res.car_infocode === '' ? null : res.car_infocode)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[SmartBill_Withdraw_Save] @ownercode, @car_infocode`);
+      .input('typePay', sql.NVarChar, res.typePay)
+      .input('condition', sql.Int, res.condition)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[SmartBill_Withdraw_Save] @ownercode, @car_infocode, @typePay, @condition`);
     if (resdata !== null) {
       return resdata.recordsets;
     }
@@ -494,13 +495,19 @@ const SmartBill_Withdraw_updateSBW = async (res) => {
       .input('sbw_code', sql.NVarChar, res.sbw_code)
       .input('usercode', sql.NVarChar, res.usercode ?? null)
       .input('pure_card', sql.Money, res.pure_card ?? null)
+      .input('condition', sql.Int, parseInt(res.condition))
+      .input('car_infocode', sql.NVarChar, res.car_infocode)
       .input('lock_status', sql.Int, res.lock_status ?? 0)
+      .input('typePay', sql.NVarChar, res.typePay)
       .query(`
       exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.[SmartBill_Withdraw_updateSBW] 
         @sbw_code,
         @usercode,
         @pure_card,
-        @lock_status
+        @condition,
+        @car_infocode,
+        @lock_status,
+        @typePay
       `);
     if (resdata !== null) {
       return resdata.recordsets;
