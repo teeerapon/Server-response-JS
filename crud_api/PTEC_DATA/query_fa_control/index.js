@@ -1119,6 +1119,25 @@ const FA_Control_BPC_UpdateTemp = async (req) => {
   }
 }
 
+const FA_Mobile_UploadImage = async (req) => {
+  const sql = require("mssql");
+  const config = require('../../config');
+  try {
+    let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
+    const fetch_assets = await pool.request()
+      .input('Code', sql.NVarChar, req.Code ?? null)
+      .input('RoundID', sql.NVarChar, req.RoundID ?? null)
+      .input('index', sql.Int, req.index ?? null)
+      .input('url', sql.NVarChar, req.url ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.[dbo].[FA_Mobile_UploadImage] @Code, @RoundID ,@index ,@url`);
+    //sql.close()
+    return fetch_assets.recordset;
+  } catch (error) {
+    //sql.close()
+    return error.message;
+  }
+}
+
 module.exports = {
 
   //BPC
@@ -1144,6 +1163,7 @@ module.exports = {
   lostAssets,
   check_code_wrong_branch,
   scan_check_result,
+  FA_Mobile_UploadImage,
 
   //Control
   AssetsAll_Control,

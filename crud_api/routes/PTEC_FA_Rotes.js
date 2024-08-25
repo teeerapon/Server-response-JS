@@ -47,6 +47,7 @@ const {
     FA_Control_import_dataXLSX_toAssets, check_files,
     FA_Control_Delete_PATH, check_files_NewNAC,
     FA_Control_Edit_EBook, FA_Control_BPC_Sendmail,
+    FA_Mobile_UploadImage,
     //BPC
     FA_Control_BPC_UpdateDetails, FA_Control_BPC_Running_NO,
     FA_Control_BPC_SELECT_TEMP,
@@ -66,6 +67,7 @@ router.post('/testGetBranch', getAllasset2);
 router.post('/lostAssets', lostAssets);
 router.put('/updateReference', updateReference);
 router.post('/check_code_result', scan_check_result);
+router.post('/FA_Mobile_UploadImage', FA_Mobile_UploadImage);
 
 // AssetsAll_Control
 router.post('/AssetsAll_Control', AssetsAll_Control);

@@ -51,17 +51,20 @@ const assetByCode = async (req, res, next) => {
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     const timeElapsed = Date.now()
     const today = new Date(timeElapsed);
-    if (assetsData.length == 0) {
-      res.status(400).send(JSON.stringify({ message: "ไม่พบ ", data: assetByCode.Code + ' นี้ในระบบ' }));
+    if (assetsData.length === 0) {
+      res.status(400).send(JSON.stringify({ message: `ไม่พบทรัพย์สิน ${assetByCode.Code} ในระบบ` }));
     } else {
-      const assetsDataScan = await query_fa_control.getAssetByCode(assetByCode);
-      if (assetsDataScan.length != 0) {
-        // const accessToken = TokenManager.getGenarateToken({ "Code": assetsData.Code });
-        const accessToken = Math.random().toString(36).substr(2)
-        res.status(200).send(JSON.stringify({ message: "success", data: assetsData, token: accessToken, date: today.toLocaleString("sv-SE") }));
+      const wrongData = await query_fa_control.check_code_wrong_branch(assetByCode);
+      if (!wrongData) {
+        const assetsDataScan = await query_fa_control.getAssetByCode(assetByCode);
+        if (assetsDataScan[0].rejected) {
+          res.status(400).send(JSON.stringify({ message: assetsDataScan[0].rejected }));
+        } else {
+          const accessToken = Math.random().toString(36).substr(2)
+          res.status(200).send(JSON.stringify({ message: "success", data: assetsDataScan, token: accessToken, date: today.toLocaleString("sv-SE") }));
+        }
       } else {
-        const assetsData = await query_fa_control.check_code_wrong_branch(assetByCode);
-        res.status(400).send(JSON.stringify({ message: "ทรัพย์สินนี้ถูกบันทึกแล้วที่สาขา ", data: assetsData[0]['UserBranch'], date: today.toLocaleString("sv-SE") }));
+        res.status(400).send(JSON.stringify(`ทรัพย์สินนี้ถูกบันทึกแล้วที่สาขา ${wrongData[0].UserBranchName} ณ วันที่ ${wrongData[0].Date.toLocaleString("sv-SE")}`));
       }
     }
   } catch (error) {
@@ -671,7 +674,7 @@ const check_files_NewNAC = async (req, res) => {
     if (err) {
       res.status(500).send({ message: "File upload failed", code: 200 });
     }
-    res.status(200).send({ message: "File Uploaded", code: 200, attach: new_path });
+    res.status(200).send({ message: "File Uploaded", code: 200, attach: new_path, extension: `${filename.split('.').pop()}` });
   });
 }
 
@@ -813,6 +816,20 @@ const FA_Control_BPC_UpdateTemp = async (req, res) => {
   }
 }
 
+const FA_Mobile_UploadImage = async (req, res) => {
+  try {
+    const data = req.body
+    const new_data = await query_fa_control.FA_Mobile_UploadImage(data);
+    if (new_data.length == 0) {
+      res.status(400).send(JSON.stringify({ message: "ไม่พบข้อมูล" }));
+    } else {
+      res.status(200).send(JSON.stringify(new_data));
+    }
+  } catch (error) {
+    res.status(201).send(error.message);
+  }
+}
+
 module.exports = {
 
   //BPC
@@ -835,6 +852,7 @@ module.exports = {
   updateReference,
   lostAssets,
   scan_check_result,
+  FA_Mobile_UploadImage,
 
   //Control
   AssetsAll_Control,
