@@ -225,7 +225,8 @@ const AssetsAll_Control = async (assetsAll_Control) => {
     let pool = await sql.connect(config.PTEC.object_ptec_ops.sql);
     const assetsBranchID_Control = await pool.request()
       .input('BranchID', sql.Int, assetsAll_Control.BranchID)
-      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Mobile_AssetsAll_Control @BranchID`);
+      .input('usercode', sql.NVarChar, assetsAll_Control.usercode ?? null)
+      .query(`exec ${config.PTEC.object_ptec_ops.sql.database}.dbo.FA_Mobile_AssetsAll_Control @BranchID, @usercode`);
     //sql.close()
     return assetsBranchID_Control.recordset;
   } catch (error) {
